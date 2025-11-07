@@ -4,19 +4,19 @@ An open-source AIOps suite from Volcengine that unifies ChatOps Agent, intellige
 
 ## Key Features
 
-- [ChatOps](http://todo): Adds a 24/7 on-call copilot to group chat—one that filters, responds, retains and self-upgrades information.
+- [ChatOps](https://volcengine.github.io/veaiops/chatops/overview): Adds a 24/7 on-call copilot to group chat—one that filters, responds, retains and self-upgrades information.
 
-- [Intelligent Threshold](http://todo): Integrates ML-powered detectors with any metric data source to automatically recommend and continuously recalibrate alert thresholds.
+- [Intelligent Threshold](https://volcengine.github.io/veaiops/intelligent-threshold/overview): Integrates ML-powered detectors with any metric data source to automatically recommend and continuously recalibrate alert thresholds.
 
-- [Configuration & Management](http://todo): A unified console manages projects, roles, secrets, and rich message card templates to support secure, scalable lifecycle management for multi-tenant bots.
+- [Configuration & Management](https://volcengine.github.io/veaiops/configurations/bot-management): A unified console manages projects, roles, secrets, and rich message card templates to support secure, scalable lifecycle management for multi-tenant bots.
 
-For more features, please refer to the [documentation](http://todo).
+For more features, please refer to the [documentation](https://volcengine.github.io/veaiops/).
 
 ## Quick Start
 
 VeAIOps supports two deployment methods: local development setup and Kubernetes deployment via Helm.
 
-### 1) [Local development](http://todo)
+### 1) Local development
 
 Requirements
 - Python 3.12+
@@ -61,7 +61,7 @@ make run-chatops
 make run-intelligent-threshold
 ```
 
-### 2) [Kubernetes install](http://todo)
+### 2) [Kubernetes install](https://volcengine.github.io/veaiops/introduction/quickstart)
 
 Requirements
 - Helm 3+
@@ -105,4 +105,4 @@ We welcome contributions!
 
 ## License
 
-Apache License 2.0 — see LICENSE.
+This project is licensed under the [Apache 2.0 License](./LICENSE).
