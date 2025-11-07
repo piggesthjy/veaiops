@@ -1,0 +1,190 @@
+{
+  "paths": {
+    "/apis/v1/manager/statistics/summary/": {
+      "get": {
+        "tags": ["Statistics"],
+        "summary": "获取系统统计信息",
+        "description": "获取系统各模块的统计数据，包括活跃数量、事件数量、消息数量等",
+        "operationId": "getStatisticsSummary",
+        "responses": {
+          "200": {
+            "description": "成功获取统计信息",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseSystemStatistics"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务器内部错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SystemStatistics": {
+        "type": "object",
+        "properties": {
+          "active_bots": {
+            "type": "integer",
+            "description": "活跃机器人数量"
+          },
+          "active_chats": {
+            "type": "integer",
+            "description": "活跃群数量"
+          },
+          "active_inform_strategies": {
+            "type": "integer",
+            "description": "活跃消息卡片通知策略数量"
+          },
+          "active_subscribes": {
+            "type": "integer",
+            "description": "活跃订阅数量"
+          },
+          "active_users": {
+            "type": "integer",
+            "description": "活跃用户数量"
+          },
+          "active_products": {
+            "type": "integer",
+            "description": "活跃产品数量"
+          },
+          "active_projects": {
+            "type": "integer",
+            "description": "活跃项目数量"
+          },
+          "active_customers": {
+            "type": "integer",
+            "description": "活跃客户数量"
+          },
+          "active_intelligent_threshold_tasks": {
+            "type": "integer",
+            "description": "活跃智能阈值任务数量"
+          },
+          "active_intelligent_threshold_autoupdate_tasks": {
+            "type": "integer",
+            "description": "活跃智能阈值自动更新任务数量"
+          },
+          "latest_1d_intelligent_threshold_success_num": {
+            "type": "integer",
+            "description": "最近1天智能阈值成功数量"
+          },
+          "latest_1d_intelligent_threshold_failed_num": {
+            "type": "integer",
+            "description": "最近1天智能阈值失败数量"
+          },
+          "latest_7d_intelligent_threshold_success_num": {
+            "type": "integer",
+            "description": "最近7天智能阈值成功数量"
+          },
+          "latest_7d_intelligent_threshold_failed_num": {
+            "type": "integer",
+            "description": "最近7天智能阈值失败数量"
+          },
+          "latest_30d_intelligent_threshold_success_num": {
+            "type": "integer",
+            "description": "最近30天智能阈值成功数量"
+          },
+          "latest_30d_intelligent_threshold_failed_num": {
+            "type": "integer",
+            "description": "最近30天智能阈值失败数量"
+          },
+          "latest_24h_events": {
+            "type": "integer",
+            "description": "最近24小时事件数量"
+          },
+          "last_1d_events": {
+            "type": "integer",
+            "description": "最近1天事件数量"
+          },
+          "last_7d_events": {
+            "type": "integer",
+            "description": "最近7天事件数量"
+          },
+          "last_30d_events": {
+            "type": "integer",
+            "description": "最近30天事件数量"
+          },
+          "latest_24h_messages": {
+            "type": "integer",
+            "description": "最近24小时消息数量"
+          },
+          "last_1d_messages": {
+            "type": "integer",
+            "description": "最近1天消息数量"
+          },
+          "last_7d_messages": {
+            "type": "integer",
+            "description": "最近7天消息数量"
+          },
+          "last_30d_messages": {
+            "type": "integer",
+            "description": "最近30天消息数量"
+          }
+        },
+        "required": [
+          "active_bots",
+          "active_chats",
+          "active_inform_strategies",
+          "active_subscribes",
+          "active_users",
+          "active_products",
+          "active_projects",
+          "active_customers",
+          "active_intelligent_threshold_tasks",
+          "active_intelligent_threshold_autoupdate_tasks",
+          "latest_1d_intelligent_threshold_success_num",
+          "latest_1d_intelligent_threshold_failed_num",
+          "latest_7d_intelligent_threshold_success_num",
+          "latest_7d_intelligent_threshold_failed_num",
+          "latest_30d_intelligent_threshold_success_num",
+          "latest_30d_intelligent_threshold_failed_num",
+          "latest_24h_events",
+          "last_1d_events",
+          "last_7d_events",
+          "last_30d_events",
+          "latest_24h_messages",
+          "last_1d_messages",
+          "last_7d_messages",
+          "last_30d_messages"
+        ]
+      },
+      "APIResponseSystemStatistics": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/APIResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SystemStatistics"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+.selectableItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-2);
+  background: var(--color-bg-1);
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+
+  &:hover {
+    background: var(--color-bg-2);
+  }
+
+  &.selected {
+    background: var(--color-primary-light-1);
+
+    .icon :global(.arco-icon) {
+      color: var(--color-primary-6);
+    }
+
+    .title {
+      color: var(--color-primary-6);
+      font-weight: 600;
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  :global(.arco-icon) {
+    font-size: 16px;
+    color: var(--color-text-3);
+    transition: color 0.2s ease;
+  }
+}
+
+.title {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-text-1);
+  transition: all 0.2s ease;
+}
+
+.description {
+  font-size: 12px;
+  line-height: 1.4;
+  display: block;
+}
+
+.extra {
+  margin-top: 2px;
+}

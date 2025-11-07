@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+
+echo "🔍 Running commit message validation and pre-commit checks..."
+
+# First run commitlint to validate commit message (if Node environment exists)
+if command -v node >/dev/null 2>&1 && [ -d "frontend/node_modules" ]; then
+    echo "📝 Validating commit message format..."
+    cd frontend && pnpm exec commitlint --config commitlint.config.js --edit "$1"
+
+    # If commitlint validation fails, exit
+    if [ $? -ne 0 ]; then
+        echo "❌ Commit message validation failed. Please check the format and try again."
+        exit 1
+    fi
+else
+    echo "⚠️  Node.js environment not found, skipping commit message validation..."
+fi
+
+# Then run pre-commit hooks to check code quality
+echo "🔧 Running pre-commit hooks..."
+uv run pre-commit run --all-files
+
+# If pre-commit fails, block the commit
+if [ $? -ne 0 ]; then
+    echo "❌ Pre-commit hooks failed. Please fix the issues and try again."
+    exit 1
+fi
+
+echo "✅ All checks passed! Ready to commit."

@@ -1,0 +1,30 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * CustomTable 组件库统一导出
+ * @description 表格相关的所有子组件和工具
+
+ *
+ */
+
+// 核心组件
+export { CustomLoading } from './custom-loading/custom-loading';
+export { TableTitle } from './table-title/table-title';
+
+// 插件组件
+export {
+  CustomPagination,
+  type CustomPaginationProps,
+} from '../plugins/table-pagination/components';

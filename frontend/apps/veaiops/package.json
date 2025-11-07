@@ -1,0 +1,47 @@
+{
+  "name": "@veaiops/veaiops",
+  "version": "0.1.0",
+  "description": "VolcAIOpsKit - 智能运维平台",
+  "private": true,
+  "scripts": {
+    "dev": "modern dev",
+    "build": "NODE_ENV=production modern build && npm run post-build",
+    "post-build": "mv output/html/main/index.html output/index.html && rm -rf output/html",
+    "start": "modern start",
+    "serve": "modern serve",
+    "type-check": "tsc --noEmit",
+    "test": "modern test",
+    "generate-favicons": "node scripts/generate-favicons.js"
+  },
+  "dependencies": {
+    "@ant-design/plots": "2.6.5",
+    "@arco-design/web-react": "^2.66.5",
+    "@modern-js/plugin-tailwindcss": "~2.68.1",
+    "@modern-js/runtime": "~2.68.1",
+    "@monaco-editor/react": "4.7.0",
+    "@veaiops/components": "workspace:*",
+    "@veaiops/constants": "workspace:*",
+    "@veaiops/theme-ve-o": "workspace:*",
+    "@veaiops/types": "workspace:*",
+    "@veaiops/utils": "workspace:*",
+    "ahooks": "3.9.5",
+    "axios": "^1.12.2",
+    "lodash-es": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@modern-js/app-tools": "~2.68.1",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.6",
+    "postcss-custom-properties": "^13.3.2",
+    "sharp": "0.34.3",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.0.4"
+  }
+}

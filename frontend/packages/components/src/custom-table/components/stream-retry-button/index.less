@@ -1,0 +1,61 @@
+.stream-retry-button {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #80838a;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-radius: 2px;
+  gap: 8px;
+
+  &:hover {
+    background-color: rgba(var(--color-fill-2), 0.6);
+  }
+
+  &.loading {
+    cursor: not-allowed;
+    color: #86909c;
+  }
+
+  &.error {
+    cursor: default;
+    padding: 12px 0;
+    flex-direction: column;
+    background-color: rgba(255, 125, 0, 0.05);
+    border: 1px solid rgba(255, 125, 0, 0.1);
+
+    &:hover {
+      background-color: rgba(255, 125, 0, 0.05);
+    }
+  }
+}
+
+.auto-retry-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.retry-progress-container {
+  position: relative;
+  width: 100%;
+  margin: 4px 0 12px;
+
+  .arco-progress {
+    margin-bottom: 0;
+  }
+
+  .countdown-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    color: #ff7d00;
+  }
+}

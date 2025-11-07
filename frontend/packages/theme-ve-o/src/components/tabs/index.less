@@ -1,0 +1,200 @@
+.@{tabs-prefix-cls} {
+  @tabs-header: ~'@{tabs-prefix-cls}-header';
+  // ink
+  &-header-ink {
+    bottom: 1px;
+    border-radius: @border-radius-small @border-radius-small 0 0;
+  }
+  .@{tabs-prefix-cls}-header-nav-line.@{tabs-prefix-cls}-header-nav-horizontal {
+    & > .@{tabs-prefix-cls}-header-scroll {
+      .@{tabs-prefix-cls}-header-title:first-of-type {
+        margin-left: 0;
+      }
+    }
+  }
+  // 垂直 vertical
+  &-vertical {
+    .@{tabs-prefix-cls}-header-ink {
+      right: 1px;
+      border-radius: @border-radius-small 0 0 @border-radius-small;
+    }
+  }
+  // 胶囊选项卡
+  .@{tabs-prefix-cls}-header-nav-capsule {
+    .@{tabs-prefix-cls}-header-title-active {
+      box-shadow:
+        0px 1px 2px rgba(0, 0, 0, 0.07),
+        0px 0.5px 1px rgba(0, 0, 0, 0.05),
+        0px 0px 0px 0.5px rgba(213, 219, 227, 0.7);
+    }
+  }
+  // 可编辑选项卡 type=card | card-gutter
+  .@{tabs-header}-nav-card,
+  .@{tabs-header}-nav-card-gutter {
+    .@{tabs-header}-title {
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    .@{tabs-header}-title-active {
+      .@{tabs-prefix-cls}-icon-hover {
+        color: var(~'@{arco-cssvars-prefix}-primary-6');
+      }
+    }
+    .@{tabs-header}-title-editable:not(.@{tabs-header}-title-active) {
+      &:hover {
+        .@{prefix}-icon-hover {
+          color: var(~'@{arco-cssvars-prefix}-primary-6');
+          &:hover::before {
+            background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+          }
+        }
+      }
+    }
+    // 可编辑选项卡-disabled
+    .@{tabs-header}-title-disabled {
+      .@{tabs-prefix-cls}-icon-hover {
+        color: var(~'@{arco-cssvars-prefix}-color-text-4');
+      }
+      &:hover {
+        .@{tabs-prefix-cls}-icon-hover {
+          color: var(~'@{arco-cssvars-prefix}-color-text-4') !important;
+          cursor: not-allowed;
+          &:hover::before {
+            background-color: transparent !important;
+          }
+        }
+      }
+    }
+  }
+  .@{tabs-header}-nav-card-gutter {
+    padding-left: @size-8;
+  }
+  .@{tabs-prefix-cls}&-card-gutter > &-content {
+    border: none;
+  }
+  // 分隔卡片
+  .@{tabs-header}-nav-card-gutter {
+    &.@{tabs-prefix-cls}-header-nav-horizontal {
+      &::before {
+        background-color: var(~'@{arco-cssvars-prefix}-color-border-2');
+      }
+      .@{tabs-prefix-cls}-header-title {
+        margin-left: 6px;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+    .@{tabs-header}-title {
+      position: relative;
+      padding: 7px 16px;
+      border: none;
+      box-shadow:
+        inset 0px 1px 0px var(~'@{arco-cssvars-prefix}-color-border-2'),
+        inset -1px 0px 0px var(~'@{arco-cssvars-prefix}-color-border-2'),
+        inset 1px 0px 0px var(~'@{arco-cssvars-prefix}-color-border-2');
+      &:hover {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+      }
+      &:after {
+        content: '';
+        width: calc(100% - 2px);
+        height: 1px;
+        position: absolute;
+        left: 1px;
+        bottom: 0px;
+        background-color: var(~'@{arco-cssvars-prefix}-color-border-2');
+      }
+    }
+    .@{tabs-prefix-cls}-header-title-active {
+      position: relative;
+      box-shadow:
+        inset 0px 2px 0px #006eff,
+        inset -1px 0px 0px var(~'@{arco-cssvars-prefix}-color-border-2'),
+        inset 1px 0px 0px var(~'@{arco-cssvars-prefix}-color-border-2');
+      &:hover {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+      }
+      &:after {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+      }
+    }
+  }
+  &.@{tabs-prefix-cls}-vertical .@{tabs-header}-nav-card-gutter {
+    .@{tabs-header}-title {
+      box-shadow: inset 0px 0px 0px 1px
+        var(~'@{arco-cssvars-prefix}-color-border-2');
+      &:after {
+        width: 1px;
+        height: calc(100% - 2px);
+        left: initial;
+        top: 1px;
+        right: 0;
+      }
+    }
+    .@{tabs-prefix-cls}-header-title-active {
+      box-shadow:
+        inset 2px 0px 0px #006eff,
+        inset 0px 1px 0px var(~'@{arco-cssvars-prefix}-color-border-2'),
+        inset 0px -1px 0px var(~'@{arco-cssvars-prefix}-color-border-2');
+    }
+  }
+  // 超出滚动选项卡
+  .@{prefix}-tabs-nav-icon-disabled {
+    color: var(~'@{arco-cssvars-prefix}-color-fill-1');
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{tabs-prefix-cls} {
+    @tabs-header: ~'@{tabs-prefix-cls}-header';
+    //卡片选项卡
+    &-header-nav-card {
+      .@{tabs-prefix-cls}-header-title-active {
+        background-color: @dark-color-bg-1;
+        border-bottom-color: transparent;
+        &:hover {
+          background-color: @dark-color-bg-1;
+        }
+      }
+    }
+    // 胶囊选项卡
+    .@{tabs-prefix-cls}-header-nav-capsule {
+      .@{tabs-prefix-cls}-header-title {
+        &-active {
+          // box-shadow: none;
+          // background-color: var(~'@{arco-cssvars-prefix}-color-bg-2');
+          background-color: @dark-color-grey-1;
+          color: @color-text-4;
+          box-shadow:
+            0px 0px 0px 0.5px rgba(221, 226, 233, 0.15),
+            0px 0.5px 1px 0px rgba(255, 255, 255, 0.05),
+            0px 1px 2px 0px rgba(255, 255, 255, 0.07);
+          &:not(.@{tabs-prefix-cls}-header-title-disabled) {
+            &:hover {
+              background-color: @dark-color-grey-1 !important;
+              box-shadow:
+                0px 0px 0px 0.5px rgba(221, 226, 233, 0.15),
+                0px 0.5px 1px 0px rgba(255, 255, 255, 0.05),
+                0px 1px 2px 0px rgba(255, 255, 255, 0.07) !important;
+            }
+          }
+        }
+        &:not(&-disabled) {
+          &:hover {
+            box-shadow: none;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+    // 分隔卡片
+    .@{tabs-header}-nav-card-gutter {
+      .@{tabs-prefix-cls}-header-title-active {
+        background-color: @dark-color-bg-1;
+      }
+    }
+  }
+}

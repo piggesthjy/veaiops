@@ -1,0 +1,93 @@
+/* Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// 数据更新提示Tooltip样式
+.update-tooltip {
+  // Tooltip容器样式
+  .arco-tooltip-content {
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .arco-tooltip-arrow {
+    border-top-color: var(--color-alpha-warning1);
+  }
+
+  // Tooltip内容样式
+  &-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--color-alpha-warning1);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(255, 125, 0, 0.3);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    animation: updateTooltipSlideIn 0.3s ease-out;
+  }
+
+  // 图标样式
+  &-icon {
+    font-size: 14px;
+    animation: updateTooltipIconPulse 0.6s ease-in-out;
+  }
+
+  // 文本样式
+  &-text {
+    line-height: 1;
+  }
+}
+
+// 动画效果
+@keyframes updateTooltipSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes updateTooltipIconPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .update-tooltip {
+    &-content {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+
+    &-icon {
+      font-size: 12px;
+    }
+  }
+}

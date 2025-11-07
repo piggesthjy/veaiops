@@ -1,0 +1,4 @@
+packages:
+  # 前端应用和包
+  - 'apps/*'
+  - 'packages/*'

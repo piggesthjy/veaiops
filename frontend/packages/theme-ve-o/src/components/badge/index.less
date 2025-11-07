@@ -1,0 +1,17 @@
+.@{badge-prefix-cls} {
+  &-number {
+    line-height: 19px;
+    border: 0.5px solid rgb(var(~'@{arco-cssvars-prefix}-danger-6'));
+    box-shadow: 0px 1px 0px rgba(20, 20, 20, 0.08);
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{badge-prefix-cls} {
+    &-number,
+    &-text {
+      background-color: @dark-danger-7;
+    }
+  }
+}

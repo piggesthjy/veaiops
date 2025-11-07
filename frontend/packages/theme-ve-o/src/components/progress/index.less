@@ -1,0 +1,30 @@
+.@{progress-prefix-cls} {
+  &-is-error &-line-outer {
+    background-color: var(~'@{arco-cssvars-prefix}-color-alpha-danger2');
+  }
+  &-is-success .force-icon {
+    color: rgb(var(~'@{arco-cssvars-prefix}-success-6'));
+  }
+  &-mini&&-is-error &-circle-mask {
+    stroke: rgba(241, 175, 178, 0.7);
+  }
+  &-circle:not(&-mini) &-circle-mask {
+    stroke-width: 4px;
+    stroke: var(~'@{arco-cssvars-prefix}-color-border-2');
+  }
+  &-line-text,
+  &-steps-text {
+    font-weight: 500;
+  }
+  &-circle &-circle-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(~'@{arco-cssvars-prefix}-color-text-1');
+  }
+  &-small &-line-outer {
+    height: 4px !important;
+  }
+  &-default &-line-outer {
+    height: 6px !important;
+  }
+}

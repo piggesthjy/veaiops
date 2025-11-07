@@ -1,0 +1,361 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// 机器人管理页面样式
+
+.bot-management-page {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+
+  .page-header {
+    margin-bottom: 24px;
+
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+
+      .title-icon {
+        font-size: 24px;
+        color: #165dff;
+      }
+
+      h4 {
+        margin: 0;
+        color: #1d2129;
+        font-weight: 600;
+      }
+    }
+
+    .page-description {
+      color: #86909c;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .page-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+  }
+
+  .bot-list-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+    .arco-card-body {
+      padding: 0;
+    }
+  }
+}
+
+// 机器人配置表单样式
+.bot-config-form {
+  .form-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+
+    .header-icon {
+      font-size: 20px;
+      color: #165dff;
+    }
+
+    .header-title {
+      margin: 0;
+      color: #1d2129;
+      font-weight: 600;
+    }
+
+    .header-description {
+      margin-top: 8px;
+      color: #86909c;
+      font-size: 14px;
+    }
+  }
+
+  .form-section {
+    margin-bottom: 32px;
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      color: #1d2129;
+      font-weight: 500;
+
+      .section-icon {
+        font-size: 16px;
+        color: #165dff;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 24px;
+    border-top: 1px solid #e5e6eb;
+  }
+}
+
+// 机器人列表表格样式
+.bot-list-table {
+  .bot-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .bot-icon {
+      font-size: 16px;
+      color: #165dff;
+      flex-shrink: 0;
+    }
+
+    .bot-details {
+      flex: 1;
+      min-width: 0;
+
+      .bot-name {
+        font-weight: 600;
+        color: #1d2129;
+        margin-bottom: 4px;
+      }
+
+      .bot-id {
+        font-size: 12px;
+        color: #86909c;
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      }
+    }
+  }
+
+  .channel-tag {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .status-badge {
+    .arco-badge-status-text {
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+
+  .webhook-info {
+    color: #86909c;
+    font-size: 12px;
+    cursor: help;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 4px;
+
+    .arco-btn-text {
+      padding: 4px 8px;
+      min-width: auto;
+
+      &:hover {
+        background-color: #f2f3f5;
+      }
+
+      &.danger:hover {
+        background-color: #ffece8;
+        color: #f53f3f;
+      }
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+
+    .empty-icon {
+      font-size: 48px;
+      color: #c9cdd4;
+      margin-bottom: 16px;
+    }
+
+    .empty-title {
+      color: #86909c;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .empty-description {
+      color: #c9cdd4;
+      font-size: 12px;
+    }
+  }
+}
+
+// 机器人详情抽屉样式
+.bot-detail-drawer {
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .header-icon {
+      font-size: 18px;
+      color: #165dff;
+    }
+  }
+
+  .detail-content {
+    .info-card {
+      margin-bottom: 16px;
+
+      .arco-card-header {
+        padding: 16px 20px 12px;
+        border-bottom: 1px solid #e5e6eb;
+
+        .arco-card-header-title {
+          font-weight: 600;
+          color: #1d2129;
+        }
+      }
+
+      .arco-card-body {
+        padding: 20px;
+      }
+    }
+
+    .webhook-list {
+      .arco-list-item {
+        padding: 8px 0;
+
+        .webhook-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          width: 100%;
+
+          .webhook-label {
+            min-width: 60px;
+            color: #86909c;
+            font-size: 12px;
+          }
+
+          .webhook-url {
+            flex: 1;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .usage-guide {
+      .guide-content {
+        line-height: 1.6;
+        color: #86909c;
+
+        div {
+          margin-bottom: 8px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .drawer-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding: 16px 24px;
+    border-top: 1px solid #e5e6eb;
+    background: #fafafa;
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .bot-management-page {
+    padding: 16px;
+
+    .page-header {
+      .page-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+    }
+  }
+
+  .bot-config-form {
+    .form-actions {
+      flex-direction: column;
+
+      .arco-btn {
+        width: 100%;
+      }
+    }
+  }
+
+  .bot-list-table {
+    .arco-table {
+      font-size: 12px;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+      gap: 2px;
+    }
+  }
+}
+
+// 暗色主题适配
+[data-theme='dark'] {
+  .bot-management-page {
+    background: #17171a;
+
+    .bot-list-card {
+      background: #232324;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .bot-config-form {
+    .form-actions {
+      border-top-color: #2e2e30;
+    }
+  }
+
+  .bot-detail-drawer {
+    .detail-content {
+      .info-card {
+        .arco-card-header {
+          border-bottom-color: #2e2e30;
+        }
+      }
+    }
+
+    .drawer-footer {
+      border-top-color: #2e2e30;
+      background: #1a1a1b;
+    }
+  }
+}

@@ -1,0 +1,344 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+@import '~@veaiops/theme-ve-o/src/index.less';
+
+.alarmResultModal {
+  .arco-modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px 12px 0 0;
+    padding: 20px 24px;
+    border: none;
+
+    .arco-modal-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
+  }
+
+  .arco-modal-body {
+    padding: 0;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .arco-modal-footer {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 0 0 12px 12px;
+    padding: 16px 24px;
+    border: none;
+    backdrop-filter: blur(10px);
+  }
+}
+
+.summaryCard {
+  border-radius: 16px;
+  padding: 0;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  min-height: 200px;
+
+  .content {
+    position: relative;
+    z-index: 1;
+    padding: 24px;
+  }
+
+  .title {
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 18px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .statsContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+
+  .statItem {
+    text-align: center;
+
+    .number {
+      font-size: 32px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 4px;
+    }
+
+    .label {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    &.success .number {
+      color: #4ade80;
+      text-shadow: 0 2px 4px rgba(74, 222, 128, 0.3);
+    }
+
+    &.failed .number {
+      color: #f87171;
+      text-shadow: 0 2px 4px rgba(248, 113, 113, 0.3);
+    }
+  }
+
+  .tagsContainer {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+    &.create {
+      background: rgba(74, 222, 128, 0.3);
+      border-color: rgba(74, 222, 128, 0.5);
+      color: #4ade80;
+    }
+
+    &.update {
+      background: rgba(59, 130, 246, 0.3);
+      border-color: rgba(59, 130, 246, 0.5);
+      color: #3b82f6;
+    }
+
+    &.delete {
+      background: rgba(248, 113, 113, 0.3);
+      border-color: rgba(248, 113, 113, 0.5);
+      color: #f87171;
+    }
+  }
+}
+
+.operationCard {
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  &.create {
+    background: linear-gradient(135deg, #10b98115 0%, #10b98125 100%);
+    border: 1px solid #10b98130;
+
+    &::before {
+      background: #10b98110;
+    }
+  }
+
+  &.update {
+    background: linear-gradient(135deg, #3b82f615 0%, #3b82f625 100%);
+    border: 1px solid #3b82f630;
+
+    &::before {
+      background: #3b82f610;
+    }
+  }
+
+  &.delete {
+    background: linear-gradient(135deg, #ef444415 0%, #ef444425 100%);
+    border: 1px solid #ef444430;
+
+    &::before {
+      background: #ef444410;
+    }
+  }
+
+  &.failed {
+    background: linear-gradient(135deg, #f59e0b15 0%, #f59e0b25 100%);
+    border: 1px solid #f59e0b30;
+
+    &::before {
+      background: #f59e0b10;
+    }
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .title {
+    margin-bottom: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .operationItem {
+    margin-bottom: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+  }
+
+  .errorMessage {
+    margin-top: 8px;
+
+    .errorHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .label {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .copyButton {
+      color: #3b82f6;
+      font-size: 12px;
+      padding: 2px 8px;
+      height: auto;
+
+      &:hover {
+        background-color: rgba(59, 130, 246, 0.1);
+        color: #1d4ed8;
+      }
+    }
+
+    .content {
+      padding: 8px;
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      font-size: 11px;
+      color: #dc2626;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.4;
+    }
+  }
+}
+
+.emptyState {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.modalContent {
+  max-height: 600px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.modalTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gradientButton {
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &.primary {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+  }
+
+  &.secondary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .summaryCard {
+    .statsContainer {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .statItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+
+      .number {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .operationCard {
+    padding: 16px;
+  }
+
+  .modalContent {
+    padding: 16px;
+  }
+}

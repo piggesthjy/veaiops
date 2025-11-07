@@ -1,0 +1,329 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// 数据源类型卡片样式
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  border-radius: 16px;
+  background: var(--color-bg-1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 180px;
+  flex: 1 1 0%; // 确保所有卡片等分空间
+  min-width: 0; // 允许flex收缩
+  overflow: hidden;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+
+  // 悬浮效果
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+
+    .logoWrapper {
+      transform: scale(1.05);
+    }
+  }
+
+  // 选中状态
+  &.selected {
+    border-width: 2px;
+    border-color: currentColor;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+
+    .logoWrapper {
+      transform: scale(1.1);
+    }
+
+    .name {
+      font-weight: 700;
+      font-size: 22px;
+    }
+  }
+}
+
+// 背景渐变层 - 已移除，保留空类以避免错误
+.backgroundGradient {
+  display: none;
+}
+
+// 品牌装饰元素 - 已移除，保留空类以避免错误
+.brandDecoration {
+  display: none;
+}
+
+// 装饰元素已移除 - 保留空类定义以避免错误
+.decorationTriangle {
+  display: none;
+}
+
+.decorationWave {
+  display: none;
+}
+
+.decorationCloud {
+  display: none;
+}
+
+.decorationSquare {
+  display: none;
+}
+
+.triangle1, .triangle2, .triangle3 {
+  display: none;
+}
+
+.wave1, .wave2 {
+  display: none;
+}
+
+.cloud1 {
+  display: none;
+}
+
+.square1, .square2, .square3 {
+  display: none;
+}
+
+// Logo容器
+.logoContainer {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 24px;
+  perspective: 1000px;
+}
+
+.logoWrapper {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: var(--color-bg-2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    padding: 2px;
+    background: linear-gradient(135deg, currentColor, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+  }
+}
+
+.logoInner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  color: currentColor;
+  filter: drop-shadow(0 2px 8px currentColor);
+}
+
+// 内容区域
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-1);
+  transition: all 0.3s ease;
+  line-height: 1.5;
+}
+
+.description {
+  font-size: 14px;
+  color: var(--color-text-3);
+  line-height: 1.8;
+  transition: all 0.3s ease;
+}
+
+// 选中标识
+.selectedBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  animation: badgeAppear 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.checkIcon {
+  width: 18px;
+  height: 18px;
+  color: white;
+}
+
+// 发光效果 - 已移除
+.glowEffect {
+  display: none;
+}
+
+// ============ 品牌特定样式 ============
+
+// 火山引擎 - 蓝色科技感
+.volcengine {
+  color: #1664FF;
+
+  .volcengineGradient {
+    display: none;
+  }
+
+  .volcengineIcon {
+    background: #E6F0FF;
+
+    .logo {
+      color: #1664FF;
+    }
+  }
+
+  &.selected {
+    border-color: #1664FF;
+    background: rgba(22, 100, 255, 0.08);
+    box-shadow: 0 8px 24px rgba(22, 100, 255, 0.15);
+
+    .name {
+      color: #1664FF;
+    }
+
+    .description {
+      color: #4D87FF;
+    }
+  }
+}
+
+// 阿里云 - 橙色活力感
+.aliyun {
+  color: #FF6A00;
+
+  .aliyunGradient {
+    display: none;
+  }
+
+  .aliyunIcon {
+    background: #FFF3E6;
+
+    .logo {
+      color: #FF6A00;
+    }
+  }
+
+  &.selected {
+    border-color: #FF6A00;
+    background: rgba(255, 106, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(255, 106, 0, 0.15);
+
+    .name {
+      color: #FF6A00;
+    }
+
+    .description {
+      color: #FF8533;
+    }
+  }
+}
+
+// Zabbix - 红色专业感
+.zabbix {
+  color: #D40000;
+
+  .zabbixGradient {
+    display: none;
+  }
+
+  .zabbixIcon {
+    background: #FFE6E6;
+
+    .logo {
+      color: #D40000;
+    }
+  }
+
+  &.selected {
+    border-color: #D40000;
+    background: rgba(212, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(212, 0, 0, 0.15);
+
+    .name {
+      color: #D40000;
+    }
+
+    .description {
+      color: #FF3333;
+    }
+  }
+}
+
+// ============ 动画效果 ============
+
+@keyframes badgeAppear {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2) rotate(20deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+// 移除 pulse 动画
+
+// ============ 响应式设计 ============
+
+@media (max-width: 768px) {
+  .card {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}

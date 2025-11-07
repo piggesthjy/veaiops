@@ -1,0 +1,343 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+.chat-config-modal {
+  // 模态框标题样式
+  .chat-config-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #1d2129;
+
+    .title-icon {
+      font-size: 22px;
+      color: #3491fa;
+    }
+  }
+
+  // 群信息卡片样式
+  .chat-info-card {
+    margin-bottom: 0;
+    border: 1px solid #e5e6eb;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%);
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      color: #1d2129;
+
+      .card-title-icon {
+        font-size: 16px;
+        color: #3491fa;
+      }
+    }
+
+    .chat-info-content {
+      .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(229, 230, 235, 0.5);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .info-label {
+          font-weight: 500;
+          color: #4e5969;
+          min-width: 80px;
+        }
+
+        .info-value-container {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex: 1;
+          justify-content: flex-end;
+        }
+
+        .info-value {
+          color: #1d2129;
+          font-weight: 500;
+          text-align: right;
+          word-break: break-all;
+
+          &.info-value-secondary {
+            color: #86909c;
+            font-weight: 400;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono',
+              'Source Code Pro', monospace;
+            font-size: 13px;
+          }
+        }
+
+        .copy-icon {
+          font-size: 16px;
+          color: #86909c;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+
+          &:hover {
+            color: #3491fa;
+            transform: scale(1.1);
+          }
+
+          &.copy-success {
+            color: #00b42a;
+            animation: copySuccessAnimation 0.6s ease-in-out;
+          }
+        }
+
+        .channel-tag {
+          font-weight: 500;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+
+  // 分割线样式
+  .section-divider {
+    margin: 20px 0;
+    border-color: #e5e6eb;
+  }
+
+  // Agent配置区域
+  .agent-config-section {
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      color: #1d2129;
+      font-weight: 600;
+      font-size: 14px;
+
+      .section-title-icon {
+        font-size: 16px;
+        color: #3491fa;
+      }
+    }
+
+    .agent-form {
+      .agent-card {
+        margin-bottom: 16px;
+        border: 1px solid #e5e6eb;
+        border-radius: 8px;
+        background: #ffffff;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+        &:hover {
+          border-color: #3491fa;
+          box-shadow: 0 4px 12px rgba(52, 145, 250, 0.1);
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .agent-form-item {
+          margin-bottom: 0;
+
+          .agent-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            color: #1d2129;
+
+            .agent-icon {
+              font-size: 16px;
+              color: #3491fa;
+            }
+
+            .help-icon {
+              font-size: 14px;
+              color: #86909c;
+              cursor: help;
+              transition: color 0.2s ease;
+
+              &:hover {
+                color: #3491fa;
+              }
+            }
+          }
+
+          .agent-switch {
+            .arco-switch-checked {
+              background-color: #3491fa;
+            }
+          }
+        }
+
+        .agent-description {
+          margin-top: 8px;
+          padding: 12px 16px;
+          background: #f7f8fa;
+          border-radius: 6px;
+          border-left: 3px solid #3491fa;
+
+          .arco-typography {
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  // 模态框内容区域优化
+  .arco-modal-content {
+    padding: 24px;
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .chat-config-modal {
+    .arco-modal {
+      width: 95vw !important;
+      max-width: 95vw !important;
+    }
+
+    .chat-info-content {
+      .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+
+        .info-label {
+          min-width: auto;
+        }
+      }
+    }
+  }
+}
+
+// 暗色主题适配
+[arco-theme='dark'] {
+  .chat-config-modal {
+    .chat-config-modal-title {
+      color: #f2f3f5;
+
+      .title-icon {
+        color: #57a9fb;
+      }
+    }
+
+    .chat-info-card {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+      border-color: #3c3c3c;
+
+      .card-title {
+        color: #f2f3f5;
+
+        .card-title-icon {
+          color: #57a9fb;
+        }
+      }
+
+      .chat-info-content {
+        .info-item {
+          border-bottom-color: rgba(60, 60, 60, 0.5);
+
+          .info-label {
+            color: #a9aeb8;
+          }
+
+          .info-value {
+            color: #f2f3f5;
+          }
+        }
+      }
+    }
+
+    .section-divider {
+      border-color: #3c3c3c;
+    }
+
+    .agent-config-section {
+      .section-title {
+        color: #f2f3f5;
+
+        .section-title-icon {
+          color: #57a9fb;
+        }
+      }
+
+      .agent-form {
+        .agent-card {
+          background: #1a1a1a;
+          border-color: #3c3c3c;
+
+          &:hover {
+            border-color: #57a9fb;
+            box-shadow: 0 4px 12px rgba(87, 169, 251, 0.1);
+          }
+
+          .agent-form-item {
+            .agent-label {
+              color: #f2f3f5;
+
+              .agent-icon {
+                color: #57a9fb;
+              }
+
+              .help-icon {
+                color: #a9aeb8;
+
+                &:hover {
+                  color: #57a9fb;
+                }
+              }
+            }
+          }
+
+          .agent-description {
+            background: #2a2a2a;
+            border-left-color: #57a9fb;
+          }
+        }
+      }
+    }
+
+    .arco-modal-footer {
+      background: #1a1a1a;
+      border-top-color: #3c3c3c;
+    }
+  }
+}
+
+// 复制成功动画
+@keyframes copySuccessAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

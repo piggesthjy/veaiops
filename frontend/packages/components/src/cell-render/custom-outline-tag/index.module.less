@@ -1,0 +1,209 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+.customOutlineTag {
+  align-items: center;
+  box-sizing: border-box;
+  display: inline-flex;
+  text-align: center;
+  border-radius: 4px;
+  color: var(--arco-volc3-color-text-2, var(--color-text-2));
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 0 6px;
+  background: var(--arco-volc3-color-bg-1, var(--color-bg-1));
+  border: 1px solid var(--arco-volc3-color-border-3, var(--color-border-3));
+  height: 24px;
+  cursor: default;
+
+  .tagContent {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    color: inherit;
+    width: 100%;
+  }
+
+  .ellipsisWrapper {
+    margin-bottom: 0px;
+    color: inherit;
+    margin-left: 0px;
+    font-weight: 400;
+    width: 100%;
+    position: relative;
+  }
+
+  .ellipsisContentMirror {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .ellipsisContent {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+}
+
+.tagList {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+// 数据颜色主题样式
+.theme-data-2 {
+  border-color: var(--color-data-2, rgb(var(--arcoblue-3)));
+  color: var(--color-data-2, rgb(var(--arcoblue-3)));
+  background-color: var(--color-data-1, rgb(var(--arcoblue-1)));
+}
+
+.theme-data-3 {
+  border-color: rgb(85, 197, 253);
+  color: rgb(85, 197, 253);
+  background-color: rgb(156, 220, 252);
+}
+
+.theme-data-4 {
+  border-color: rgb(156, 220, 252);
+  color: rgb(156, 220, 252);
+  background-color: rgb(85, 197, 253);
+}
+
+.theme-data-5 {
+  border-color: var(--color-data-5, rgb(var(--orange-6)));
+  color: var(--color-data-5, rgb(var(--orange-6)));
+  background-color: var(--color-data-6, rgb(var(--orange-3)));
+}
+
+.theme-data-6 {
+  border-color: var(--color-data-6, rgb(var(--orange-3)));
+  color: var(--color-data-6, rgb(var(--orange-3)));
+  background-color: var(--color-data-5, rgb(var(--orange-6)));
+}
+
+.theme-data-7 {
+  border-color: var(--color-data-7, rgb(var(--green-4)));
+  color: var(--color-data-7, rgb(var(--green-4)));
+  background-color: var(--color-data-8, rgb(var(--green-2)));
+}
+
+.theme-data-8 {
+  border-color: var(--color-data-8, rgb(var(--green-2)));
+  color: var(--color-data-8, rgb(var(--green-2)));
+  background-color: var(--color-data-7, rgb(var(--green-4)));
+}
+
+.theme-data-9 {
+  border-color: var(--color-data-9, rgb(var(--purple-4)));
+  color: var(--color-data-9, rgb(var(--purple-4)));
+  background-color: var(--color-data-10, rgb(var(--purple-2)));
+}
+
+.theme-data-10 {
+  border-color: var(--color-data-10, rgb(var(--purple-2)));
+  color: var(--color-data-10, rgb(var(--purple-2)));
+  background-color: var(--color-data-9, rgb(var(--purple-4)));
+}
+
+.theme-data-11 {
+  border-color: var(--color-data-11, rgb(var(--gold-6)));
+  color: var(--color-data-11, rgb(var(--gold-6)));
+  background-color: var(--color-data-12, rgb(var(--gold-4)));
+}
+
+.theme-data-12 {
+  border-color: var(--color-data-12, rgb(var(--gold-4)));
+  color: var(--color-data-12, rgb(var(--gold-4)));
+  background-color: var(--color-data-11, rgb(var(--gold-6)));
+}
+
+.theme-data-13 {
+  border-color: var(--color-data-13, rgb(var(--lime-6)));
+  color: var(--color-data-13, rgb(var(--lime-6)));
+  background-color: var(--color-data-14, rgb(var(--lime-4)));
+}
+
+.theme-data-14 {
+  border-color: var(--color-data-14, rgb(var(--lime-4)));
+  color: var(--color-data-14, rgb(var(--lime-4)));
+  background-color: var(--color-data-13, rgb(var(--lime-6)));
+}
+
+.theme-data-15 {
+  border-color: var(--color-data-15, rgb(var(--magenta-4)));
+  color: var(--color-data-15, rgb(var(--magenta-4)));
+  background-color: var(--color-data-16, rgb(var(--magenta-3)));
+}
+
+.theme-data-16 {
+  border-color: var(--color-data-16, rgb(var(--magenta-3)));
+  color: var(--color-data-16, rgb(var(--magenta-3)));
+  background-color: var(--color-data-15, rgb(var(--magenta-4)));
+}
+
+.theme-data-17 {
+  border-color: var(--color-data-17, rgb(var(--cyan-6)));
+  color: var(--color-data-17, rgb(var(--cyan-6)));
+  background-color: var(--color-data-18, rgb(var(--cyan-3)));
+}
+
+.theme-data-18 {
+  border-color: var(--color-data-18, rgb(var(--cyan-3)));
+  color: var(--color-data-18, rgb(var(--cyan-3)));
+  background-color: var(--color-data-17, rgb(var(--cyan-6)));
+}
+
+.theme-data-19 {
+  border-color: var(--color-data-19, rgb(var(--pinkpurple-4)));
+  color: var(--color-data-19, rgb(var(--pinkpurple-4)));
+  background-color: var(--color-data-20, rgb(var(--pinkpurple-2)));
+}
+
+.theme-data-20 {
+  border-color: var(--color-data-20, rgb(var(--pinkpurple-2)));
+  color: var(--color-data-20, rgb(var(--pinkpurple-2)));
+  background-color: var(--color-data-19, rgb(var(--pinkpurple-4)));
+}
+
+// 悬停效果
+.customOutlineTag:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .customOutlineTag {
+    font-size: 11px;
+    padding: 0 4px;
+    height: 22px;
+  }
+
+  .tagList {
+    gap: 2px;
+  }
+}

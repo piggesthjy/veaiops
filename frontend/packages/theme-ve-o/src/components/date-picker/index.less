@@ -1,0 +1,235 @@
+.@{picker-prefix-cls} {
+  @picker-default-focus-shadow: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-primary-6), 0.3)';
+  .date-picker-focused(@type) {
+    box-shadow: @picker-default-focus-shadow;
+    .@{picker-prefix-cls}-@{type} {
+      background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+      border-radius: @border-radius-medium;
+    }
+  }
+  &-cell-hover-in-range &-date,
+  &-cell-hover-range-start:not(&-cell-range-start):not(&-cell-range-end)
+    &-date-value,
+  &-cell-hover-range-end:not(&-cell-range-start):not(&-cell-range-end)
+    &-date-value {
+    background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+  }
+  // @v1.0.10
+  &-cell-hover-in-range&-cell-in-range:not(.arco-picker-cell-selected) {
+    .@{prefix}-picker-date {
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        display: block;
+        width: 100%;
+        // height: 100%;
+        background-color: rgba(56, 123, 255, 0.1);
+      }
+    }
+  }
+  &-input &-input-active {
+    border-radius: @border-radius-medium;
+  }
+  &-focused &-input-active input {
+    border-radius: @border-radius-medium;
+  }
+  &-focused &-input-active input,
+  &-focused:hover &-input-active input {
+    // 悬浮状态input背景颜色，保持一致
+    background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+  }
+  &:not(.@{picker-prefix-cls}-range) {
+    &.@{picker-prefix-cls}-focused {
+      .date-picker-focused(input);
+    }
+  }
+  &.@{picker-prefix-cls}-focused {
+    .date-picker-focused(active);
+  }
+  &-container {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+    border: 1px solid var(~'@{arco-cssvars-prefix}-color-border-2');
+    box-shadow: 0px 15px 35px -2px rgba(0, 0, 0, 0.05);
+    filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.03));
+    border-radius: @radius-medium;
+    font-size: @font-size-body-2;
+    .@{prefix}-picker-date-value {
+      font-size: @font-size-body-2;
+    }
+  }
+  &-header {
+    border-bottom: 1px solid var(~'@{arco-cssvars-prefix}-color-border-2');
+    &-label:hover {
+      background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+    }
+  }
+
+  &-range {
+    border-radius: @border-radius-medium;
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+    &-wrapper .arco-panel-date:nth-child(1) &-header {
+      border-right: 1px solid var(~'@{arco-cssvars-prefix}-color-border-2');
+    }
+  }
+  &-cell-selected::after {
+    bottom: 8px;
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+  }
+  &-cell-today::after {
+    bottom: 8px;
+  }
+
+  &-header-icon-hidden {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+  }
+  &-range-container {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+    border: 1px solid var(~'@{arco-cssvars-prefix}-color-border-2');
+    box-shadow: 0px 15px 35px -2px rgba(0, 0, 0, 0.05);
+    filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.03));
+    border-radius: @border-radius-medium;
+    font-size: @font-size-body-2;
+    .@{prefix}-picker-date-value {
+      font-size: @font-size-body-2;
+    }
+  }
+  &-cell:hover &-cell-selected:hover &-date-value {
+    background-color: var(~'@{arco-cssvars-prefix}-link-7') !important;
+    color: var(~'@{arco-cssvars-prefix}-color-text-1');
+  }
+
+  &-cell:hover:not(&-cell-selected) &-date-value {
+    background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+  }
+
+  &-header-icon {
+    background: none;
+    &:hover:not(&-hidden) {
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    }
+  }
+
+  &-cell-range-start&-cell-hover-in-range &-date {
+    // 鼠标悬浮时开始的圆角
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+  }
+
+  &-cell-range-end&-cell-hover-in-range &-date {
+    // 鼠标悬浮时结束的圆角
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+  }
+
+  &-cell-hover-in-range &-date {
+    border-radius: 0px;
+    background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+  }
+
+  &-cell-hover-in-range&-cell-range-edge-in-hover-range {
+    // 鼠标悬浮且超过end或start时，end、start取消圆角
+    border-radius: 0px;
+  }
+
+  &-cell-in-range &-date {
+    background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+  }
+
+  .arco-panel-week
+    &-row-week:hover
+    &-cell:not(&-cell-week):not(&-cell-selected):not(&-cell-range-start):not(
+      &-cell-range-end
+    ):not(&-cell-in-range):not(&-cell-hover-in-range)
+    &-date-value {
+    background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+  }
+
+  &-focused &-input-active input {
+    background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+  }
+
+  &-disabled input[disabled],
+  &-disabled:hover {
+    input[disabled] {
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    }
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+  }
+  &-disabled {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+  }
+  &-input {
+    input:disabled,
+    textarea:disabled {
+      -webkit-text-fill-color: var(~'@{arco-cssvars-prefix}-color-fill-1');
+    }
+  }
+  &-disabled input[disabled],
+  &-disabled:hover input[disabled] {
+    // disabled状态下hover下文字颜色
+    -webkit-text-fill-color: var(~'@{arco-cssvars-prefix}-color-fill-1');
+  }
+  // close icon
+  .@{prefix}-icon-hover {
+    &::before {
+      width: 14px;
+      height: 14px;
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-5');
+      border-radius: @border-radius-circle;
+    }
+    &:hover {
+      &::before {
+        background-color: var(~'@{arco-cssvars-prefix}-color-fill-1');
+      }
+    }
+  }
+}
+
+.@{time-picker-prefix-cls} {
+}
+.@{quarter-panel-prefix-cls} {
+}
+.@{year-panel-prefix-cls} {
+}
+.@{week-panel-prefix-cls} {
+}
+.@{range-picker-prefix-cls} {
+}
+.@{date-picker-prefix-cls} {
+}
+.@{month-panel-prefix-cls} {
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{picker-prefix-cls} {
+    &:not(&-range).@{picker-prefix-cls}-focused .@{picker-prefix-cls}-input {
+      background-color: @dark-color-alpha-link2;
+    }
+    &-focused .@{picker-prefix-cls}-input-active input {
+      background-color: @dark-color-alpha-link2;
+    }
+    &-range {
+      background-color: transparent;
+    }
+    &-range-container,
+    &-container {
+      background-color: @dark-color-bg-8;
+    }
+    &-cell-in-range {
+      .@{prefix}-picker-date {
+        background-color: @dark-color-alpha-link2;
+      }
+    }
+    // 禁用态
+    &-disabled {
+      background-color: transparent;
+      input[disabled] {
+        background-color: transparent;
+      }
+    }
+  }
+}

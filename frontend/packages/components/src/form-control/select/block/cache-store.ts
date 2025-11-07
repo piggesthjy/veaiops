@@ -1,0 +1,60 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import store from 'store2';
+import { ensureArray } from './util';
+
+// 辅助函数：创建存储的数据
+const createData = (value: unknown, expires?: number) => ({
+  value,
+  expires: expires ? Date.now() + expires : null,
+});
+
+// 辅助函数：检查数据是否过期
+const isExpired = (data: { value: unknown; expires: number | null }) =>
+  data?.expires && Date.now() > data.expires;
+
+const Store = (storage: typeof store.local) => ({
+  set: (key: string, value: unknown, expires?: number) => {
+    const data = createData(value, expires);
+    storage.set(key, data);
+  },
+
+  get: (key: string, defaultValue?: any) => {
+    const data = storage.get(key);
+    if (isExpired(data)) {
+      storage.remove(key);
+      return defaultValue || null;
+    }
+    return data ? data.value : defaultValue || null;
+  },
+
+  setArray: (key: string, value: unknown[], expires?: number) => {
+    const data = createData(ensureArray(value), expires);
+    storage.set(key, data);
+  },
+
+  getArray: <T>(key: string): Array<T> => {
+    const data = storage.get(key);
+    if (isExpired(data)) {
+      storage.remove(key);
+      return [];
+    }
+    return Array.isArray(data?.value) ? data.value : [];
+  },
+
+  remove: (key: string) => storage.remove(key),
+});
+export const localStore = Store(store.local);
+export const sessionStore = Store(store.session);

@@ -1,0 +1,95 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-calendar {
+  border-radius: 8px;
+}
+.arco-calendar-month .arco-calendar-cell .arco-calendar-date-circle {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+.arco-calendar-date-circle:hover {
+  border: 1px solid rgb(var(--link-2));
+  background-color: rgb(var(--link-2));
+}
+.arco-calendar-header-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-bg-4);
+  border: 1px solid var(--color-border-3);
+}
+.arco-calendar-header-icon-hidden {
+  display: none;
+  background-color: var(--color-bg-white);
+  box-shadow: none;
+}
+.arco-calendar-header-icon:hover {
+  border: 1px solid rgb(var(--primary-5));
+}
+.arco-calendar-header-icon:not(.arco-calendar-header-icon-hidden):hover {
+  background-color: var(--color-bg-4);
+}
+.arco-calendar .arco-radio-checked .arco-radio-button-inner {
+  background: var(--color-bg-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 0.5px 1px rgba(0, 0, 0, 0.05), 0
+    0 0 0.5px rgba(213, 219, 227, 0.7);
+  border-radius: 4px;
+}
+.arco-calendar .arco-radio-button-inner {
+  background-color: var(--color-bg-5);
+}
+.arco-calendar .arco-radio-button::after {
+  background-color: var(--color-bg-5);
+}
+.arco-calendar-month-cell .arco-calendar-week-list {
+  box-shadow: unset;
+}
+.arco-calendar-panel .arco-calendar-week-list {
+  box-shadow: unset;
+}
+.arco-calendar-panel {
+  background-color: var(--color-bg-white);
+  border-radius: 4px;
+}
+.arco-calendar .arco-calendar-year-row:not(:last-child) .arco-calendar-cell {
+  border-bottom: none;
+}
+.arco-calendar .arco-calendar-year-row > .arco-calendar-cell:not(:last-child) {
+  border-right: none;
+}
+.arco-calendar .arco-calendar-year-row > .arco-calendar-cell {
+  padding: 12px 16px;
+}
+.arco-calendar-mode-month .arco-calendar-header-value-month {
+  margin-right: 12px;
+}
+body[arco-theme="dark"] .arco-calendar-header-icon-hidden {
+  box-shadow: none;
+}
+body[arco-theme="dark"]
+  .arco-calendar
+  .arco-radio-checked
+  .arco-radio-button-inner {
+  box-shadow: none;
+}
+body[arco-theme="dark"]
+  .arco-calendar:not(.arco-radio-checked)
+  .arco-radio-button-inner {
+  background-color: transparent;
+}

@@ -1,0 +1,428 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VolcAIOpsKit API",
+    "version": "1.0.0",
+    "description": "VolcAIOpsKit API documentation"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Development server"
+    }
+  ],
+  "modules": [
+    {
+      "name": "Authentication",
+      "file": "modules/auth.json"
+    },
+    {
+      "name": "Bot Attributes",
+      "file": "modules/bot-attributes.json"
+    },
+    {
+      "name": "Bots",
+      "file": "modules/bots.json"
+    },
+    {
+      "name": "Chats",
+      "file": "modules/chats.json"
+    },
+    {
+      "name": "Common",
+      "file": "modules/common.json"
+    },
+    {
+      "name": "Customers",
+      "file": "modules/customers.json"
+    },
+    {
+      "name": "Data Source",
+      "file": "modules/datasource.json"
+    },
+    {
+      "name": "Event Center",
+      "file": "modules/event-center.json"
+    },
+    {
+      "name": "Global Config",
+      "file": "modules/global-config.json"
+    },
+    {
+      "name": "Intelligent Threshold",
+      "file": "modules/intelligent-threshold.json"
+    },
+    {
+      "name": "Metric Template",
+      "file": "modules/metric-template.json"
+    },
+    {
+      "name": "Oncall",
+      "file": "modules/oncall.json"
+    },
+    {
+      "name": "Products",
+      "file": "modules/products.json"
+    },
+    {
+      "name": "Projects",
+      "file": "modules/projects.json"
+    },
+    {
+      "name": "Statistics",
+      "file": "modules/statistics.json"
+    },
+    {
+      "name": "System Config",
+      "file": "modules/system-config.json"
+    },
+    {
+      "name": "Users",
+      "file": "modules/users.json"
+    },
+    {
+      "name": "Webhook",
+      "file": "modules/webhook.json"
+    }
+  ],
+  "validation": {
+    "strict_mode": false,
+    "check_duplicates": true
+  },
+  "components": {
+    "schemas": {
+      "APIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "响应状态码"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "description": "响应数据"
+          }
+        },
+        "required": ["code", "message"]
+      },
+      "APIResponseBoolean": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PaginationParams": {
+        "type": "object",
+        "properties": {
+          "skip": {
+            "type": "integer",
+            "default": 0,
+            "description": "跳过数量"
+          },
+          "limit": {
+            "type": "integer",
+            "default": 100,
+            "description": "限制数量"
+          }
+        }
+      },
+      "PaginatedAPIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "响应状态码"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "description": "响应数据"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "限制数量"
+          },
+          "skip": {
+            "type": "integer",
+            "description": "跳过数量"
+          },
+          "total": {
+            "type": "integer",
+            "description": "总数量"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["username", "password"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "用户名"
+          },
+          "password": {
+            "type": "string",
+            "description": "密码"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "访问令牌"
+          },
+          "token_type": {
+            "type": "string",
+            "description": "令牌类型"
+          },
+          "expires_in": {
+            "type": "integer",
+            "description": "过期时间（秒）"
+          }
+        }
+      },
+      "DataSource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "数据源ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "数据源名称"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["zabbix", "aliyun", "volcengine"],
+            "description": "数据源类型"
+          },
+          "config": {
+            "type": "object",
+            "description": "数据源配置"
+          },
+          "description": {
+            "type": "string",
+            "description": "数据源描述"
+          },
+          "is_active": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否激活"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "更新时间"
+          }
+        },
+        "required": ["name", "type", "config"]
+      },
+      "ZabbixDataSource": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DataSource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "config": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "Zabbix服务器URL"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "用户名"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "密码"
+                  },
+                  "timeout": {
+                    "type": "integer",
+                    "default": 30,
+                    "description": "超时时间（秒）"
+                  }
+                },
+                "required": ["url", "username", "password"]
+              }
+            }
+          }
+        ]
+      },
+      "AliyunDataSource": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DataSource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "config": {
+                "type": "object",
+                "properties": {
+                  "access_key_id": {
+                    "type": "string",
+                    "description": "阿里云AccessKey ID"
+                  },
+                  "access_key_secret": {
+                    "type": "string",
+                    "description": "阿里云AccessKey Secret"
+                  },
+                  "region": {
+                    "type": "string",
+                    "description": "阿里云地域"
+                  },
+                  "endpoint": {
+                    "type": "string",
+                    "description": "服务端点"
+                  }
+                },
+                "required": ["region"]
+              }
+            }
+          }
+        ]
+      },
+      "VolcengineDataSource": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DataSource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "config": {
+                "type": "object",
+                "properties": {
+                  "access_key": {
+                    "type": "string",
+                    "description": "火山引擎AccessKey"
+                  },
+                  "secret_key": {
+                    "type": "string",
+                    "description": "火山引擎SecretKey"
+                  },
+                  "region": {
+                    "type": "string",
+                    "description": "火山引擎地域"
+                  },
+                  "endpoint": {
+                    "type": "string",
+                    "description": "服务端点"
+                  }
+                },
+                "required": ["region"]
+              }
+            }
+          }
+        ]
+      },
+      "CreateDataSourceRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "数据源名称"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["zabbix", "aliyun", "volcengine"],
+            "description": "数据源类型"
+          },
+          "config": {
+            "type": "object",
+            "description": "数据源配置"
+          },
+          "description": {
+            "type": "string",
+            "description": "数据源描述"
+          },
+          "is_active": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否激活"
+          }
+        },
+        "required": ["name", "type", "config"]
+      },
+      "UpdateDataSourceRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "数据源名称"
+          },
+          "config": {
+            "type": "object",
+            "description": "数据源配置"
+          },
+          "description": {
+            "type": "string",
+            "description": "数据源描述"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "是否激活"
+          }
+        }
+      },
+      "APIResponseDataSource": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/APIResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/DataSource"
+              }
+            }
+          }
+        ]
+      },
+      "APIResponseDataSourceList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginatedAPIResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/DataSource"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

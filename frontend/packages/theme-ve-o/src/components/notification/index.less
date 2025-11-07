@@ -1,0 +1,64 @@
+.@{notification-prefix-cls} {
+  width: 360px;
+  background: rgba(245, 245, 245, 0.9);
+  border: 0.5px solid var(~'@{arco-cssvars-prefix}-color-border-3');
+  box-shadow:
+    0px 15px 35px rgba(0, 0, 0, 0.05),
+    0px 5px 15px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  // padding: 16px 20px;
+  &-title {
+    padding-right: 8px;
+  }
+  &-left {
+    padding-right: 8px;
+  }
+  .@{prefix}-notification-close-btn.@{prefix}-icon-hover {
+    color: var(~'@{arco-cssvars-prefix}-color-fill-3');
+    display: inline-block;
+    line-height: 0;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: @radius-medium;
+      background-color: transparent;
+      box-sizing: border-box;
+      transition: background-color 0.1s cubic-bezier(0, 0, 1, 1);
+    }
+    &:hover {
+      &::before {
+        width: 20px;
+        height: 20px;
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-6');
+      }
+    }
+  }
+  &-info,
+  &-error {
+    .@{notification-prefix-cls}-content {
+      color: var(~'@{arco-cssvars-prefix}-color-text-2');
+    }
+  }
+  // 源力icon
+  svg.force-icon {
+    vertical-align: -2px;
+  }
+  &-left {
+    .@{notification-prefix-cls}-icon {
+      margin-top: 2px;
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{notification-prefix-cls} {
+    background-color: @dark-color-bg-4;
+  }
+}

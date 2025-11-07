@@ -1,0 +1,64 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-message {
+  background-color: rgba(246, 248, 250, 0.9);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(20px);
+  border-width: 0.5px;
+  padding: 8px 16px;
+}
+.arco-message-content {
+  line-height: 22px;
+  display: inline-block;
+}
+.arco-message .arco-icon-hover.arco-message-icon-hover::before {
+  width: 16px;
+  height: 16px;
+}
+.arco-message .arco-message-close-btn {
+  top: 12px;
+  cursor: pointer;
+}
+.arco-message .arco-message-close-btn::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--border-radius-medium);
+  background-color: transparent;
+  box-sizing: border-box;
+  transition: background-color 0.1s cubic-bezier(0, 0, 1, 1);
+}
+.arco-message .arco-message-close-btn:hover::before {
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-bg-6);
+}
+.arco-message-closable .arco-message-content {
+  margin-right: 24px;
+}
+.arco-message svg.force-icon {
+  vertical-align: -2px;
+}
+.arco-message .force-icon-loading {
+  animation: arco-loading-circle 1s infinite cubic-bezier(0, 0, 1, 1);
+}
+body[arco-theme="dark"] .arco-message {
+  background-color: var(--color-bg-4);
+}

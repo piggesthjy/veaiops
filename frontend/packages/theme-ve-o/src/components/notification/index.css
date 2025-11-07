@@ -1,0 +1,67 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-notification {
+  width: 360px;
+  background: rgba(245, 245, 245, 0.9);
+  border: 0.5px solid var(--color-border-3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+}
+.arco-notification-title {
+  padding-right: 8px;
+}
+.arco-notification-left {
+  padding-right: 8px;
+}
+.arco-notification .arco-notification-close-btn.arco-icon-hover {
+  color: var(--color-fill-3);
+  display: inline-block;
+  line-height: 0;
+}
+.arco-notification .arco-notification-close-btn.arco-icon-hover::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--border-radius-medium);
+  background-color: transparent;
+  box-sizing: border-box;
+  transition: background-color 0.1s cubic-bezier(0, 0, 1, 1);
+}
+.arco-notification .arco-notification-close-btn.arco-icon-hover:hover::before {
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-bg-6);
+}
+.arco-notification-info .arco-notification-content,
+.arco-notification-error .arco-notification-content {
+  color: var(--color-text-2);
+}
+.arco-notification svg.force-icon {
+  vertical-align: -2px;
+}
+.arco-notification-left .arco-notification-icon {
+  margin-top: 2px;
+}
+body[arco-theme="dark"] .arco-notification {
+  background-color: rgba(246, 248, 250, 0.06);
+}

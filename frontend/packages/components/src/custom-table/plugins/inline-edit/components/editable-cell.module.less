@@ -1,0 +1,164 @@
+/**
+ * 可编辑单元格样式
+ */
+
+.editableCell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  cursor: pointer;
+
+  &:hover {
+    .editIcon {
+      opacity: 1;
+    }
+  }
+
+  &.editing {
+    cursor: default;
+
+    .displayValue {
+      display: none;
+    }
+  }
+
+  .displayValue {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .editIcon {
+    opacity: 0;
+    margin-left: 4px;
+    font-size: 12px;
+    color: var(--color-text-3, #86909c);
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      color: var(--color-text-2, #4e5969);
+    }
+  }
+
+  .editorWrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 4px;
+
+    // 编辑器占满宽度
+    :global(.arco-input),
+    :global(.arco-input-number),
+    :global(.arco-select),
+    :global(.arco-picker) {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  .cellActions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: 4px;
+
+    .saveBtn {
+      color: var(--color-success-6, #00b42a);
+
+      &:hover {
+        background-color: var(--color-success-1, #e8ffea);
+      }
+    }
+
+    .cancelBtn {
+      color: var(--color-danger-6, #f53f3f);
+
+      &:hover {
+        background-color: var(--color-danger-1, #ffece8);
+      }
+    }
+  }
+
+  .validationError {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-danger-6, #f53f3f);
+    color: white;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+
+    // 三角箭头
+    &::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 8px;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid var(--color-danger-6, #f53f3f);
+    }
+  }
+}
+
+// 禁用状态
+.editableCell.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+
+  .editIcon {
+    display: none;
+  }
+}
+
+// 只读状态
+.editableCell.readOnly {
+  cursor: default;
+
+  .editIcon {
+    display: none;
+  }
+}
+
+// 必填字段标识
+.editableCell.required {
+  .displayValue {
+    &::after {
+      content: '*';
+      color: var(--color-danger-6, #f53f3f);
+      margin-left: 2px;
+    }
+  }
+}
+
+// 行编辑模式样式
+.editableCell.rowMode {
+  &.editing {
+    .displayValue {
+      display: block;
+    }
+
+    .editorWrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      border: 1px solid var(--color-primary-6, #165dff);
+      border-radius: 4px;
+      padding: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+    }
+  }
+}

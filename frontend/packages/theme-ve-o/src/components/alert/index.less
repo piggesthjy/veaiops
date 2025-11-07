@@ -1,0 +1,48 @@
+.@{alert-prefix-cls} {
+  align-items: flex-start;
+  .@{alert-prefix-cls}-title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  // align-items: unset;
+  &-close-btn {
+    width: 24px;
+    height: 24px;
+    // position: relative;
+    padding: 4px;
+    // line-height: 13px;
+    // font-size: 13px;
+    border-radius: @border-radius-medium;
+    // color: var(~'@{arco-cssvars-prefix}-color-fill-3');
+    &:hover {
+      // color: var(~'@{arco-cssvars-prefix}-color-fill-3');
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-6');
+    }
+  }
+  & svg {
+    position: relative;
+  }
+  &-content {
+    font-size: 13px;
+    line-height: 22px;
+  }
+  &-with-title &-icon-wrapper {
+    height: 24px;
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  // .@{alert-prefix-cls} {
+  //   background-color: @dark-color-alpha-link1;
+  // }
+  // .@{alert-prefix-cls}-success {
+  //   background-color: @dark-color-alpha-success1;
+  // }
+  // .@{alert-prefix-cls}-error {
+  //   background-color: @dark-color-alpha-danger1;
+  // }
+  // .@{alert-prefix-cls}-warning {
+  //   background-color: @dark-color-alpha-danger1;
+  // }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "openapi-specs",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/openapi-specs/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node src/scripts/generate-api.js",
+        "cwd": "packages/openapi-specs"
+      }
+    },
+    "build:spec": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node src/scripts/build-openapi.js",
+        "cwd": "packages/openapi-specs"
+      }
+    },
+    "generate:api": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node src/scripts/generate-api.js",
+        "cwd": "packages/openapi-specs"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "rm -rf ../../openapi-spec.json",
+          "rm -rf ../../apps/veaiops/api-generate"
+        ],
+        "cwd": "packages/openapi-specs",
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/openapi-specs/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util"]
+}

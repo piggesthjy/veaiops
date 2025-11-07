@@ -1,0 +1,340 @@
+.@{form-prefix-cls} {
+  // @v1.1.1
+  &-horizontal &-label-item-left > label {
+    position: relative;
+    padding-left: @spacing-7;
+  }
+
+  &-horizontal &-label-item-left &-item-symbol {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &-label-item > label {
+    line-height: 1;
+  }
+  // feedback
+  &-item-feedback {
+    z-index: 2;
+  }
+  // tooltip icon @v1.0.10
+  &-label-item &-item-tooltip {
+    color: var(~'@{arco-cssvars-prefix}-color-fill-2');
+    font-size: @font-size-body-3;
+  }
+  // input
+  @form-input-error-border-color-hover: @color-danger-6;
+  @form-input-error-border: 1px solid @color-danger-3;
+  @form-input-error-border-hover: 1px solid @color-danger-6;
+  @form-input-error-border-focus: 1px solid @color-danger-7;
+  @form-input-error-boxShadow-focus: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-danger-6), 0.3)';
+
+  @form-input-warning-border-color-hover: @color-warning-6;
+  @form-input-warning-border: 1px solid @color-warning-3;
+  @form-input-warning-border-hover: 1px solid @color-warning-6;
+  @form-input-warning-border-focus: 1px solid @color-warning-7;
+  @form-input-warning-boxShadow-focus: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-warning-6), 0.3)';
+
+  @form-input-success-border-color-hover: @color-success-6;
+  @form-input-success-border: 1px solid @color-success-3;
+  @form-input-success-border-hover: 1px solid @color-success-6;
+  @form-input-success-border-focus: 1px solid @color-success-7;
+  @form-input-success-boxShadow-focus: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-success-6), 0.3)';
+
+  @form-input-validating-border-color-hover: @color-primary-6;
+  @form-input-validating-border: 1px solid @color-primary-3;
+  @form-input-validating-border-hover: 1px solid @color-primary-6;
+  @form-input-validating-border-focus: 1px solid @color-primary-7;
+  @form-input-validating-boxShadow-focus: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-primary-6), 0.3)';
+
+  // @form-textarea-boxShadow: 0px 1px 1px rgba(0, 0, 0, 0.05), 0px 0px 0px 1px rgba(213, 219, 227, 0.7);
+
+  .form-status-input(@status) {
+    &-item-status-@{status} {
+      // 输入框
+      .@{prefix}-input-inner-wrapper:not(
+          .@{prefix}-input-inner-wrapper-disabled
+        ) {
+        border: ~'@{form-input-@{status}-border}';
+        .@{prefix}-input:not(.@{prefix}-input-disabled) {
+          &:hover {
+            border: transparent;
+          }
+          &:focus {
+            box-shadow: none;
+          }
+        }
+        &:hover {
+          border: ~'@{form-input-@{status}-border-hover}';
+        }
+      }
+      .@{prefix}-input:not(.@{prefix}-input-disabled) {
+        &:hover {
+          border: ~'@{form-input-@{status}-border-hover}';
+        }
+        &:focus {
+          box-shadow: ~'@{form-input-@{status}-boxShadow-focus}';
+          &:hover {
+            box-shadow: ~'@{form-input-@{status}-boxShadow-focus}';
+          }
+        }
+      }
+      .@{prefix}-input-group {
+        .@{prefix}-input-inner-wrapper-focus {
+          border-radius: 0 @radius-medium @radius-medium 0;
+          box-shadow: ~'@{form-input-@{status}-boxShadow-focus}';
+          border: ~'@{form-input-@{status}-border-focus}';
+          &:hover {
+            border: ~'@{form-input-@{status}-border-focus}';
+            box-shadow: ~'@{form-input-@{status}-boxShadow-focus}';
+          }
+        }
+      }
+      .@{prefix}-input-group-addbefore {
+        border-left: ~'@{form-input-@{status}-border}';
+        border-top: ~'@{form-input-@{status}-border}';
+        border-bottom: ~'@{form-input-@{status}-border}';
+
+        .@{prefix}-select {
+          margin-left: -12px;
+          &:not(&.@{prefix}-select-disabled) {
+            .@{prefix}-select-view {
+              border-color: transparent;
+              // border-right-color: transparent;
+              &:first-of-type {
+                border-radius: @radius-medium 0 0 @radius-medium;
+              }
+            }
+          }
+          &:hover {
+            &:not(&.@{prefix}-select-disabled) {
+              .@{prefix}-select-view {
+                border-color: ~'@{form-input-@{status}-border-color-hover}';
+                // border-right-color: transparent;
+              }
+            }
+          }
+        }
+      }
+      .@{prefix}-input-group-addafter {
+        .@{prefix}-select {
+          &:not(&.@{prefix}-select-disabled) {
+            .@{prefix}-select-view {
+              border-left-color: transparent;
+            }
+          }
+        }
+        &:hover {
+          &:not(&.@{prefix}-select-disabled) {
+            .@{prefix}-select-view {
+              border-left-color: ~'@{form-input-@{status}-border-color-hover}';
+            }
+          }
+        }
+      }
+
+      // 数字输入
+      .@{prefix}-input-number {
+        .@{prefix}-input-inner-wrapper:not(
+            .@{prefix}-input-inner-wrapper-disabled
+          ) {
+          &.@{prefix}-input-inner-wrapper-focus {
+            border-radius: @radius-medium;
+            border: ~'@{form-input-@{status}-border-focus}';
+            box-shadow: ~'@{form-input-@{status}-boxShadow-focus}';
+          }
+          .@{prefix}-input {
+            &:focus {
+              box-shadow: none;
+              &:hover {
+                box-shadow: none;
+              }
+            }
+          }
+        }
+      }
+      // 下拉选择
+      .@{prefix}-select {
+        &:not(&.@{prefix}-select-disabled) {
+          .@{prefix}-select-view {
+            border: ~'@{form-input-@{status}-border}';
+          }
+          &:hover {
+            .@{prefix}-select-view {
+              border: ~'@{form-input-@{status}-border-hover}';
+            }
+          }
+        }
+      }
+      .@{prefix}-select.@{prefix}-select-focused {
+        &:not(&.@{prefix}-select-disabled) {
+          .@{prefix}-select-view {
+            background-color: @color-bg-white;
+            border: ~'@{form-input-@{status}-border-focus}';
+            box-shadow: ~'@{form-input-@{status}-boxShadow-focus}';
+          }
+        }
+      }
+      // picker
+      .@{prefix}-picker:not(.@{prefix}-picker-disabled) {
+        border: ~'@{form-input-@{status}-border}';
+        &:hover {
+          border: ~'@{form-input-@{status}-border-hover}';
+        }
+        &.@{prefix}-picker-focused {
+          box-shadow: ~'@{form-input-@{status}-boxShadow-focus}';
+        }
+      }
+    }
+  }
+  .form-status-input(error);
+  .form-status-input(warning);
+  .form-status-input(success);
+  .form-status-input(validating);
+  // 常态
+  .@{prefix}-input-group {
+    // 默认 4px 0 0 4px; 因为单一after无法选择前面的元素
+    // 此处是addbefore&addafter的处理。和常态会有冲突。没有特殊类名做处理。
+    .@{prefix}-input-inner-wrapper-focus {
+      border-radius: @radius-medium 0 0 @radius-medium;
+    }
+    // 有前有尾
+    .@{prefix}-input-inner-wrapper-focus:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+    // @v1.1.0
+    .@{prefix}-input-inner-wrapper-has-prefix.@{prefix}-input-inner-wrapper-focus {
+      border-radius: @radius-medium;
+    }
+  }
+  // @v1.1.0
+  .@{prefix}-input-has-suffix {
+    .@{prefix}-input-inner-wrapper-focus {
+      border-radius: @radius-medium;
+    }
+  }
+  .@{prefix}-autocomplete,
+  .@{prefix}-input-number {
+    .@{prefix}-input-group {
+      .@{prefix}-input-inner-wrapper-focus {
+        border-radius: @radius-medium;
+      }
+    }
+  }
+  .@{prefix}-input-group-addbefore {
+    .@{prefix}-select-view {
+      &:first-of-type {
+        border-radius: @radius-medium 0 0 @radius-medium;
+      }
+    }
+    + .@{prefix}-input-inner-wrapper-focus {
+      border-radius: 0 @radius-medium @radius-medium 0;
+    }
+  }
+  .@{prefix}-input-group-addafter {
+    .@{prefix}-select-view {
+      &:first-of-type {
+        border-radius: 0 @radius-medium @radius-medium 0;
+      }
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{form-prefix-cls} {
+    // input
+    @form-dark-input-error-border-color-hover: @color-danger-6;
+    @form-dark-input-error-border: 1px solid @dark-color-alpha-danger3;
+    @form-dark-input-error-border-hover: 1px solid @color-danger-6;
+    @form-dark-input-error-border-focus: 1px solid @color-danger-7;
+    @form-dark-input-error-boxShadow-focus: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-danger-6), 0.3)';
+    // warning
+    @form-dark-input-warning-border-color-hover: @color-warning-6;
+    @form-dark-input-warning-border: 1px solid @color-warning-3;
+    @form-dark-input-warning-border-hover: 1px solid @color-warning-6;
+    @form-dark-input-warning-border-focus: 1px solid @color-warning-7;
+    @form-dark-input-warning-boxShadow-focus: 0px 0px 0px 2px
+      rgba(242, 162, 0, 0.3);
+    //
+    @form-dark-input-success-border-color-hover: @color-success-6;
+    @form-dark-input-success-border: 1px solid @color-success-3;
+    @form-dark-input-success-border-hover: 1px solid @color-success-6;
+    @form-dark-input-success-border-focus: 1px solid @color-success-7;
+    @form-dark-input-success-boxShadow-focus: 0px 0px 0px 2px
+      rgba(28, 178, 103, 0.3);
+
+    @form-dark-input-validating-border-color-hover: @color-primary-6;
+    @form-dark-input-validating-border: 1px solid @color-primary-3;
+    @form-dark-input-validating-border-hover: 1px solid @color-primary-6;
+    @form-dark-input-validating-border-focus: 1px solid @color-primary-7;
+    @form-dark-input-validating-boxShadow-focus: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-primary-6), 0.3)';
+    //
+    .form-status-input(@status) {
+      &-item-status-@{status} {
+        // 输入框
+        .@{prefix}-input-inner-wrapper:not(
+            .@{prefix}-input-inner-wrapper-disabled
+          ) {
+          border: ~'@{form-dark-input-@{status}-border}';
+          &:hover {
+            border-color: ~'@{form-dark-input-@{status}-border-color-hover}';
+          }
+        }
+        .@{prefix}-input-group {
+          .@{prefix}-input-inner-wrapper-focus {
+            border: ~'@{form-dark-input-@{status}-border-focus}';
+          }
+        }
+
+        // 数字输入
+        .@{prefix}-input-number {
+          .@{prefix}-input-inner-wrapper:not(
+              .@{prefix}-input-inner-wrapper-disabled
+            ) {
+            &.@{prefix}-input-inner-wrapper-focus {
+              border: ~'@{form-dark-input-@{status}-border-focus}';
+            }
+          }
+        }
+        // 下拉选择
+        .@{prefix}-select {
+          &:not(&.@{prefix}-select-disabled) {
+            .@{prefix}-select-view {
+              border: ~'@{form-dark-input-@{status}-border}';
+              &:hover {
+                border-color: ~'@{form-dark-input-@{status}-border-color-hover}';
+              }
+            }
+          }
+        }
+        .@{prefix}-select.@{prefix}-select-focused {
+          &:not(&.@{prefix}-select-disabled) {
+            .@{prefix}-select-view {
+              background-color: transparent;
+              border: ~'@{form-dark-input-@{status}-border-focus}';
+            }
+          }
+        }
+        // picker
+        .@{prefix}-picker:not(.@{prefix}-picker-disabled) {
+          border: ~'@{form-dark-input-@{status}-border}';
+          &:hover {
+            border-color: ~'@{form-dark-input-@{status}-border-color-hover}';
+          }
+        }
+      }
+    }
+    // error
+    .form-status-input(error);
+    .form-status-input(warning);
+    .form-status-input(validating);
+    .form-status-input(success);
+    // &-item-status-error {
+    //   .@{prefix}-input-inner-wrapper:not(.@{prefix}-input-inner-wrapper-disabled) {
+    //     border-color: var(--color-alpha-danger3);
+    //   }
+    // }
+  }
+}

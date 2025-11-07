@@ -1,0 +1,419 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Bot Attributes API",
+    "version": "1.0.0",
+    "description": "Bot attributes management API endpoints"
+  },
+  "paths": {
+    "/apis/v1/manager/system-config/bot-attributes/": {
+      "get": {
+        "summary": "Get Bot Attributes",
+        "description": "Get all bot attributes with optional pagination and filtering",
+        "tags": ["BotAttributes"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of bot attributes to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 0,
+              "maximum": 100
+            },
+            "description": "Maximum number of bot attributes to return"
+          },
+          {
+            "name": "names",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/AttributeKey"
+              }
+            },
+            "description": "Filter by attribute names"
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by attribute value (regex search)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseBotAttributeList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Bot Attributes",
+        "description": "Create new bot attributes in batch",
+        "tags": ["BotAttributes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BotAttributePayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBotAttributeList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Bot Attributes",
+        "description": "Delete multiple bot attributes by channel, bot_id and names",
+        "tags": ["BotAttributes"],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ChannelType"
+            }
+          },
+          {
+            "name": "bot_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "names",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/AttributeKey"
+              },
+              "minItems": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/bot-attributes/{bot_attribute_id}": {
+      "get": {
+        "summary": "Get Bot Attribute",
+        "description": "Get a bot attribute by ID",
+        "tags": ["BotAttributes"],
+        "parameters": [
+          {
+            "name": "bot_attribute_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBotAttribute"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Bot Attribute",
+        "description": "Update a bot attribute value",
+        "tags": ["BotAttributes"],
+        "parameters": [
+          {
+            "name": "bot_attribute_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBotAttribute"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Bot Attribute",
+        "description": "Delete a bot attribute by ID",
+        "tags": ["BotAttributes"],
+        "parameters": [
+          {
+            "name": "bot_attribute_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AttributeKey": {
+        "type": "string",
+        "enum": ["project", "customer", "product"],
+        "description": "Attribute key enumeration"
+      },
+      "ChannelType": {
+        "type": "string",
+        "enum": ["Lark", "DingTalk", "WeChat", "Webhook"],
+        "description": "Channel type enumeration"
+      },
+      "BotAttribute": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Bot attribute ID"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "App ID"
+          },
+          "name": {
+            "$ref": "#/components/schemas/AttributeKey"
+          },
+          "value": {
+            "type": "string",
+            "description": "Bot attribute value"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Deletion timestamp"
+          }
+        },
+        "required": ["channel", "bot_id", "name", "value"]
+      },
+      "BotAttributePayload": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "App ID"
+          },
+          "name": {
+            "$ref": "#/components/schemas/AttributeKey"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "description": "Attribute values to create"
+          }
+        },
+        "required": ["channel", "bot_id", "name", "values"]
+      },
+      "APIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "APIResponseBotAttribute": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/BotAttribute"
+          }
+        }
+      },
+      "APIResponseBotAttributeList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BotAttribute"
+            }
+          }
+        }
+      },
+      "PaginatedAPIResponseBotAttributeList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BotAttribute"
+            }
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "BotAttributeCreateRequest": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "App ID"
+          },
+          "name": {
+            "$ref": "#/components/schemas/AttributeKey"
+          },
+          "value": {
+            "type": "string",
+            "description": "Bot attribute value"
+          }
+        },
+        "required": ["channel", "bot_id", "name", "value"]
+      },
+      "BotAttributeUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Bot attribute value"
+          }
+        },
+        "required": ["value"]
+      }
+    }
+  }
+}

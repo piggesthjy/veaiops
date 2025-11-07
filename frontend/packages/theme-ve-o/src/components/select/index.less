@@ -1,0 +1,311 @@
+.@{select-prefix-cls} {
+  @select-box-shadow-focus: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-primary-6), 0.3)';
+  @select-box-shadow-error-focus: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-danger-6), 0.3)';
+  &&-focused {
+    z-index: 1; // 解决group阴影被覆盖问题
+    &:not(.@{select-prefix-cls}-no-border) {
+      .@{select-prefix-cls}-view {
+        box-shadow: @select-box-shadow-focus;
+      }
+    }
+  }
+  // error状态 focus
+  &-error&-focused {
+    &:not(.@{select-prefix-cls}-no-border) {
+      .@{select-prefix-cls}-view {
+        box-shadow: @select-box-shadow-error-focus;
+      }
+    }
+  }
+  // tag
+  .@{prefix}-input-tag .@{prefix}-input-tag-tag {
+    height: @size-5;
+    // margin-top: 4px;
+    // margin-bottom: 4px;
+    color: var(~'@{arco-cssvars-prefix}-color-text-2');
+  }
+  .@{prefix}-input-tag-disabled .@{prefix}-input-tag-tag {
+    color: var(~'@{arco-cssvars-prefix}-color-text-3');
+  }
+  // no-border
+  // 火狐 及 Chrome 水平对齐
+  &-size-mini.@{prefix}-select-no-border .@{prefix}-select-view {
+    line-height: @size-6;
+  }
+  &-size-small.@{prefix}-select-no-border .@{prefix}-select-view {
+    line-height: @size-7;
+  }
+  &-size-default.@{prefix}-select-no-border .@{prefix}-select-view {
+    line-height: @size-8;
+  }
+  &-size-large.@{prefix}-select-no-border .@{prefix}-select-view {
+    line-height: @size-9;
+  }
+  // 11-11
+  &-prefix {
+    color: var(~'@{arco-cssvars-prefix}-color-text-2');
+  }
+  // addBefore
+  &-addbefore {
+    color: var(~'@{arco-cssvars-prefix}-color-text-2');
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+    border-radius: @radius-medium 0px 0px @radius-medium;
+    border: 1px solid var(~'@{arco-cssvars-prefix}-color-border-3');
+    border-right: none;
+    font-size: 13px;
+  }
+  // tag close icon
+  .@{prefix}-icon-hover {
+    &::before {
+      width: 14px;
+      height: 14px;
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-5');
+      border-radius: @radius-circle;
+    }
+    &:hover {
+      &::before {
+        background-color: var(~'@{arco-cssvars-prefix}-color-fill-1');
+      }
+    }
+  }
+  // placeholder
+  &.@{prefix}-select-size-default.@{prefix}-select-multiple {
+    .@{prefix}-input-tag-has-placeholder {
+      .@{prefix}-input-tag-input-mirror,
+      input {
+        padding-left: 6px;
+      }
+    }
+  }
+  // 多选聚焦抖动
+  &-multiple
+    .@{prefix}-input-tag-size-default
+    .@{prefix}-input-tag-tag
+    + .@{prefix}-input-tag-input {
+    height: @size-5;
+    line-height: @size-5;
+  }
+  // @1.1.3
+  &-multiple .@{prefix}-input-tag-disabled .@{prefix}-input-tag-tag {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+  }
+  // @1.1.1
+  &-multiple.@{prefix}-select-size-default .@{prefix}-select-suffix {
+    padding-right: 7px;
+  }
+  // no-border
+  .noborder-style(@status) {
+    .@{prefix}-select-view-input {
+      &::placeholder {
+        color: rgb(var(~'@{arco-cssvars-prefix}-@{status}-6'));
+      }
+    }
+    .@{prefix}-select-view-value {
+      color: rgb(var(~'@{arco-cssvars-prefix}-@{status}-6'));
+    }
+    .@{prefix}-select-arrow-icon,
+    .@{prefix}-select-suffix-icon {
+      color: rgb(var(~'@{arco-cssvars-prefix}-@{status}-6'));
+    }
+  }
+  // @1.1.1
+  .noborder-style-hover(@status) {
+    &:not(.@{prefix}-select-disabled):not(.@{prefix}-select-error) {
+      &:hover {
+        .@{prefix}-select-view {
+          .arco-select-view-value,
+          .arco-select-suffix-icon {
+            color: rgb(var(~'@{arco-cssvars-prefix}-@{status}-6'));
+          }
+          .@{prefix}-select-view-input {
+            &::placeholder {
+              color: rgb(var(~'@{arco-cssvars-prefix}-@{status}-6'));
+            }
+          }
+        }
+      }
+    }
+  }
+  &.@{prefix}-select-no-border.@{prefix}-select-open {
+    .noborder-style(primary);
+  }
+  &.@{prefix}-select-no-border.@{prefix}-select-error {
+    .noborder-style(danger);
+  }
+  &.@{prefix}-select-no-border {
+    .noborder-style-hover(primary);
+  }
+  // 旋转
+  &.@{prefix}-select-open .@{prefix}-select-suffix-icon .force-icon-down {
+    transform: rotateZ(180deg);
+  }
+}
+// popup
+.@{select-prefix-cls}-popup {
+  box-shadow: 0px 0px 32px rgba(205, 213, 222, 0.42);
+  .@{select-prefix-cls}-group-title {
+    margin-bottom: @spacing-2;
+  }
+  .@{select-prefix-cls}-option {
+    &.@{select-prefix-cls}-option-selected.@{select-prefix-cls}-option-hover {
+      color: rgb(var(~'@{arco-cssvars-prefix}-primary-6'));
+    }
+    &:not(:last-child) {
+      margin-bottom: @spacing-2;
+    }
+    border-radius: @radius-medium;
+    &.@{select-prefix-cls}-option-selected.@{select-prefix-cls}-option-hover.@{select-prefix-cls}-option-disabled {
+      color: var(~'@{arco-cssvars-prefix}-color-text-4');
+    }
+  }
+  .@{prefix}-empty {
+    padding: 0;
+    .@{prefix}-empty-wrapper .@{prefix}-empty-image {
+      font-size: 48px;
+    }
+  }
+}
+
+// 多选框
+.@{select-prefix-cls}-popup-multiple {
+  .@{select-prefix-cls}-option {
+    border-radius: 0 @radius-medium @radius-medium 0;
+  }
+  .@{select-prefix-cls}-checkbox {
+    padding: 7px 6px 7px 12px;
+    height: @size-8;
+    border-radius: @radius-medium 0 0 @radius-medium;
+  }
+  .@{select-prefix-cls}-option-wrapper {
+    padding: 0;
+    &:not(:last-child) {
+      margin-bottom: @spacing-2;
+    }
+    .@{select-prefix-cls}-option {
+      margin-left: 0;
+    }
+
+    &:hover {
+      .@{select-prefix-cls}-option {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+      }
+      .@{select-prefix-cls}-checkbox {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+      }
+    }
+  }
+  .@{select-prefix-cls}-option {
+    &.@{select-prefix-cls}-option-selected.@{select-prefix-cls}-option-hover {
+      color: var(~'@{arco-cssvars-prefix}-color-text-1');
+    }
+  }
+  // 选中
+  .@{select-prefix-cls}-option-wrapper-selected {
+    .@{select-prefix-cls}-option-selected:not(
+        .@{select-prefix-cls}-option-disabled
+      ) {
+      background-color: transparent;
+      color: var(~'@{arco-cssvars-prefix}-color-text-1');
+      font-weight: normal;
+      &:hover {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+        color: var(~'@{arco-cssvars-prefix}-color-text-1');
+      }
+    }
+    .@{select-prefix-cls}-option-selected.@{select-prefix-cls}-option-hover:not(
+        .@{select-prefix-cls}-option-disabled
+      ) {
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    }
+  }
+  .@{select-prefix-cls}-option-wrapper-disabled {
+    .@{prefix}-checkbox.@{prefix}-checkbox-disabled.@{prefix}-select-checkbox,
+    .@{select-prefix-cls}-option.@{select-prefix-cls}-option-disabled.@{select-prefix-cls}-option-hover {
+      background-color: transparent;
+    }
+  }
+}
+// 组
+.@{prefix}-input-group.@{prefix}-input-group-compact {
+  .@{select-prefix-cls},
+  .@{select-prefix-cls}-wrapper {
+    border-right: none;
+  }
+  .@{select-prefix-cls} {
+    // 顺序 last - first
+    &:last-child {
+      .@{select-prefix-cls}-view {
+        border-radius: 0 @radius-medium @radius-medium 0;
+      }
+    }
+    &:first-child {
+      .@{select-prefix-cls}-view {
+        border-right-color: transparent;
+        border-radius: @radius-medium 0 0 @radius-medium;
+        &:hover {
+          border-right-color: rgb(var(~'@{arco-cssvars-prefix}-primary-5'));
+        }
+      }
+      &.@{select-prefix-cls}-focused {
+        .@{select-prefix-cls}-view {
+          border-right-color: rgb(var(~'@{arco-cssvars-prefix}-primary-5'));
+        }
+      }
+    }
+  }
+  // 阴影遮盖 09-20
+  .@{prefix}-input {
+    &:focus {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+// 多选
+.@{select-prefix-cls}-size-default.@{select-prefix-cls}-multiple {
+  .@{select-prefix-cls}-view {
+    padding: 0 4px;
+  }
+  .@{select-prefix-cls}-view-with-prefix {
+    padding-left: 11px;
+    .@{select-prefix-cls}-prefix {
+      margin-right: 4px;
+    }
+    .@{prefix}-input-tag-has-placeholder input {
+      padding-left: 0;
+    }
+  }
+}
+// 前置间距
+.@{select-prefix-cls}-single .@{select-prefix-cls}-view-with-prefix {
+  padding-left: 11px;
+  .@{select-prefix-cls}-prefix {
+    margin-right: 4px;
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{select-prefix-cls} {
+    &&-focused {
+      &:not(.@{select-prefix-cls}-no-border) {
+        .@{select-prefix-cls}-view {
+          box-shadow: none;
+        }
+      }
+    }
+    // error状态 focus
+    &-error&-focused {
+      &:not(.@{select-prefix-cls}-no-border) {
+        .@{select-prefix-cls}-view {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+  // popup
+  .@{select-prefix-cls}-popup {
+    box-shadow: none;
+    background-color: @dark-color-bg-8;
+  }
+}

@@ -1,0 +1,100 @@
+.@{tree-prefix-cls} {
+  &-node-title-block &-node-drag-icon {
+    left: -28px;
+    right: initial;
+  }
+  &-node-icon .arco-icon-drag-dot-vertical {
+    font-size: 10px;
+  }
+  &-node-title-dragging,
+  &-node-title-dragging:hover {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+  }
+  &-node {
+    padding-left: 8px;
+  }
+  .@{tree-prefix-cls}-node-switcher {
+    width: 12px;
+    margin-right: 10px;
+    .@{tree-prefix-cls}-node-switcher-icon {
+      .force-icon-caret-down {
+        font-size: @font-size-body-1;
+      }
+    }
+  }
+
+  // 非连接线
+  &:not(.@{tree-prefix-cls}-show-line) {
+    .@{tree-prefix-cls}-node {
+      // 防抖
+      // border-left: 2px solid transparent;
+      border-radius: @border-radius-medium;
+      &:hover {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+        // background-color: none;
+      }
+    }
+    .@{tree-prefix-cls}-node-selected {
+      // background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+      background-color: none;
+      // border-left-color: @primary-6;
+    }
+    .@{tree-prefix-cls}-node-disabled {
+      &:hover {
+        background-color: transparent !important;
+        cursor: not-allowed;
+        // border-left: 2px solid transparent !important;
+      }
+    }
+  }
+  // &-show-line &-node-switcher &-node-switcher-icon {
+  //   box-shadow: 0px 0.75px 0.75px rgba(0, 0, 0, 0.05), 0px 0px 0px 0.75px rgba(213, 219, 227, 0.5);
+  // }
+  // &-node-is-leaf &-node-switcher {
+  //   display: none;
+  // }
+  // 连接线样式
+  &-show-line {
+    .@{tree-prefix-cls}-node-minus-icon {
+      // icon丢失
+      &::after {
+        height: 2px;
+      }
+    }
+    .@{tree-prefix-cls}-node-plus-icon {
+      &::before {
+        height: 6px;
+        width: 2px;
+        margin-left: -1px;
+        margin-top: -3px;
+      }
+      &::after {
+        width: 6px;
+        height: 2px;
+        margin-top: -1px;
+        margin-left: -3px;
+      }
+    }
+  }
+  &-show-line &-node-indent-block::before {
+    top: 0px;
+  }
+  .force-icon[stroke='currentColor'] {
+    color: #000;
+  }
+  .@{prefix}-tree-node-icon-hover:hover::before {
+    background-color: transparent;
+  }
+  .@{prefix}-tree-node-indent-block {
+    width: 12px;
+  }
+  // 复选框树
+  &&-checkable {
+    .@{prefix}-tree-node-switcher {
+      margin-right: 6px;
+    }
+    .@{prefix}-tree-node-indent-block {
+      width: 8px;
+    }
+  }
+}

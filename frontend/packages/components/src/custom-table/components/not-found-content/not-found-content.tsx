@@ -1,0 +1,66 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import { Empty, Spin } from '@arco-design/web-react';
+import { IconExclamationCircleFill } from '@arco-design/web-react/icon';
+import type { FC } from 'react';
+import styles from './index.module.less';
+
+export enum NotFoundStatus {
+  /** 默认状态 */
+  Default = 0,
+  /** 开始状态 */
+  Start = 1,
+  /** 查询无数据 */
+  NoData = 2,
+  /** 请求失败 */
+  RequestFail = 3,
+  /** 超时 */
+  Timeout = 4,
+}
+
+const FetchingUI = (
+  <div className={styles.fetching}>
+    <Spin style={{ margin: 12 }} />
+  </div>
+);
+
+export const NotFoundContent: FC<{ notFoundStatus: NotFoundStatus }> = ({
+  notFoundStatus,
+}) => {
+  switch (notFoundStatus) {
+    case NotFoundStatus.Start:
+      return FetchingUI;
+    case NotFoundStatus.NoData:
+      return <Empty className={styles.wrap} description="搜索结果为空" />;
+    case NotFoundStatus.RequestFail:
+      return (
+        <Empty
+          className={styles.wrap}
+          description="请求失败"
+          icon={<IconExclamationCircleFill />}
+        />
+      );
+    case NotFoundStatus.Timeout:
+      return (
+        <Empty
+          className={styles.wrap}
+          description="请求超时"
+          icon={<IconExclamationCircleFill />}
+        />
+      );
+    default:
+      return null;
+  }
+};

@@ -1,0 +1,58 @@
+.@{tag-prefix-cls} {
+  // 可关闭标签
+  &:not(.@{prefix}-tag-custom-color):not(.@{prefix}-tag-red):not(
+      .@{prefix}-tag-orangered
+    ):not(.@{prefix}-tag-orange):not(.@{prefix}-tag-gold):not(
+      .@{prefix}-tag-lime
+    ):not(.@{prefix}-tag-green):not(.@{prefix}-tag-cyan):not(
+      .@{prefix}-tag-blue
+    ):not(.@{prefix}-tag-arcoblue):not(.@{prefix}-tag-purple):not(
+      .@{prefix}-tag-pinkpurple
+    ):not(.@{prefix}-tag-magenta):not(.@{prefix}-tag-gray) {
+    .@{prefix}-icon-hover.@{prefix}-tag-icon-hover {
+      color: var(~'@{arco-cssvars-prefix}-color-fill-2');
+      &:hover {
+        &::before {
+          background-color: var(~'@{arco-cssvars-prefix}-color-fill-1');
+        }
+      }
+    }
+  }
+  // 关闭icon
+  // .@{prefix}-icon-hover::before {
+  //   border-radius: 50%;
+  // }
+  .@{prefix}-icon-hover {
+    &:before {
+      border-radius: 50%;
+    }
+    &.@{prefix}-tag-icon-hover {
+      &:before {
+        width: @size-3;
+        height: @size-3;
+      }
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{tag-prefix-cls} {
+    &.@{tag-prefix-cls}-checked.@{tag-prefix-cls}-red {
+      color: @dark-danger-6;
+      background-color: @dark-color-alpha-danger2;
+    }
+    &.@{tag-prefix-cls}-checked.@{tag-prefix-cls}-gold {
+      color: @dark-warning-6;
+      background-color: @dark-color-alpha-warning2;
+    }
+    &.@{tag-prefix-cls}-checked.@{tag-prefix-cls}-blue {
+      color: @dark-link-6;
+      background-color: @dark-color-alpha-link2;
+    }
+    &.@{tag-prefix-cls}-checked.@{tag-prefix-cls}-green {
+      color: @dark-success-6;
+      background-color: @dark-color-alpha-success2;
+    }
+  }
+}

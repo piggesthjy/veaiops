@@ -1,0 +1,37 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import { CellRender } from '@veaiops/components';
+import { EMPTY_CONTENT } from '@veaiops/constants';
+
+/**
+ * 渲染阿里云维度（使用 CustomOutlineTagList）
+ */
+export const renderAliyunDimension = (value: unknown) => {
+  if (!value || !Array.isArray(value)) {
+    return EMPTY_CONTENT;
+  }
+
+  const dataList = value.map((item: unknown) => ({ name: String(item) }));
+  // 其他类型直接转字符串
+  return (
+    <CellRender.CustomOutlineTagList
+      dataList={dataList}
+      maxCount={1}
+      useEllipsis
+    />
+  );
+};
+
+export { renderAliyunInstancesList } from './instances-modal';

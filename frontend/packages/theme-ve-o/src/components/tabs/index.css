@@ -1,0 +1,223 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-tabs-header-ink {
+  bottom: 1px;
+  border-radius: 4px 4px 0 0;
+}
+.arco-tabs
+  .arco-tabs-header-nav-line.arco-tabs-header-nav-horizontal
+  > .arco-tabs-header-scroll
+  .arco-tabs-header-title:first-of-type {
+  margin-left: 0;
+}
+.arco-tabs-vertical .arco-tabs-header-ink {
+  right: 1px;
+  border-radius: 4px 0 0 4px;
+}
+.arco-tabs .arco-tabs-header-nav-capsule .arco-tabs-header-title-active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 0.5px 1px rgba(0, 0, 0, 0.05), 0
+    0 0 0.5px rgba(213, 219, 227, 0.7);
+}
+.arco-tabs .arco-tabs-header-nav-card .arco-tabs-header-title:hover,
+.arco-tabs .arco-tabs-header-nav-card-gutter .arco-tabs-header-title:hover {
+  background-color: transparent;
+}
+.arco-tabs
+  .arco-tabs-header-nav-card
+  .arco-tabs-header-title-active
+  .arco-tabs-icon-hover,
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-active
+  .arco-tabs-icon-hover {
+  color: var(--primary-6);
+}
+.arco-tabs
+  .arco-tabs-header-nav-card
+  .arco-tabs-header-title-editable:not(.arco-tabs-header-title-active):hover
+  .arco-icon-hover,
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-editable:not(.arco-tabs-header-title-active):hover
+  .arco-icon-hover {
+  color: var(--primary-6);
+}
+.arco-tabs
+  .arco-tabs-header-nav-card
+  .arco-tabs-header-title-editable:not(.arco-tabs-header-title-active):hover
+  .arco-icon-hover:hover::before,
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-editable:not(.arco-tabs-header-title-active):hover
+  .arco-icon-hover:hover::before {
+  background-color: var(--color-bg-4);
+}
+.arco-tabs
+  .arco-tabs-header-nav-card
+  .arco-tabs-header-title-disabled
+  .arco-tabs-icon-hover,
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-disabled
+  .arco-tabs-icon-hover {
+  color: var(--color-text-4);
+}
+.arco-tabs
+  .arco-tabs-header-nav-card
+  .arco-tabs-header-title-disabled:hover
+  .arco-tabs-icon-hover,
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-disabled:hover
+  .arco-tabs-icon-hover {
+  color: var(--color-text-4) !important;
+  cursor: not-allowed;
+}
+.arco-tabs
+  .arco-tabs-header-nav-card
+  .arco-tabs-header-title-disabled:hover
+  .arco-tabs-icon-hover:hover::before,
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-disabled:hover
+  .arco-tabs-icon-hover:hover::before {
+  background-color: transparent !important;
+}
+.arco-tabs .arco-tabs-header-nav-card-gutter {
+  padding-left: 32px;
+}
+.arco-tabs.arco-tabs-card-gutter > .arco-tabs-content {
+  border: none;
+}
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter.arco-tabs-header-nav-horizontal::before {
+  background-color: var(--color-border-2);
+}
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter.arco-tabs-header-nav-horizontal
+  .arco-tabs-header-title {
+  margin-left: 6px;
+}
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter.arco-tabs-header-nav-horizontal
+  .arco-tabs-header-title:first-child {
+  margin-left: 0;
+}
+.arco-tabs .arco-tabs-header-nav-card-gutter .arco-tabs-header-title {
+  position: relative;
+  padding: 7px 16px;
+  border: none;
+  box-shadow: inset 0 1px 0 var(--color-border-2), inset -1px 0 0
+    var(--color-border-2), inset 1px 0 0 var(--color-border-2);
+}
+.arco-tabs .arco-tabs-header-nav-card-gutter .arco-tabs-header-title:hover {
+  background-color: var(--color-bg-4);
+}
+.arco-tabs .arco-tabs-header-nav-card-gutter .arco-tabs-header-title:after {
+  content: "";
+  width: calc(100% - 2px);
+  height: 1px;
+  position: absolute;
+  left: 1px;
+  bottom: 0px;
+  background-color: var(--color-border-2);
+}
+.arco-tabs .arco-tabs-header-nav-card-gutter .arco-tabs-header-title-active {
+  position: relative;
+  box-shadow: inset 0 2px 0 #006eff, inset -1px 0 0 var(--color-border-2), inset
+    1px 0 0 var(--color-border-2);
+}
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-active:hover {
+  background-color: var(--color-bg-white);
+}
+.arco-tabs
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-active:after {
+  background-color: var(--color-bg-white);
+}
+.arco-tabs.arco-tabs-vertical
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title {
+  box-shadow: inset 0 0 0 1px var(--color-border-2);
+}
+.arco-tabs.arco-tabs-vertical
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title:after {
+  width: 1px;
+  height: calc(100% - 2px);
+  left: initial;
+  top: 1px;
+  right: 0;
+}
+.arco-tabs.arco-tabs-vertical
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-active {
+  box-shadow: inset 2px 0 0 #006eff, inset 0 1px 0 var(--color-border-2), inset
+    0 -1px 0 var(--color-border-2);
+}
+.arco-tabs .arco-tabs-nav-icon-disabled {
+  color: var(--color-fill-1);
+}
+body[arco-theme="dark"]
+  .arco-tabs-header-nav-card
+  .arco-tabs-header-title-active {
+  background-color: #131416;
+  border-bottom-color: transparent;
+}
+body[arco-theme="dark"]
+  .arco-tabs-header-nav-card
+  .arco-tabs-header-title-active:hover {
+  background-color: #131416;
+}
+body[arco-theme="dark"]
+  .arco-tabs
+  .arco-tabs-header-nav-capsule
+  .arco-tabs-header-title-active {
+  background-color: rgba(246, 248, 250, 0.12);
+  color: #c7ccd6;
+  box-shadow: 0 0 0 0.5px rgba(221, 226, 233, 0.15), 0 0.5px 1px 0
+    rgba(255, 255, 255, 0.05), 0 1px 2px 0 rgba(255, 255, 255, 0.07);
+}
+body[arco-theme="dark"]
+  .arco-tabs
+  .arco-tabs-header-nav-capsule
+  .arco-tabs-header-title-active:not(.arco-tabs-header-title-disabled):hover {
+  background-color: rgba(246, 248, 250, 0.12) !important;
+  box-shadow: 0 0 0 0.5px rgba(221, 226, 233, 0.15), 0 0.5px 1px 0
+    rgba(255, 255, 255, 0.05), 0 1px 2px 0 rgba(255, 255, 255, 0.07) !important;
+}
+body[arco-theme="dark"]
+  .arco-tabs
+  .arco-tabs-header-nav-capsule
+  .arco-tabs-header-title:not(
+    body[arco-theme="dark"]
+      .arco-tabs
+      .arco-tabs-header-nav-capsule
+      .arco-tabs-header-title-disabled
+  ):hover {
+  box-shadow: none;
+  background-color: transparent;
+}
+body[arco-theme="dark"]
+  .arco-tabs
+  .arco-tabs-header-nav-card-gutter
+  .arco-tabs-header-title-active {
+  background-color: #131416;
+}

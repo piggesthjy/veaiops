@@ -1,0 +1,84 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import alarmBg from '@/assets/alarm.png';
+import { Typography } from '@arco-design/web-react';
+import type React from 'react';
+import styles from '../../alarm-result-modal.module.less';
+import type { FormattedAlarmResultData } from '../types';
+
+const { Title, Text } = Typography;
+
+interface SummaryCardProps {
+  data: FormattedAlarmResultData;
+}
+
+/**
+ * 统计概览卡片
+ */
+export const SummaryCard: React.FC<SummaryCardProps> = ({ data }) => {
+  const { total, created, updated, deleted, failed } = data;
+  const successCount = created + updated + deleted;
+
+  return (
+    <div
+      className={styles.summaryCard}
+      style={{
+        backgroundImage: `url(${alarmBg})`,
+        backgroundSize: '100% 100%',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <div className={styles.content}>
+        <Title heading={5} className={styles.title}>
+          📊 执行概览
+        </Title>
+
+        <div className={styles.statsContainer}>
+          <div className={styles.statItem}>
+            <div className={styles.number}>{total}</div>
+            <Text className={styles.label}>总规则数</Text>
+          </div>
+          <div className={`${styles.statItem} ${styles.success}`}>
+            <div className={styles.number}>{successCount}</div>
+            <Text className={styles.label}>成功</Text>
+          </div>
+          <div className={`${styles.statItem} ${styles.failed}`}>
+            <div className={styles.number}>{failed}</div>
+            <Text className={styles.label}>失败</Text>
+          </div>
+        </div>
+
+        <div className={styles.tagsContainer}>
+          {created > 0 && (
+            <div className={`${styles.tag} ${styles.create}`}>
+              ✅ 创建 {created}
+            </div>
+          )}
+          {updated > 0 && (
+            <div className={`${styles.tag} ${styles.update}`}>
+              🔄 更新 {updated}
+            </div>
+          )}
+          {deleted > 0 && (
+            <div className={`${styles.tag} ${styles.delete}`}>
+              🗑️ 删除 {deleted}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};

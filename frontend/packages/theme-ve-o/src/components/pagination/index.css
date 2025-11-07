@@ -1,0 +1,168 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-pagination-item {
+  padding: 0 4px;
+}
+.arco-pagination-jumper {
+  padding: 0 8px;
+  background: var(--color-bg-white);
+  border-radius: 4px;
+  border: 1px solid var(--color-border-3);
+}
+.arco-pagination-jumper-input {
+  box-shadow: none;
+  border: none;
+}
+.arco-pagination-jumper-input:hover,
+.arco-pagination-jumper-input:focus {
+  box-shadow: none;
+  border: none;
+}
+.arco-pagination-option .arco-select {
+  min-width: 92px;
+}
+.arco-pagination-total-text {
+  color: var(--color-text-2);
+}
+.arco-pagination.arco-pagination-size-mini .arco-pagination-item-prev,
+.arco-pagination.arco-pagination-size-mini .arco-pagination-item-next {
+  line-height: 18px;
+}
+.arco-pagination.arco-pagination-size-mini
+  .arco-select-size-mini
+  .arco-select-view {
+  height: 20px;
+  line-height: 18px;
+  font-size: 13px;
+  padding: 0 8px;
+}
+.arco-pagination.arco-pagination-size-mini
+  .arco-select-size-mini
+  .arco-select-view
+  .arco-select-arrow-icon {
+  line-height: 6px;
+}
+.arco-pagination.arco-pagination-size-mini .arco-pagination-jumper {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+.arco-pagination.arco-pagination-size-mini .arco-pagination-jumper-input {
+  height: 18px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 12px;
+  line-height: 18px;
+}
+.arco-pagination.arco-pagination-size-small .arco-pagination-item-prev,
+.arco-pagination.arco-pagination-size-small .arco-pagination-item-next {
+  line-height: 18px;
+}
+.arco-pagination.arco-pagination-size-small
+  .arco-select-size-small
+  .arco-select-view {
+  height: 20px;
+  line-height: 18px;
+  font-size: 13px;
+  padding: 0 8px;
+}
+.arco-pagination.arco-pagination-size-small
+  .arco-select-size-small
+  .arco-select-view
+  .arco-select-arrow-icon {
+  line-height: 6px;
+}
+.arco-pagination.arco-pagination-size-small .arco-pagination-jumper {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+.arco-pagination.arco-pagination-size-small .arco-pagination-jumper-input {
+  height: 18px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 12px;
+  line-height: 18px;
+}
+.arco-pagination.arco-pagination-size-default .arco-pagination-item-prev,
+.arco-pagination.arco-pagination-size-default .arco-pagination-item-next {
+  line-height: 22px;
+}
+.arco-pagination.arco-pagination-size-default
+  .arco-select-size-default
+  .arco-select-view {
+  height: 24px;
+  line-height: 22px;
+  font-size: 13px;
+  padding: 0 8px;
+}
+.arco-pagination.arco-pagination-size-default
+  .arco-select-size-default
+  .arco-select-view
+  .arco-select-arrow-icon {
+  line-height: 6px;
+}
+.arco-pagination.arco-pagination-size-default .arco-pagination-jumper-input {
+  height: 22px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 12px;
+}
+.arco-pagination.arco-pagination-size-large .arco-pagination-item-prev,
+.arco-pagination.arco-pagination-size-large .arco-pagination-item-next {
+  line-height: 22px;
+}
+.arco-pagination.arco-pagination-size-large
+  .arco-select-size-large
+  .arco-select-view {
+  height: 24px;
+  line-height: 22px;
+  font-size: 13px;
+  padding: 0 8px;
+}
+.arco-pagination.arco-pagination-size-large
+  .arco-select-size-large
+  .arco-select-view
+  .arco-select-arrow-icon {
+  line-height: 6px;
+}
+.arco-pagination.arco-pagination-size-large .arco-pagination-jumper-input {
+  height: 22px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 12px;
+}
+.arco-pagination .arco-pagination-jumper .arco-pagination-jumper-input {
+  width: 26px;
+  padding-left: 4px;
+}
+.arco-pagination .arco-pagination-jumper > span {
+  font-size: 12px;
+}
+.arco-pagination-item-simple-pager {
+  margin: 0 6px;
+}
+.arco-pagination-item-simple-pager .arco-pagination-jumper {
+  padding: 0 12px 0 0;
+}
+.arco-icon-hover .force-icon {
+  position: relative;
+  vertical-align: -0.09em;
+}

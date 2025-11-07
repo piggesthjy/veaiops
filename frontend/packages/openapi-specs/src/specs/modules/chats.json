@@ -1,0 +1,332 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VolcAIOpsKit - Chats API",
+    "version": "1.0.0",
+    "description": "群管理相关接口"
+  },
+  "paths": {
+    "/apis/v1/config/chats/{uid}": {
+      "get": {
+        "summary": "Get Chats By Bot Id",
+        "description": "Get chats filtered by bot document uid with pagination",
+        "tags": ["Chats"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bot Document ID to filter chats"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of chats to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "description": "Maximum number of chats to return"
+          },
+          {
+            "name": "force_update",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "Force update group chat information"
+          },
+          {
+            "name": "is_active",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "description": "Filter chats by is_active status (default: true)"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter chats by name (fuzzy search)"
+          },
+          {
+            "name": "enable_func_interest",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter chats by enable_func_interest status"
+          },
+          {
+            "name": "enable_func_proactive_reply",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter chats by enable_func_proactive_reply status"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseChatList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/config/chats/{uid}/config": {
+      "put": {
+        "summary": "Update Chat Config",
+        "description": "Update chat configuration by document id",
+        "tags": ["Chats"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Chat Document ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatConfigUpdatePayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseChat"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChannelType": {
+        "type": "string",
+        "enum": ["Lark", "DingTalk", "WeChat", "Webhook"],
+        "description": "Channel type enumeration for different messaging platforms"
+      },
+      "APIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {}
+        }
+      },
+      "Chat": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "群ID"
+          },
+          "chat_id": {
+            "type": "string",
+            "description": "群标识"
+          },
+          "name": {
+            "type": "string",
+            "description": "群名称"
+          },
+          "chat_type": {
+            "type": "string",
+            "enum": ["group", "private"],
+            "description": "群类型"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType",
+            "description": "企业协同工具"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "关联的机器人ID"
+          },
+          "description": {
+            "type": "string",
+            "description": "群描述"
+          },
+          "is_active": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否激活"
+          },
+          "enable_func_proactive_reply": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否启用主动回复功能"
+          },
+          "enable_func_interest": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否启用兴趣检测功能"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "更新时间"
+          }
+        },
+        "required": ["chat_id", "name", "chat_type", "channel"]
+      },
+      "ChatCreateRequest": {
+        "type": "object",
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "description": "群标识"
+          },
+          "name": {
+            "type": "string",
+            "description": "群名称"
+          },
+          "chat_type": {
+            "type": "string",
+            "enum": ["group", "private"],
+            "description": "群类型"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType",
+            "description": "企业协同工具"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "关联的机器人ID"
+          },
+          "description": {
+            "type": "string",
+            "description": "群描述"
+          }
+        },
+        "required": ["chat_id", "name", "chat_type", "channel"]
+      },
+      "ChatUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "群名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "群描述"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "是否激活"
+          }
+        }
+      },
+      "ChatConfigUpdatePayload": {
+        "type": "object",
+        "properties": {
+          "enable_func_proactive_reply": {
+            "type": "boolean",
+            "description": "Enable proactive reply function"
+          },
+          "enable_func_interest": {
+            "type": "boolean",
+            "description": "Enable interest function"
+          }
+        }
+      },
+      "APIResponseChat": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Chat"
+          }
+        }
+      },
+      "PaginatedAPIResponseChatList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chat"
+            }
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

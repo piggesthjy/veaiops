@@ -1,0 +1,91 @@
+.@{input-number-prefix-cls} {
+  .@{input-number-prefix-cls}-step-layer {
+    overflow: visible;
+    .@{input-number-prefix-cls}-step-button {
+      color: var(~'@{arco-cssvars-prefix}-color-fill-2');
+      &:last-child {
+        margin-bottom: 0;
+        border-radius: 0px 0px 2px 2px;
+      }
+      &:first-child {
+        margin-bottom: 1px;
+        border-radius: 2px 2px 0px 0px;
+      }
+      box-shadow: 0px 0px 0px 1px rgba(213, 219, 227, 0.7);
+      &:hover:not(.@{input-number-prefix-cls}-step-button-disabled) {
+        position: relative;
+        z-index: 1;
+        background-color: transparent !important;
+        box-shadow:
+          0px 1px 1px rgba(0, 0, 0, 0.1),
+          0px 0px 0px 1px rgba(22, 100, 255, 0.8);
+      }
+    }
+  }
+
+  .@{input-number-prefix-cls}-step-button-disabled {
+    &:hover,
+    &:active {
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    }
+  }
+
+  //按钮模式
+  .input-number-group-common {
+    svg {
+      stroke-width: 5;
+      color: var(~'@{arco-cssvars-prefix}-color-fill-2');
+    }
+    &-disabled {
+      svg {
+        color: var(~'@{arco-cssvars-prefix}-color-fill-1');
+      }
+    }
+  }
+  .@{prefix}-input-group-addbefore {
+    border-color: var(~'@{arco-cssvars-prefix}-color-border-3');
+    .@{prefix}-input-number-step-button {
+      border-radius: @border-radius-medium 0px 0px @border-radius-medium;
+      .input-number-group-common();
+    }
+  }
+  .@{prefix}-input-group-addafter {
+    margin-left: 1px;
+    border-color: var(~'@{arco-cssvars-prefix}-color-border-3');
+    .@{prefix}-input-number-step-button {
+      border-radius: 0px @border-radius-medium @border-radius-medium 0px;
+      .input-number-group-common();
+    }
+  }
+  // 按钮禁用
+  &.@{prefix}-input-number-mode-button {
+    .@{prefix}-input-inner-wrapper-disabled {
+      border-color: var(~'@{arco-cssvars-prefix}-color-border-3');
+    }
+  }
+
+  // 禁用
+  .@{prefix}-input-disabled {
+    color: var(~'@{arco-cssvars-prefix}-color-text-3');
+    -webkit-text-fill-color: initial;
+    &::placeholder {
+      color: var(~'@{arco-cssvars-prefix}-color-text-4');
+    }
+  }
+}
+// --- dark ---
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{input-number-prefix-cls} {
+    .@{input-number-prefix-cls}-step-layer {
+      .@{input-number-prefix-cls}-step-button {
+        box-shadow: 0px 0px 0px 1px
+          var(~'@{arco-cssvars-prefix}-color-border-3');
+        &:hover:not(.@{input-number-prefix-cls}-step-button-disabled) {
+          box-shadow: 0px 0px 0px 1px
+            rgb(var(~'@{arco-cssvars-prefix}-primary-5'));
+        }
+      }
+    }
+  }
+}

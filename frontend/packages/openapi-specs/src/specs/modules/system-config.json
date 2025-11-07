@@ -1,0 +1,1220 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VolcAIOpsKit - System Config API",
+    "version": "1.0.0",
+    "description": "系统配置管理相关接口"
+  },
+  "paths": {
+    "/apis/v1/manager/system-config/global-config/": {
+      "get": {
+        "summary": "Get Global Config",
+        "description": "Get global configuration",
+        "tags": ["Global Config"],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseGlobalConfig"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/bots/": {
+      "get": {
+        "summary": "Get All Bots",
+        "description": "Get all bots with optional filtering and pagination",
+        "tags": ["Bots"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of bots to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "description": "Maximum number of bots to return"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter bots by name (fuzzy matching)"
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ChannelType"
+            },
+            "description": "Filter bots by channel type"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBotList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Bot",
+        "description": "Create a new bot",
+        "tags": ["Bots"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BotCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBot"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/bots/{uid}": {
+      "get": {
+        "summary": "Get Bot",
+        "description": "Get a bot by ID",
+        "tags": ["Bots"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBot"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Bot",
+        "description": "Update a bot",
+        "tags": ["Bots"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BotUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBot"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Bot",
+        "description": "Delete a bot",
+        "tags": ["Bots"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/bot_attributes/": {
+      "get": {
+        "summary": "Get All Bot Attributes",
+        "description": "Get all bot attributes with optional pagination",
+        "tags": ["Bot Attributes"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of bot attributes to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "description": "Maximum number of bot attributes to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseBotAttributeList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Bot Attribute",
+        "description": "Create a new bot attribute",
+        "tags": ["Bot Attributes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BotAttributeCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBotAttribute"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Batch Delete Bot Attributes",
+        "description": "Delete multiple bot attributes",
+        "tags": ["Bot Attributes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Bot attribute IDs to delete"
+                  }
+                },
+                "required": ["ids"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/bot_attributes/{bot_attribute_id}": {
+      "get": {
+        "summary": "Get Bot Attribute",
+        "description": "Get a bot attribute by ID",
+        "tags": ["Bot Attributes"],
+        "parameters": [
+          {
+            "name": "bot_attribute_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBotAttribute"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Bot Attribute",
+        "description": "Update a bot attribute",
+        "tags": ["Bot Attributes"],
+        "parameters": [
+          {
+            "name": "bot_attribute_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BotAttributeUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBotAttribute"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Bot Attribute",
+        "description": "Delete a bot attribute",
+        "tags": ["Bot Attributes"],
+        "parameters": [
+          {
+            "name": "bot_attribute_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/customers/": {
+      "get": {
+        "summary": "Get All Customers",
+        "description": "Get all customers with optional pagination and filtering",
+        "tags": ["Customers"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseCustomerList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Customer",
+        "description": "Create a new customer",
+        "tags": ["Customers"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseCustomer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/customers/import": {
+      "post": {
+        "summary": "Import Customers From CSV",
+        "description": "Import customers from CSV file with detailed results",
+        "tags": ["Customers"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "CSV file containing customer data"
+                  }
+                },
+                "required": ["file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Import Completed with Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseImportResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/customers/{customer_id}": {
+      "delete": {
+        "summary": "Delete Customer By ID",
+        "description": "Delete a customer by ID",
+        "tags": ["Customers"],
+        "parameters": [
+          {
+            "name": "customer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the customer to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deletion Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/products/": {
+      "get": {
+        "summary": "Get All Products",
+        "description": "Get all products with optional pagination and filtering",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseProductList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Product",
+        "description": "Create a new product",
+        "tags": ["Products"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseProduct"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/products/import": {
+      "post": {
+        "summary": "Import Products From CSV",
+        "description": "Import products from CSV file",
+        "tags": ["Products"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "CSV file containing product data"
+                  }
+                },
+                "required": ["file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Import Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/products/{product_id}": {
+      "delete": {
+        "summary": "Delete Product By ID",
+        "description": "Delete a product by ID",
+        "tags": ["Products"],
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the product to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deletion Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/projects/": {
+      "get": {
+        "summary": "Get All Projects",
+        "description": "Get all projects with optional pagination and filtering",
+        "tags": ["Projects"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseProjectList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Project",
+        "description": "Create a new project",
+        "tags": ["Projects"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseProject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/projects/import": {
+      "post": {
+        "summary": "Import Projects From CSV",
+        "description": "Import projects from CSV file",
+        "tags": ["Projects"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "CSV file containing project data"
+                  }
+                },
+                "required": ["file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Import Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/projects/{project_id}": {
+      "delete": {
+        "summary": "Delete Project By ID",
+        "description": "Delete a project by ID",
+        "tags": ["Projects"],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the project to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deletion Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChannelType": {
+        "type": "string",
+        "enum": ["Lark", "DingTalk", "WeChat", "Webhook"],
+        "description": "Channel type enumeration for different messaging platforms"
+      },
+      "APIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {}
+        }
+      },
+      "APIResponseBoolean": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "boolean"
+          }
+        }
+      },
+      "APIResponseString": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          }
+        }
+      },
+      "APIResponseGlobalConfig": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB document ID"
+          },
+          "customer_id": {
+            "type": "string",
+            "description": "Customer ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Customer name"
+          },
+          "desensitized_name": {
+            "type": "string",
+            "description": "Desensitized customer name"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the customer is active",
+            "default": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": ["customer_id", "name"]
+      },
+      "CustomerCreateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["name"]
+      },
+      "APIResponseCustomer": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "APIResponseCustomerList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "MongoDB document ID"
+          },
+          "product_id": {
+            "type": "string",
+            "description": "Product ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name"
+          }
+        },
+        "required": ["name"]
+      },
+      "ProductCreateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["name"]
+      },
+      "APIResponseProduct": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "PaginatedAPIResponseProductList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB document ID"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Project ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Project name"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the project is active",
+            "default": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": ["project_id", "name"]
+      },
+      "ProjectCreateRequest": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "Project ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Project name"
+          }
+        },
+        "required": ["project_id", "name"]
+      },
+      "APIResponseProject": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Project"
+          }
+        }
+      },
+      "PaginatedAPIResponseProjectList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "ImportLog": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "description": "日志时间戳"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["INFO", "WARNING", "ERROR"],
+            "description": "日志级别"
+          },
+          "message": {
+            "type": "string",
+            "description": "日志消息"
+          },
+          "details": {
+            "type": "object",
+            "description": "详细信息",
+            "additionalProperties": true
+          }
+        },
+        "required": ["timestamp", "level", "message"]
+      },
+      "ImportResult": {
+        "type": "object",
+        "properties": {
+          "total_rows": {
+            "type": "integer",
+            "description": "总行数"
+          },
+          "successful_imports": {
+            "type": "integer",
+            "description": "成功导入数量"
+          },
+          "failed_imports": {
+            "type": "integer",
+            "description": "失败导入数量"
+          },
+          "skipped_rows": {
+            "type": "integer",
+            "description": "跳过行数"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "错误信息列表"
+          },
+          "logs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImportLog"
+            },
+            "description": "导入日志列表"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "开始时间"
+          },
+          "end_time": {
+            "type": "string",
+            "nullable": true,
+            "description": "结束时间"
+          }
+        },
+        "required": [
+          "total_rows",
+          "successful_imports",
+          "failed_imports",
+          "skipped_rows",
+          "errors",
+          "logs",
+          "start_time"
+        ]
+      },
+      "APIResponseImportResult": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ImportResult"
+          }
+        }
+      }
+    }
+  }
+}

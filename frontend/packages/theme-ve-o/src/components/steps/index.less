@@ -1,0 +1,37 @@
+.@{steps-prefix-cls} {
+  &-item-finish:not(&-item-active) {
+    .@{steps-prefix-cls}-item-title {
+      font-weight: 500;
+    }
+  }
+  .steps-icon {
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    border-width: 2px !important;
+  }
+  &-icon {
+    .steps-icon;
+    .@{prefix}-icon {
+      stroke-width: 6;
+    }
+  }
+  &.@{steps-prefix-cls}-size-small {
+    .@{steps-prefix-cls}-icon {
+      .steps-icon;
+    }
+  }
+  // active 项
+  &-item-active:not(&-item-error) {
+    .@{steps-prefix-cls}-icon {
+      border: 2px solid rgb(var(~'@{arco-cssvars-prefix}-primary-6'));
+      box-shadow: 0px 1px 0px rgba(20, 20, 20, 0.08);
+    }
+  }
+}
+// --- dark ---
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{steps-prefix-cls} {
+  }
+}

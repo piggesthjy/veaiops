@@ -1,0 +1,19 @@
+.@{anchor-prefix-cls} {
+  .@{anchor-prefix-cls}-link-title {
+    box-sizing: border-box;
+    height: 36px;
+    line-height: 28px;
+  }
+  .@{anchor-prefix-cls}-link-active {
+    & > .@{anchor-prefix-cls}-link-title {
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    }
+  }
+  .@{anchor-prefix-cls}-line-slider {
+    margin-top: 0;
+  }
+  // 蓝色标线
+  .@{anchor-prefix-cls}-line-slider {
+    border-radius: 0px @border-radius-small @border-radius-small 0px;
+  }
+}

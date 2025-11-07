@@ -1,0 +1,219 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-picker-cell-hover-in-range .arco-picker-date,
+.arco-picker-cell-hover-range-start:not(.arco-picker-cell-range-start):not(
+    .arco-picker-cell-range-end
+  )
+  .arco-picker-date-value,
+.arco-picker-cell-hover-range-end:not(.arco-picker-cell-range-start):not(
+    .arco-picker-cell-range-end
+  )
+  .arco-picker-date-value {
+  background-color: rgb(var(--link-2));
+}
+.arco-picker-cell-hover-in-range.arco-picker-cell-in-range:not(
+    .arco-picker-cell-selected
+  )
+  .arco-picker-date {
+  position: relative;
+}
+.arco-picker-cell-hover-in-range.arco-picker-cell-in-range:not(
+    .arco-picker-cell-selected
+  )
+  .arco-picker-date::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  background-color: rgba(56, 123, 255, 0.1);
+}
+.arco-picker-input .arco-picker-input-active {
+  border-radius: 4px;
+}
+.arco-picker-focused .arco-picker-input-active input {
+  border-radius: 4px;
+}
+.arco-picker-focused .arco-picker-input-active input,
+.arco-picker-focused:hover .arco-picker-input-active input {
+  background-color: rgb(var(--link-2));
+}
+.arco-picker:not(.arco-picker-range).arco-picker-focused {
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+}
+.arco-picker:not(.arco-picker-range).arco-picker-focused .arco-picker-input {
+  background-color: rgb(var(--link-2));
+  border-radius: 4px;
+}
+.arco-picker.arco-picker-focused {
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+}
+.arco-picker.arco-picker-focused .arco-picker-active {
+  background-color: rgb(var(--link-2));
+  border-radius: 4px;
+}
+.arco-picker-container {
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border-2);
+  box-shadow: 0 15px 35px -2px rgba(0, 0, 0, 0.05);
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.03));
+  border-radius: var(--border-radius-medium);
+  font-size: 13px;
+}
+.arco-picker-container .arco-picker-date-value {
+  font-size: 13px;
+}
+.arco-picker-header {
+  border-bottom: 1px solid var(--color-border-2);
+}
+.arco-picker-header-label:hover {
+  background-color: rgb(var(--link-2));
+}
+.arco-picker-range {
+  border-radius: 4px;
+  background-color: var(--color-bg-white);
+}
+.arco-picker-range-wrapper
+  .arco-panel-date:nth-child(1)
+  .arco-picker-range-header {
+  border-right: 1px solid var(--color-border-2);
+}
+.arco-picker-cell-selected::after {
+  bottom: 8px;
+  background-color: var(--color-bg-white);
+}
+.arco-picker-cell-today::after {
+  bottom: 8px;
+}
+.arco-picker-header-icon-hidden {
+  background-color: var(--color-bg-white);
+}
+.arco-picker-range-container {
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border-2);
+  box-shadow: 0 15px 35px -2px rgba(0, 0, 0, 0.05);
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.03));
+  border-radius: 4px;
+  font-size: 13px;
+}
+.arco-picker-range-container .arco-picker-date-value {
+  font-size: 13px;
+}
+.arco-picker-cell:hover
+  .arco-picker-cell-selected:hover
+  .arco-picker-date-value {
+  background-color: var(--link-7) !important;
+  color: var(--color-text-1);
+}
+.arco-picker-cell:hover:not(.arco-picker-cell-selected)
+  .arco-picker-date-value {
+  background-color: rgb(var(--link-2));
+}
+.arco-picker-header-icon {
+  background: none;
+}
+.arco-picker-header-icon:hover:not(.arco-picker-header-icon-hidden) {
+  background-color: var(--color-bg-4);
+}
+.arco-picker-cell-range-start.arco-picker-cell-hover-in-range
+  .arco-picker-date {
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+}
+.arco-picker-cell-range-end.arco-picker-cell-hover-in-range .arco-picker-date {
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+.arco-picker-cell-hover-in-range .arco-picker-date {
+  border-radius: 0px;
+  background-color: rgb(var(--link-2));
+}
+.arco-picker-cell-hover-in-range.arco-picker-cell-range-edge-in-hover-range {
+  border-radius: 0px;
+}
+.arco-picker-cell-in-range .arco-picker-date {
+  background-color: rgb(var(--link-2));
+}
+.arco-panel-week
+  .arco-picker-row-week:hover
+  .arco-picker-cell:not(.arco-picker-cell-week):not(
+    .arco-picker-cell-selected
+  ):not(.arco-picker-cell-range-start):not(.arco-picker-cell-range-end):not(
+    .arco-picker-cell-in-range
+  ):not(.arco-picker-cell-hover-in-range)
+  .arco-picker-date-value {
+  background-color: rgb(var(--link-2));
+}
+.arco-picker-focused .arco-picker-input-active input {
+  background-color: rgb(var(--link-2));
+}
+.arco-picker-disabled input[disabled],
+.arco-picker-disabled:hover {
+  background-color: var(--color-bg-4);
+}
+.arco-picker-disabled input[disabled] input[disabled],
+.arco-picker-disabled:hover input[disabled] {
+  background-color: var(--color-bg-4);
+}
+.arco-picker-disabled {
+  background-color: var(--color-bg-4);
+}
+.arco-picker-input input:disabled,
+.arco-picker-input textarea:disabled {
+  -webkit-text-fill-color: var(--color-fill-1);
+}
+.arco-picker-disabled input[disabled],
+.arco-picker-disabled:hover input[disabled] {
+  -webkit-text-fill-color: var(--color-fill-1);
+}
+.arco-picker .arco-icon-hover::before {
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-bg-5);
+  border-radius: 50%;
+}
+.arco-picker .arco-icon-hover:hover::before {
+  background-color: var(--color-fill-1);
+}
+body[arco-theme="dark"]
+  .arco-picker:not(
+    body[arco-theme="dark"] .arco-picker-range
+  ).arco-picker-focused
+  .arco-picker-input {
+  background-color: rgba(17, 74, 185, 0.2);
+}
+body[arco-theme="dark"] .arco-picker-focused .arco-picker-input-active input {
+  background-color: rgba(17, 74, 185, 0.2);
+}
+body[arco-theme="dark"] .arco-picker-range {
+  background-color: transparent;
+}
+body[arco-theme="dark"] .arco-picker-range-container,
+body[arco-theme="dark"] .arco-picker-container {
+  background-color: #282a2f;
+}
+body[arco-theme="dark"] .arco-picker-cell-in-range .arco-picker-date {
+  background-color: rgba(17, 74, 185, 0.2);
+}
+body[arco-theme="dark"] .arco-picker-disabled {
+  background-color: transparent;
+}
+body[arco-theme="dark"] .arco-picker-disabled input[disabled] {
+  background-color: transparent;
+}

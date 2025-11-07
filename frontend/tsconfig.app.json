@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Application TypeScript Configuration",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    // 被引用的项目必须能够 emit，不能禁用
+    "noEmit": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"],
+      "@/config": ["src/config/index.ts"],
+      "@/config/*": ["src/config/*"],
+      "@/pages": ["src/pages/index.ts"],
+      "@/pages/*": ["src/pages/*"],
+      "@/components": ["src/components/index.ts"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/constants": ["src/constants/index.ts"],
+      "@/constants/*": ["src/constants/*"],
+      "@/types/*": ["src/types/*"],
+      "@/modules/*": ["src/modules/*"],
+      "@modules/threshold/features": ["src/modules/threshold/features"],
+      "@/event-center/*": ["src/modules/event-center/*"],
+      "@/wizard": ["src/components/wizard"],
+      "@/wizard/styles": ["src/components/wizard/styles"],
+      "@veaiops/components": ["../../packages/components/src"],
+      "@veaiops/utils": ["../../packages/utils/src"],
+      "@veaiops/types": ["../../packages/types/src"],
+      "@veaiops/constants": ["../../packages/constants/src"],
+      "@veaiops/hooks": ["../../packages/hooks/src"],
+      "api-generate/*": ["api-generate/*"],
+      "api-generate": ["api-generate"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.*",
+    "**/*.spec.*"
+  ],
+  "references": [
+    { "path": "../../packages/components" },
+    { "path": "../../packages/utils" },
+    { "path": "../../packages/types" },
+    { "path": "../../packages/constants" },
+    { "path": "../../packages/hooks" }
+  ]
+}

@@ -1,0 +1,56 @@
+.@{message-prefix-cls} {
+  background-color: rgba(246, 248, 250, 0.9);
+  box-shadow:
+    0px 15px 35px rgba(0, 0, 0, 0.05),
+    0px 5px 15px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(20px);
+  border-width: 0.5px;
+  padding: 8px 16px;
+  &-content {
+    line-height: 22px;
+    display: inline-block;
+  }
+  .@{prefix}-icon-hover.@{prefix}-message-icon-hover::before {
+    width: 16px;
+    height: 16px;
+  }
+  .@{prefix}-message-close-btn {
+    top: 12px;
+    cursor: pointer;
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: @radius-medium;
+      background-color: transparent;
+      box-sizing: border-box;
+      transition: background-color 0.1s cubic-bezier(0, 0, 1, 1);
+    }
+    &:hover {
+      &::before {
+        width: 16px;
+        height: 16px;
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-6');
+      }
+    }
+  }
+  &-closable &-content {
+    margin-right: 24px;
+  }
+  svg.force-icon {
+    vertical-align: -2px;
+  }
+  .force-icon-loading {
+    animation: arco-loading-circle 1s infinite cubic-bezier(0, 0, 1, 1);
+  }
+}
+
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{message-prefix-cls} {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+  }
+}

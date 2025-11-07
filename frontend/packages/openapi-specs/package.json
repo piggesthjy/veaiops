@@ -1,0 +1,25 @@
+{
+  "name": "@veaiops/openapi-specs",
+  "version": "0.1.0",
+  "description": "VolcAIOpsKit - OpenAPI Specifications and Code Generation Tools",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "private": true,
+  "scripts": {
+    "build": "node src/scripts/generate-api-complete.js",
+    "build:spec": "node src/scripts/build-openapi.js",
+    "generate:api": "node src/scripts/generate-api-complete.js",
+    "generate:api:incremental": "node src/scripts/generate-api-incremental.js",
+    "validate": "node src/scripts/validate-specs.js",
+    "clean": "rm -rf ../../openapi-spec.json && rm -rf ../../apps/veaiops/api-generate && rm -rf temp"
+  },
+  "dependencies": {
+    "glob": "^11.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "openapi-typescript-codegen": "^0.29.0",
+    "typescript": "^5.0.4"
+  },
+  "keywords": ["openapi", "api-generation", "typescript", "codegen"]
+}

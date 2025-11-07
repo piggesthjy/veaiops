@@ -1,0 +1,54 @@
+.@{menu-prefix-cls} {
+  &-light {
+    .@{menu-prefix-cls}-inline-header.@{menu-prefix-cls}-selected {
+      &:hover {
+        background-color: rgba(241, 243, 245, 0.08);
+      }
+    }
+  }
+  &-pop-trigger .@{prefix}-trigger-arrow {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+  }
+  &-dark .@{menu-prefix-cls}-inline-header.@{menu-prefix-cls}-selected:hover {
+    background-color: rgba(241, 243, 245, 0.08);
+  }
+  .@{prefix}-menu-icon-suffix {
+    .force-icon-down {
+      color: var(~'@{arco-cssvars-prefix}-color-fill-2');
+    }
+    svg.force-icon-down {
+      margin-right: 0;
+    }
+  }
+  &.@{menu-prefix-cls}-collapse {
+    .@{menu-prefix-cls}-item,
+    .@{menu-prefix-cls}-group-title,
+    .@{menu-prefix-cls}-pop-header,
+    .@{menu-prefix-cls}-inline-header {
+      .force-icon {
+        margin-right: 100vw;
+      }
+    }
+  }
+  &.@{menu-prefix-cls}-collapse {
+    &.@{prefix}-menu-pop:not(.@{prefix}-menu-pop-button) {
+      .@{menu-prefix-cls}-item {
+        .force-icon,
+        .arco-icon {
+          margin-left: 1px;
+        }
+      }
+    }
+  }
+  .@{menu-prefix-cls}-item,
+  .@{menu-prefix-cls}-group-title,
+  .@{menu-prefix-cls}-pop-header,
+  .@{menu-prefix-cls}-inline-header {
+    .force-icon {
+      margin-right: 8px;
+    }
+  }
+  &-indent {
+    width: 26px;
+  }
+}

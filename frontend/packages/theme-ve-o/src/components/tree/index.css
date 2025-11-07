@@ -1,0 +1,87 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-tree-node-title-block .arco-tree-node-drag-icon {
+  left: -28px;
+  right: initial;
+}
+.arco-tree-node-icon .arco-icon-drag-dot-vertical {
+  font-size: 10px;
+}
+.arco-tree-node-title-dragging,
+.arco-tree-node-title-dragging:hover {
+  background-color: var(--color-bg-4);
+}
+.arco-tree-node {
+  padding-left: 8px;
+}
+.arco-tree .arco-tree-node-switcher {
+  width: 12px;
+  margin-right: 10px;
+}
+.arco-tree
+  .arco-tree-node-switcher
+  .arco-tree-node-switcher-icon
+  .force-icon-caret-down {
+  font-size: 12px;
+}
+.arco-tree:not(.arco-tree-show-line) .arco-tree-node {
+  border-radius: 4px;
+}
+.arco-tree:not(.arco-tree-show-line) .arco-tree-node:hover {
+  background-color: var(--color-bg-4);
+}
+.arco-tree:not(.arco-tree-show-line) .arco-tree-node-selected {
+  background-color: none;
+}
+.arco-tree:not(.arco-tree-show-line) .arco-tree-node-disabled:hover {
+  background-color: transparent !important;
+  cursor: not-allowed;
+}
+.arco-tree-show-line .arco-tree-node-minus-icon::after {
+  height: 2px;
+}
+.arco-tree-show-line .arco-tree-node-plus-icon::before {
+  height: 6px;
+  width: 2px;
+  margin-left: -1px;
+  margin-top: -3px;
+}
+.arco-tree-show-line .arco-tree-node-plus-icon::after {
+  width: 6px;
+  height: 2px;
+  margin-top: -1px;
+  margin-left: -3px;
+}
+.arco-tree-show-line .arco-tree-node-indent-block::before {
+  top: 0px;
+}
+.arco-tree .force-icon[stroke="currentColor"] {
+  color: #000;
+}
+.arco-tree .arco-tree-node-icon-hover:hover::before {
+  background-color: transparent;
+}
+.arco-tree .arco-tree-node-indent-block {
+  width: 12px;
+}
+.arco-tree.arco-tree-checkable .arco-tree-node-switcher {
+  margin-right: 6px;
+}
+.arco-tree.arco-tree-checkable .arco-tree-node-indent-block {
+  width: 8px;
+}

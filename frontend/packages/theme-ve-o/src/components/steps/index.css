@@ -1,0 +1,45 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-steps-item-finish:not(.arco-steps-item-active) .arco-steps-item-title {
+  font-weight: 500;
+}
+.arco-steps .steps-icon {
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  border-width: 2px !important;
+}
+.arco-steps-icon {
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  border-width: 2px !important;
+}
+.arco-steps-icon .arco-icon {
+  stroke-width: 6;
+}
+.arco-steps.arco-steps-size-small .arco-steps-icon {
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  border-width: 2px !important;
+}
+.arco-steps-item-active:not(.arco-steps-item-error) .arco-steps-icon {
+  border: 2px solid rgb(var(--primary-6));
+  box-shadow: 0 1px 0 rgba(20, 20, 20, 0.08);
+}

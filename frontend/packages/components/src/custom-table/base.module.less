@@ -1,0 +1,50 @@
+/* 表格标题组件基础样式 */
+.columnTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.columnText {
+  font-weight: 500;
+  color: var(--color-text-1, #1d2129);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.columnAction {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon {
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.iconBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.spin {
+  /* 自定义加载动画样式 */
+}

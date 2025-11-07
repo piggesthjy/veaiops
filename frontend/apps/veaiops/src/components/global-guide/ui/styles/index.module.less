@@ -1,0 +1,890 @@
+/* Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.globalGuide {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1400;
+  pointer-events: none;
+}
+
+/* 贴边展开按钮 */
+.edgeExpandButton {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1399;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+
+  &:hover {
+    width: 24px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 1) 0%, rgba(118, 75, 162, 1) 100%);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+}
+
+.edgeButtonIcon {
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  user-select: none;
+  animation: pulseArrow 2s ease-in-out infinite;
+}
+
+@keyframes pulseArrow {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-2px);
+    opacity: 0.7;
+  }
+}
+
+/* 侧边浮动引导面板 - 参考 BCM 样式 */
+.sideGuidePanel {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 12px 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1400;
+  position: relative; /* 为关闭按钮定位 */
+
+  &:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    transform: translateY(-50%) scale(1.02);
+  }
+
+  /* 贴边隐藏状态 */
+  &.collapsed {
+    right: -100%; /* 完全隐藏 */
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* 关闭按钮 */
+.closeButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+  opacity: 0; /* 默认隐藏 */
+  visibility: hidden;
+
+  &:hover {
+    background: rgba(22, 93, 255, 0.1);
+    border-color: rgba(22, 93, 255, 0.1);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.closeIcon {
+  font-size: 12px;
+  color: #86909c;
+  transition: color 0.2s ease;
+
+  .closeButton:hover & {
+    color: #165dff;
+  }
+}
+
+/* 面板悬停时显示关闭按钮 */
+.sideGuidePanel:hover .closeButton {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 引导图标 - 参考 BCM 样式 */
+.guideIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  &:hover::before {
+    transform: translateX(100%);
+  }
+}
+
+.iconWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradientContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(180deg,#a2bbff,#e4ccff);
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+.aiIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  z-index: 2;
+  position: relative;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* 步骤指示器 - 参考 BCM 样式 */
+.stepIndicators {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stepIndicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f7f8fa;
+  border: 2px solid #e5e6eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: #e8f4fd;
+    border-color: #165dff;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(22, 93, 255, 0.2);
+  }
+
+  &.completed {
+    background: linear-gradient(135deg, #00b42a 0%, #23c343 100%);
+    border-color: #00b42a;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 180, 42, 0.3);
+
+    &::after {
+      content: '✓';
+      position: absolute;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 2;
+    }
+  }
+}
+
+.stepNumber {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stepIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+
+  :global(.arco-icon) {
+    font-size: 14px;
+  }
+}
+
+/* 功能按钮 - 参考 BCM 样式 */
+.helpButton,
+.docButton,
+.messageButton,
+.expandButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f7f8fa;
+  border: 1px solid #e5e6eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: #e8f4fd;
+    border-color: #165dff;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(22, 93, 255, 0.2);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+      animation: shimmer 0.6s ease-in-out;
+    }
+  }
+}
+
+.helpIcon,
+.docIcon,
+.messageIcon,
+.expandIcon {
+  font-size: 16px;
+  color: #4e5969;
+}
+
+.messageButton {
+  position: relative;
+}
+
+.messageBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f53f3f;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 展开的引导面板 */
+.expandedPanel {
+  position: fixed;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 360px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  pointer-events: auto;
+  max-height: 95vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.panelTitle {
+  margin: 0;
+  background: linear-gradient(135deg, #a2bbff 0%, #e4ccff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.closeBtn {
+  color: #86909c;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #4e5969;
+  }
+}
+
+.panelContent {
+  padding: 24px;
+  flex: 1;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Welcome Section */
+.welcomeSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 32px 0;
+}
+
+.welcomeIcon {
+  margin-bottom: 20px;
+}
+
+.cloudIcon {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #a2bbff 0%, #e4ccff 100%);
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(162, 187, 255, 0.3);
+}
+
+.cloudShape {
+  width: 50px;
+  height: 32px;
+  background: #fff;
+  border-radius: 50px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 8px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -12px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+  }
+}
+
+.sparkleIcon {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 20px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.welcomeText {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1d2129;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* 当前步骤信息 */
+.currentStepInfo {
+  margin-bottom: 20px;
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.stepNumber {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #165dff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stepTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1d2129;
+}
+
+.stepDescription {
+  font-size: 14px;
+  color: #4e5969;
+  line-height: 1.5;
+}
+
+/* 完成条件 */
+.completionCriteria {
+  margin-bottom: 20px;
+}
+
+.criteriaTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d2129;
+  margin-bottom: 8px;
+}
+
+.criteriaItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.checkIcon {
+  color: #00b42a;
+  margin-right: 8px;
+  font-size: 12px;
+}
+
+.criteriaText {
+  font-size: 13px;
+  color: #4e5969;
+}
+
+/* 前端功能样式 */
+.frontendFeatures {
+  margin-bottom: 20px;
+}
+
+.featuresTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d2129;
+  margin-bottom: 8px;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.featureItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px;
+  background: #f7f8fa;
+  border-radius: 6px;
+  border: 1px solid #e5e6eb;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: #f2f3f5;
+    border-color: #165dff;
+  }
+
+
+  &.disabled {
+    background: #f5f5f5;
+    border-color: #d9d9d9;
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    &:hover {
+      background: #f5f5f5;
+      border-color: #d9d9d9;
+    }
+  }
+}
+
+.featureContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.featureBtn {
+  font-size: 12px;
+  font-weight: 500;
+  color: #165dff;
+  padding: 0;
+  height: auto;
+  line-height: 1.4;
+  text-align: left;
+
+  &:hover {
+    color: #0e42d2;
+    background: transparent;
+  }
+}
+
+.featureDescription {
+  font-size: 11px;
+  color: #86909c;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.goToConfigBtn {
+  font-size: 11px;
+  padding: 4px 8px;
+  height: auto;
+  min-width: auto;
+  flex-shrink: 0;
+}
+
+/* 问题提示 */
+.issuesSection {
+  margin-bottom: 20px;
+}
+
+.issuesHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.warningIcon {
+  color: #f53f3f;
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.issuesTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d2129;
+}
+
+.issuesList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.issueItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #fff2f0;
+  border-radius: 6px;
+  border: 1px solid #ffccc7;
+}
+
+.issueMessage {
+  font-size: 13px;
+  color: #4e5969;
+  flex: 1;
+  margin-right: 8px;
+}
+
+.fixBtn {
+  font-size: 12px;
+  padding: 4px 8px;
+  height: auto;
+}
+
+/* 日志导出区域 */
+.logExporterSection {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f7f8fa;
+  border-radius: 8px;
+  border: 1px solid #e5e6eb;
+}
+
+
+.completeBtn {
+  font-size: 14px;
+  padding: 8px 16px;
+  height: auto;
+}
+
+.arrowIcon {
+  margin-left: 4px;
+  font-size: 12px;
+}
+
+/* 动画效果 */
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background: linear-gradient(180deg,#a2bbff,#e4ccff);
+  }
+  25% {
+    background: linear-gradient(180deg,#a2bbff,#e4ccff);
+  }
+  50% {
+    background: linear-gradient(180deg,#a2bbff,#e4ccff);
+  }
+  75% {
+    background: linear-gradient(180deg,#a2bbff,#e4ccff);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .sideGuidePanel {
+    right: 10px;
+    padding: 8px 6px;
+    gap: 6px;
+  }
+
+  .guideIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .magicIcon {
+    font-size: 20px;
+  }
+
+  .stepIndicator {
+    width: 28px;
+    height: 28px;
+  }
+
+  .stepNumber {
+    font-size: 11px;
+  }
+
+  .helpButton,
+  .docButton,
+  .messageButton,
+  .expandButton {
+    width: 32px;
+    height: 32px;
+  }
+
+  .helpIcon,
+  .docIcon,
+  .messageIcon,
+  .expandIcon {
+    font-size: 14px;
+  }
+
+  .expandedPanel {
+    right: 60px;
+    width: 280px;
+    max-height: 70vh;
+  }
+
+  .panelContent {
+    padding: 16px;
+  }
+
+  .stepTitle {
+    font-size: 14px;
+  }
+
+  .stepDescription {
+    font-size: 13px;
+  }
+}
+
+/* 暗色主题支持 */
+@media (prefers-color-scheme: dark) {
+  .sideGuidePanel {
+    background: rgba(29, 33, 41, 0.95);
+    border-color: rgba(78, 89, 105, 0.3);
+  }
+
+  .stepIndicator {
+    background: #2e3440;
+    border-color: #4e5969;
+
+    &:hover {
+      background: #3c4043;
+      border-color: #165dff;
+    }
+
+    &.active {
+      background: #165dff;
+      border-color: #165dff;
+    }
+
+    &.completed {
+      background: #00b42a;
+      border-color: #00b42a;
+    }
+  }
+
+  .helpButton,
+  .docButton,
+  .messageButton,
+  .expandButton {
+    background: #2e3440;
+    border-color: #4e5969;
+
+    &:hover {
+      background: #3c4043;
+      border-color: #165dff;
+    }
+  }
+
+  .helpIcon,
+  .docIcon,
+  .messageIcon,
+  .expandIcon {
+    color: #c9cdd4;
+  }
+
+  .expandedPanel {
+    background: #1d2129;
+    border-color: #4e5969;
+  }
+
+  .panelHeader {
+    background: #2e3440;
+    border-color: #4e5969;
+  }
+
+  .panelTitle {
+    color: #f2f3f5;
+  }
+
+  .closeBtn {
+    color: #c9cdd4;
+
+    &:hover {
+      color: #f2f3f5;
+    }
+  }
+
+  .stepTitle {
+    color: #f2f3f5;
+  }
+
+  .stepDescription {
+    color: #c9cdd4;
+  }
+
+  .criteriaTitle {
+    color: #f2f3f5;
+  }
+
+  .criteriaText {
+    color: #c9cdd4;
+  }
+
+  .issuesTitle {
+    color: #f2f3f5;
+  }
+
+  .issueItem {
+    background: #2e3440;
+    border-color: #4e5969;
+  }
+
+  .issueMessage {
+    color: #c9cdd4;
+  }
+}

@@ -1,0 +1,283 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * 连接管理Hook
+ */
+
+import apiClient from '@/utils/api-client';
+import { Message } from '@arco-design/web-react';
+import { API_RESPONSE_CODE, PAGINATION } from '@veaiops/constants';
+import type { Connect, DataSourceType } from 'api-generate';
+import { useCallback, useState } from 'react';
+import type {
+  ConnectCreateRequest,
+  ConnectUpdateRequest,
+} from '../modules/system/features/datasource/connection/lib/types';
+
+interface ConnectionState {
+  connections: Connect[];
+  loading: boolean;
+  error: string | null;
+}
+
+export interface UpdateConnectionParams {
+  id: string;
+  data: ConnectUpdateRequest;
+}
+
+export interface BatchToggleStatusParams {
+  ids: string[];
+  active: boolean;
+}
+
+interface UseConnectionsReturn extends ConnectionState {
+  refresh: () => Promise<{ success: boolean; error?: Error }>;
+  create: (data: ConnectCreateRequest) => Promise<Connect>;
+  update: (params: UpdateConnectionParams) => Promise<Connect>;
+  delete: (id: string) => Promise<boolean>;
+  batchToggleStatus: (
+    params: BatchToggleStatusParams,
+  ) => Promise<{ success: boolean; error?: Error; results?: Connect[] }>;
+}
+
+export const useConnections = (type: DataSourceType): UseConnectionsReturn => {
+  const [state, setState] = useState<ConnectionState>({
+    connections: [],
+    loading: false,
+    error: null,
+  });
+
+  // 刷新连接列表
+  const refresh = useCallback(async (): Promise<{
+    success: boolean;
+    error?: Error;
+  }> => {
+    try {
+      setState((prev) => ({ ...prev, loading: true, error: null }));
+
+      const response =
+        await apiClient.dataSourceConnect.getApisV1DatasourceConnect({
+          limit: PAGINATION.DEFAULT_LIMIT,
+          skip: PAGINATION.DEFAULT_SKIP,
+        });
+
+      if (response.code === API_RESPONSE_CODE.SUCCESS) {
+        // 临时方案：仍然使用前端过滤，直到API重新生成
+        const allConnections = response.data || [];
+        const filteredConnections = allConnections
+          .filter((connect: Connect) => connect.type === type)
+          // 过滤掉没有ID的连接，防止后续操作失败
+          .filter((connect: Connect) => {
+            if (!connect.id && !connect._id) {
+              return false;
+            }
+            return true;
+          });
+
+        setState((prev) => ({
+          ...prev,
+          connections: filteredConnections,
+          loading: false,
+        }));
+
+        return { success: true };
+      } else {
+        throw new Error(response.message || '获取连接列表失败');
+      }
+    } catch (error: unknown) {
+      // ✅ 正确：透出实际错误信息
+      const errorObj =
+        error instanceof Error ? error : new Error(String(error));
+      const errorMessage = errorObj.message;
+
+      setState((prev) => ({
+        ...prev,
+        error: errorMessage,
+        loading: false,
+      }));
+
+      Message.error(errorMessage);
+
+      return { success: false, error: errorObj };
+    }
+  }, [type]);
+
+  // 创建连接
+  const create = useCallback(
+    async (data: ConnectCreateRequest): Promise<Connect> => {
+      try {
+        const response =
+          await apiClient.dataSourceConnect.postApisV1DatasourceConnect({
+            requestBody: { ...data, type },
+          });
+
+        if (response.code === API_RESPONSE_CODE.SUCCESS) {
+          // 刷新连接列表（错误已在 refresh 中处理）
+          await refresh();
+          return response.data!;
+        } else {
+          throw new Error(response.message || '创建连接失败');
+        }
+      } catch (error) {
+        // 增强错误信息，帮助上层组件做出更好的判断
+        if (error instanceof Error) {
+          const enhancedError = new Error(error.message);
+          enhancedError.name = error.name;
+          enhancedError.stack = error.stack;
+          // 添加自定义属性来帮助上层组件判断错误类型
+          (enhancedError as any).originalError = error;
+          (enhancedError as any).context = {
+            operation: 'create_connection',
+            type,
+            timestamp: Date.now(),
+          };
+          throw enhancedError;
+        }
+
+        // ✅ 正确：将错误转换为 Error 对象再抛出（符合 @typescript-eslint/only-throw-error 规则）
+        const errorObj =
+          error instanceof Error ? error : new Error(String(error));
+        throw errorObj;
+      }
+    },
+    [type, refresh],
+  );
+
+  // 更新连接
+  const update = useCallback(
+    async ({
+      id,
+      data,
+    }: { id: string; data: ConnectUpdateRequest }): Promise<Connect> => {
+      try {
+        const response =
+          await apiClient.dataSourceConnect.putApisV1DatasourceConnect({
+            connectId: id,
+            requestBody: data,
+          });
+
+        if (response.code === API_RESPONSE_CODE.SUCCESS) {
+          // 刷新连接列表（错误已在 refresh 中处理）
+          await refresh();
+          return response.data!;
+        } else {
+          throw new Error(response.message || '更新连接失败');
+        }
+      } catch (error) {
+        // 增强错误信息，帮助上层组件做出更好的判断
+        if (error instanceof Error) {
+          // 保持原始错误信息，但添加更多上下文
+          const enhancedError = new Error(error.message);
+          enhancedError.name = error.name;
+          enhancedError.stack = error.stack;
+          // 添加自定义属性来帮助上层组件判断错误类型
+          (enhancedError as any).originalError = error;
+          (enhancedError as any).context = {
+            operation: 'update_connection',
+            connectId: id,
+            timestamp: Date.now(),
+          };
+          throw enhancedError;
+        }
+
+        // ✅ 正确：将错误转换为 Error 对象再抛出（符合 @typescript-eslint/only-throw-error 规则）
+        const errorObj =
+          error instanceof Error ? error : new Error(String(error));
+        throw errorObj;
+      }
+    },
+    [refresh],
+  );
+
+  // 删除连接
+  const deleteConnect = useCallback(
+    async (id: string): Promise<boolean> => {
+      try {
+        const response =
+          await apiClient.dataSourceConnect.deleteApisV1DatasourceConnect({
+            connectId: id,
+          });
+
+        if (response.code === API_RESPONSE_CODE.SUCCESS) {
+          // 刷新连接列表（错误已在 refresh 中处理）
+          await refresh();
+          return true;
+        } else {
+          throw new Error(response.message || '删除连接失败');
+        }
+      } catch (error) {
+        // 增强错误信息，帮助上层组件做出更好的判断
+        if (error instanceof Error) {
+          const enhancedError = new Error(error.message);
+          enhancedError.name = error.name;
+          enhancedError.stack = error.stack;
+          // 添加自定义属性来帮助上层组件判断错误类型
+          (enhancedError as any).originalError = error;
+          (enhancedError as any).context = {
+            operation: 'delete_connection',
+            connectId: id,
+            timestamp: Date.now(),
+          };
+          throw enhancedError;
+        }
+
+        // ✅ 正确：将错误转换为 Error 对象再抛出（符合 @typescript-eslint/only-throw-error 规则）
+        const errorObj =
+          error instanceof Error ? error : new Error(String(error));
+        throw errorObj;
+      }
+    },
+    [refresh],
+  );
+
+  // 批量切换状态
+  const batchToggleStatus = useCallback(
+    async ({
+      ids,
+      active,
+    }: BatchToggleStatusParams): Promise<{
+      success: boolean;
+      error?: Error;
+      results?: Connect[];
+    }> => {
+      try {
+        const promises = ids.map((id) =>
+          update({ id, data: { is_active: active } }),
+        );
+        const results = await Promise.all(promises);
+        return { success: true, results };
+      } catch (error: unknown) {
+        // ✅ 正确：透出实际错误信息
+        const errorObj =
+          error instanceof Error ? error : new Error(String(error));
+        // ✅ 正确：透出实际错误信息
+        const errorMessage =
+          error instanceof Error ? error.message : '批量切换状态失败，请重试';
+        Message.error(errorMessage);
+        return { success: false, error: errorObj };
+      }
+    },
+    [update],
+  );
+
+  return {
+    ...state,
+    refresh,
+    create,
+    update,
+    delete: deleteConnect,
+    batchToggleStatus,
+  };
+};

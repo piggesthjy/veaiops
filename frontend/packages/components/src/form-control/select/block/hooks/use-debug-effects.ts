@@ -1,0 +1,81 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import { type MutableRefObject, useEffect } from 'react';
+import type { veArchSelectBlockProps } from '../types/interface';
+import type { SelectBlockState } from '../types/plugin';
+
+/**
+ * 调试副作用Hook
+ * 负责处理状态变化监控、全局调试方法暴露等调试相关副作用
+ */
+export function useDebugEffects({
+  currentState,
+  renderCountRef,
+  props,
+  value,
+  debugLogs,
+  consoleDebugLogs,
+  addDebugLog,
+}: {
+  currentState: SelectBlockState;
+  renderCountRef: MutableRefObject<number>;
+  props: veArchSelectBlockProps;
+  value: unknown;
+  debugLogs: Array<Record<string, unknown>>;
+  consoleDebugLogs: Array<Record<string, unknown>>;
+  addDebugLog: (action: string, data: Record<string, unknown>) => void;
+}) {
+  // === 渲染开始日志 ===
+  addDebugLog('HOOK_RENDER_START', {
+    renderCount: renderCountRef.current,
+    propsHash: JSON.stringify(props).slice(0, 100),
+    value,
+    currentState: {
+      ...currentState,
+      fetchOptions: `[${currentState.fetchOptions?.length || 0} items]`,
+    },
+  });
+
+  // === 状态变化监控 ===
+  useEffect(() => {
+    addDebugLog('STATE_CHANGE', {
+      currentState: {
+        ...currentState,
+        fetchOptions: `[${currentState.fetchOptions?.length || 0} items]`,
+      },
+      loading: currentState.loading,
+    });
+  }, [
+    currentState.loading,
+    currentState.fetching,
+    currentState.fetchOptions?.length,
+    addDebugLog,
+    currentState,
+  ]);
+
+  // === 全局调试方法暴露 ===
+  useEffect(() => {
+    const exportMethodName = `getSelectBlockDebugLogs`;
+    Reflect.set(window, exportMethodName, () => debugLogs);
+
+    const consoleExportMethodName = `getSelectBlockConsoleDebugLogs`;
+    Reflect.set(window, consoleExportMethodName, () => consoleDebugLogs);
+
+    return () => {
+      Reflect.deleteProperty(window, exportMethodName);
+      Reflect.deleteProperty(window, consoleExportMethodName);
+    };
+  }, [debugLogs, consoleDebugLogs]);
+}

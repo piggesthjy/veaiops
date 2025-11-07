@@ -1,0 +1,22 @@
+@primary-color: #3370ff;
+
+.card {
+  padding: 0 32px;
+  margin-top: 16px;
+}
+
+.header {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    margin-right: 8px;
+    background-color: @primary-color;
+    border-radius: 4px;
+    vertical-align: -3px;
+  }
+}

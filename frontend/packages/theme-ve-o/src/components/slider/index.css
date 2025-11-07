@@ -1,0 +1,118 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-slider
+  .arco-slider-road:not(
+    .arco-slider .arco-slider-road.arco-slider-road-vertical
+  )
+  .arco-slider-button {
+  width: 10px;
+  height: 18px;
+  margin-top: -5px;
+  border-radius: 4px;
+  box-shadow: 0 3.81242px 6.35403px rgba(0, 0, 0, 0.15), 0 0 1.27081px
+    rgba(0, 0, 0, 0.1);
+}
+.arco-slider
+  .arco-slider-road:not(
+    .arco-slider .arco-slider-road.arco-slider-road-vertical
+  )
+  .arco-slider-button::after {
+  width: 10px;
+  height: 18px;
+  border-radius: 4px;
+  transform: scale(1);
+}
+.arco-slider .arco-slider-road.arco-slider-road-vertical .arco-slider-button {
+  width: 18px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 4px;
+}
+.arco-slider
+  .arco-slider-road.arco-slider-road-vertical
+  .arco-slider-button::after {
+  width: 18px;
+  height: 10px;
+  border-radius: 4px;
+  transform: scale(1);
+}
+.arco-slider
+  .arco-slider-road:not(
+    .arco-slider .arco-slider-road.arco-slider-road-disabled
+  )
+  .arco-slider-button:hover {
+  box-shadow: 0 3.81242px 6.35403px rgba(9, 30, 66, 0.2), 0 0 1.27081px
+    rgba(9, 30, 66, 0.4);
+}
+.arco-slider
+  .arco-slider-road:not(
+    .arco-slider .arco-slider-road.arco-slider-road-disabled
+  )
+  .arco-slider-button:hover::after {
+  border-color: rgb(var(--primary-6));
+}
+.arco-slider
+  .arco-slider-road:not(
+    .arco-slider .arco-slider-road.arco-slider-road-disabled
+  )
+  .arco-slider-button-active::after {
+  border-color: rgb(var(--primary-6));
+  box-shadow:
+    0px 4px 4px rgba(0, 0, 0, 0.25),
+    0px 3.81242px 6.35403px rgba(9, 30, 66, 0.2),
+    0px 0px 0px 3px rgba(var(--primary-6), 0.3);
+}
+.arco-slider .arco-slider-road.arco-slider-road-disabled .arco-slider-button {
+  box-shadow: 0 3.81242px 6.35403px rgba(9, 30, 66, 0.2), 0 0 1.27081px
+    rgba(9, 30, 66, 0.4);
+}
+.arco-slider
+  .arco-slider-road.arco-slider-road-disabled
+  .arco-slider-button::after {
+  background: #ebecf0;
+}
+.arco-slider .arco-slider-ticks .arco-slider-tick {
+  margin-top: 4px;
+}
+.arco-slider-marks {
+  top: 18px;
+}
+.arco-slider-with-marks {
+  padding-left: 4px;
+}
+.arco-slider-with-marks .arco-slider-marks-text:first-child {
+  left: -4px !important;
+  transform: translateX(0%);
+}
+.arco-slider-dots .arco-slider-dot-wrapper .arco-slider-dot {
+  width: 2px;
+  border-width: 1px;
+  border-radius: 0;
+  background-color: transparent;
+}
+.arco-slider-dots
+  .arco-slider-dot-wrapper:not(:first-child):not(:last-child)
+  .arco-slider-dot {
+  margin-left: 1px;
+}
+body[arco-theme="dark"]
+  .arco-slider
+  .arco-slider-road.arco-slider-road-disabled
+  .arco-slider-button::after {
+  background-color: #282a2f;
+}

@@ -1,0 +1,75 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-upload-list-item-text-name .arco-upload-list-file-icon {
+  display: inline-flex;
+  margin-right: 8px;
+}
+.arco-upload-list .arco-icon-hover:hover::before {
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-bg-5);
+  border-radius: var(--border-radius-small);
+}
+.arco-upload .arco-upload-trigger-drag-text {
+  font-size: 16px;
+}
+.arco-upload-trigger-picture {
+  box-sizing: border-box;
+}
+.arco-upload-list-item-error .arco-upload-list-item-text {
+  background-color: rgb(var(--danger-2));
+}
+.arco-upload-list-item-error
+  .arco-upload-list-item-text
+  .arco-upload-list-error-icon
+  svg {
+  vertical-align: -2px;
+}
+.arco-upload-list-item-picture-operation .arco-upload-list-reupload-icon {
+  font-size: 20px;
+}
+.arco-upload-list-item-error .arco-upload-list-item-picture-mask {
+  background: rgb(var(--danger-2));
+}
+.arco-upload-list-item-error
+  .arco-upload-list-item-picture-mask:hover
+  .arco-upload-list-item-picture-error-tip {
+  display: block;
+}
+.arco-upload-list-item-error
+  .arco-upload-list-item-picture-mask:hover
+  .arco-upload-list-item-picture-operation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(2, 8, 20, 0.5);
+}
+.arco-upload-type-picture-card .arco-upload-trigger-picture-text svg {
+  font-size: 20px;
+}
+body[arco-theme="dark"]
+  .arco-upload-list-item-error
+  .arco-upload-list-item-text {
+  background-color: var(--color-alpha-danger2);
+}
+body[arco-theme="dark"]
+  .arco-upload-list-item-error
+  .arco-upload-list-item-picture-mask {
+  background-color: var(--color-alpha-danger2);
+}

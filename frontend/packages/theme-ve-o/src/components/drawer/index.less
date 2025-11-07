@@ -1,0 +1,48 @@
+.@{drawer-prefix-cls} {
+  &-content {
+    padding: 20px 24px 24px 24px;
+  }
+  &-header {
+    height: 56px;
+    padding: 0 24px;
+  }
+
+  .@{prefix}-drawer-close-icon {
+    display: inline-block;
+    top: 17px;
+    font-size: 20px;
+    line-height: 0;
+    &:hover::before {
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-6');
+    }
+  }
+
+  &-footer {
+    padding: 16px 24px;
+  }
+
+  &-inner {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+  }
+
+}
+// mask 颜色
+.@{prefix}-drawer-mask {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+// 目前没有全局样式，把icon样式放置于第一个组件内,按需的可能有问题
+.@{prefix}-icon-hover .force-icon {
+    position: relative;
+    vertical-align: -0.09em;
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}]{
+  .@{drawer-prefix-cls} {
+    background-color: @dark-color-bg-9;
+  }
+  // mask 颜色
+  .@{prefix}-drawer-mask {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}

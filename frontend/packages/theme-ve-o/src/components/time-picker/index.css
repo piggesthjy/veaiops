@@ -1,0 +1,91 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-timepicker-cell-selected {
+  display: flex;
+  justify-content: center;
+}
+.arco-timepicker-cell-selected .arco-timepicker-cell-inner {
+  width: 100%;
+  margin: 0 6px;
+  background-color: var(--color-bg-4);
+  border-radius: 4px;
+  color: rgb(var(--primary-6));
+}
+.arco-timepicker-cell-selected:hover .arco-timepicker-cell-inner {
+  color: var(--color-text-1);
+}
+.arco-timepicker-container {
+  margin-top: 2px;
+  background-color: var(--color-bg-white);
+}
+.arco-timepicker-cell:not(.arco-timepicker-cell-selected):not(
+    .arco-timepicker-cell-disabled
+  ):hover
+  .arco-timepicker-cell-inner {
+  background-color: var(--color-bg-4);
+  border-radius: 4px;
+  margin: 0 6px;
+}
+.arco-timepicker-footer-extra-wrapper,
+.arco-timepicker-footer-btn-wrapper {
+  border-top: 1px solid var(--color-border-2);
+}
+.arco-timepicker .arco-icon-hover::before {
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-bg-5);
+  border-radius: 50%;
+}
+.arco-timepicker .arco-icon-hover:hover::before {
+  background-color: var(--color-fill-1);
+}
+.arco-picker-range-container-shortcuts-placement-left
+  .arco-picker-shortcuts
+  .arco-btn.arco-btn-secondary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ),
+.arco-picker-container-shortcuts-placement-left
+  .arco-picker-shortcuts
+  .arco-btn.arco-btn-secondary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ) {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  font-weight: normal;
+}
+.arco-picker-range-container-shortcuts-placement-left
+  .arco-picker-shortcuts
+  .arco-btn.arco-btn-secondary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ):hover,
+.arco-picker-container-shortcuts-placement-left
+  .arco-picker-shortcuts
+  .arco-btn.arco-btn-secondary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ):hover {
+  color: rgb(var(--primary-6));
+  background-color: rgb(var(--link-2));
+  font-weight: 500;
+}
+body[arco-theme="dark"] .arco-timepicker-container {
+  background-color: var(--color-bg-8);
+}
+body[arco-theme="dark"] .arco-timepicker-list:not(:last-child) {
+  border-right-color: rgba(234, 237, 241, 0.05);
+}

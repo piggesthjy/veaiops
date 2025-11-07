@@ -1,0 +1,102 @@
+.@{calendar-prefix-cls} {
+  border-radius: @border-radius-large;
+  &-month &-cell {
+    .@{calendar-prefix-cls}-date-circle {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+  &-date-circle {
+    &:hover {
+      border: 1px solid rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+      background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+    }
+  }
+  &-header-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    border: 1px solid var(~'@{arco-cssvars-prefix}-color-border-3');
+  }
+  &-header-icon-hidden {
+    display: none;
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+    box-shadow: none;
+  }
+  &-header-icon:hover {
+    border: 1px solid rgb(var(~'@{arco-cssvars-prefix}-primary-5'));
+  }
+  &-header-icon:not(&-header-icon-hidden):hover {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+  }
+  .@{prefix}-radio-checked .@{prefix}-radio-button-inner {
+    background: var(~'@{arco-cssvars-prefix}-color-bg-white');
+    box-shadow:
+      0px 1px 2px rgba(0, 0, 0, 0.07),
+      0px 0.5px 1px rgba(0, 0, 0, 0.05),
+      0px 0px 0px 0.5px rgba(213, 219, 227, 0.7);
+    border-radius: @border-radius-medium;
+  }
+  .@{prefix}-radio-button-inner {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-5');
+  }
+  // &-week-list {
+  //   border-bottom: 1px solid var(~'@{arco-cssvars-prefix}-color-border-2');
+  // }
+  .@{prefix}-radio-button::after {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-5');
+  }
+  &-month-cell &-week-list {
+    box-shadow: unset;
+  }
+  &-panel &-week-list {
+    box-shadow: unset;
+  }
+  &-panel {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+    border-radius: @border-radius-medium;
+  }
+  // year 年视图
+  .@{prefix}-calendar-year-row {
+    &:not(:last-child) > {
+      .@{prefix}-calendar-cell {
+        border-bottom: none;
+      }
+    }
+    > .@{prefix}-calendar-cell:not(:last-child) {
+      border-right: none;
+    }
+    > .@{prefix}-calendar-cell {
+      padding: 12px 16px;
+    }
+  }
+  // 月视图
+  &-mode-month {
+    .@{calendar-prefix-cls}-header-value-month {
+      margin-right: 12px;
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{calendar-prefix-cls} {
+    &-header-icon-hidden {
+      box-shadow: none;
+    }
+    .@{prefix}-radio-checked .@{prefix}-radio-button-inner {
+      // box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.07), 0px 0.5px 1px rgba(0, 0, 0, 0.05), 0px 0px 0px 0.5px rgba(213, 219, 227, 0.7);
+      box-shadow: none;
+    }
+    &:not(.@{prefix}-radio-checked) {
+      .@{prefix}-radio-button-inner {
+        background-color: transparent;
+      }
+    }
+    // .@{calendar-prefix-cls}-week-list {
+    //   // border-bottom: 1px solid var(~'@{arco-cssvars-prefix}-color-border-3');
+    // }
+  }
+}

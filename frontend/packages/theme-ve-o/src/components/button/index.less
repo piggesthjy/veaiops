@@ -1,0 +1,210 @@
+.@{btn-prefix-cls} {
+  // primary主要按钮
+  @btn-primary-default-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+  @btn-primary-hover-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+  @btn-primary-active-shadow: none;
+  @btn-primary-disabled-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+
+  @btn-primary-color-border-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+  @btn-primary-color-border-shadow_hover: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  @btn-primary-color-border-shadow_disabled: 0px 1px 1px rgba(0, 0, 0, 0.15);
+
+  @btn-primary-color-border_danger-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+  @btn-primary-color-border_danger-shadow_hover: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  @btn-primary-color-border_danger-shadow_disabled: 0px 1px 1px
+    rgba(0, 0, 0, 0.15);
+
+  @btn-primary-color-border_success-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+  @btn-primary-color-border_success-shadow_hover: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  @btn-primary-color-border_success-shadow_disabled: 0px 1px 1px
+    rgba(0, 0, 0, 0.15);
+
+  @btn-primary-color-border_warning-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+  @btn-primary-color-border_warning-shadow_hover: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  @btn-primary-color-border_warning-shadow_disabled: 0px 1px 1px
+    rgba(0, 0, 0, 0.15);
+
+  // secondary
+  @btn-secondary-default-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-secondary-hover-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
+  @btn-secondary-active-shadow: none;
+  @btn-secondary-disabled-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+
+  @btn-secondary-color-border-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-secondary-color-border-shadow_hover: 0px 2px 3px rgba(0, 0, 0, 0.15);
+  @btn-secondary-color-border-shadow_disabled: 0px 1px 1px rgba(0, 0, 0, 0.08);
+
+  @btn-secondary-color-border_danger-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-secondary-color-border_danger-shadow_hover: 0px 1px 1px
+    rgba(0, 0, 0, 0.15);
+  @btn-secondary-color-border_danger-shadow_disabled: 0px 1px 1px
+    rgba(0, 0, 0, 0.08);
+
+  @btn-secondary-color-border_success-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-secondary-color-border_success-shadow_hover: 0px 1px 1px
+    rgba(0, 0, 0, 0.15);
+  @btn-secondary-color-border_success-shadow_disabled: 0px 1px 1px
+    rgba(0, 0, 0, 0.08);
+
+  @btn-secondary-color-border_warning-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-secondary-color-border_warning-shadow_hover: 0px 1px 1px
+    rgba(0, 0, 0, 0.15);
+  @btn-secondary-color-border_warning-shadow_disabled: 0px 1px 1px
+    rgba(0, 0, 0, 0.08);
+
+  // outline
+  @btn-outline-default-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-outline-hover-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
+  @btn-outline-active-shadow: none;
+  @btn-outline-disabled-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+
+  @btn-outline-color-border-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-outline-color-border-shadow_hover: 0px 2px 3px rgba(0, 0, 0, 0.15);
+  @btn-outline-color-border-shadow_disabled: 0px 1px 1px rgba(0, 0, 0, 0.08);
+
+  @btn-outline-color-border_danger-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-outline-color-border_danger-shadow_hover: 0px 1px 1px rgba(0, 0, 0, 0.15);
+  @btn-outline-color-border_danger-shadow_disabled: 0px 1px 1px
+    rgba(0, 0, 0, 0.08);
+
+  @btn-outline-color-border_success-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-outline-color-border_success-shadow_hover: 0px 1px 1px
+    rgba(0, 0, 0, 0.15);
+  @btn-outline-color-border_success-shadow_disabled: 0px 1px 1px
+    rgba(0, 0, 0, 0.08);
+
+  @btn-outline-color-border_warning-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  @btn-outline-color-border_warning-shadow_hover: 0px 1px 1px
+    rgba(0, 0, 0, 0.15);
+  @btn-outline-color-border_warning-shadow_disabled: 0px 1px 1px
+    rgba(0, 0, 0, 0.08);
+
+  .btn-type(@type) {
+    &.@{btn-prefix-cls}-@{type}:not(.@{btn-prefix-cls}-disabled):not(
+        .@{btn-prefix-cls}-loading
+      ) {
+      box-shadow: ~'@{btn-@{type}-default-shadow}';
+
+      &:hover {
+        box-shadow: ~'@{btn-@{type}-hover-shadow}';
+      }
+      &:active {
+        box-shadow: ~'@{btn-@{type}-active-shadow}';
+      }
+    }
+
+    &.@{btn-prefix-cls}-@{type}.@{btn-prefix-cls}-disabled {
+      box-shadow: ~'@{btn-@{type}-disabled-shadow}';
+    }
+  }
+
+  .btn-type(primary);
+  .btn-type(secondary);
+  .btn-type(outline);
+
+  // 按钮组 使用tooltip以及dropdown时，需要设置border-radius
+  &-group > span:last-child .@{prefix}-btn.@{btn-prefix-cls}-size-default {
+    border-radius: 0 @radius-medium @radius-medium 0;
+  }
+  &-group > span:first-child .@{prefix}-btn.@{btn-prefix-cls}-size-default {
+    border-right: 1px solid var(~'@{arco-cssvars-prefix}-color-bg-3');
+    border-radius: @radius-medium 0 0 @radius-medium;
+  }
+  // @v1.1.0
+  svg {
+    font-size: 16px;
+    vertical-align: -3px;
+  }
+  // @1.1.2 & @1.2.1
+  &-size-mini {
+    svg {
+      font-size: 12px;
+      vertical-align: -2px;
+    }
+  }
+}
+// --- dark ---
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .btn-type(@type) {
+    &.@{btn-prefix-cls}-@{type}:not(.@{btn-prefix-cls}-disabled):not(
+        .@{btn-prefix-cls}-not-loading
+      ) {
+      box-shadow: none;
+      &:hover {
+        box-shadow: none;
+      }
+      &:active {
+        box-shadow: none;
+      }
+    }
+
+    &.@{btn-prefix-cls}-@{type}.@{btn-prefix-cls}-disabled {
+      box-shadow: none;
+    }
+  }
+  .btn-type(primary);
+  .btn-type(secondary);
+  .btn-type(outline);
+  // primary特殊处理，亮暗保持一致
+  .@{btn-prefix-cls}-primary:not(.@{btn-prefix-cls}-disabled):not(
+      .@{btn-prefix-cls}-status-warning
+    ):not(.@{btn-prefix-cls}-status-danger):not(
+      .@{btn-prefix-cls}-status-success
+    ) {
+    background-color: @primary-6;
+    border-color: @primary-7;
+    &:hover {
+      background-color: @primary-5;
+      border-color: @primary-6;
+    }
+    &:active {
+      background-color: @primary-7;
+      border-color: @primary-8;
+    }
+  }
+  // 亮色-4的0.5透明度
+  @warning-dark-alpha-border: rgba(240, 165, 15, 0.5);
+  @danger-dark-alpha-border: rgba(255, 112, 109, 0.5);
+  @success-dark-alpha-border: rgba(92, 174, 119, 0.5);
+
+  .primary-btn(@status) {
+    .@{btn-prefix-cls}-primary.@{btn-prefix-cls}-status-@{status}:not(
+        .@{btn-prefix-cls}-disabled
+      ) {
+      background-color: ~'@{@{status}-6}';
+      border-color: ~'@{@{status}-7}';
+      &:hover {
+        background-color: ~'@{@{status}-5}';
+        border-color: ~'@{@{status}-6}';
+      }
+      &:active {
+        background-color: ~'@{@{status}-7}';
+        border-color: ~'@{@{status}-8}';
+      }
+    }
+    .@{btn-prefix-cls}-primary.@{btn-prefix-cls}-status-@{status}.@{btn-prefix-cls}-disabled {
+      background-color: ~'@{dark-color-alpha-@{status}3}';
+      border-color: ~'@{@{status}-dark-alpha-border}';
+    }
+  }
+  .primary-btn(success);
+  .primary-btn(danger);
+  .primary-btn(warning);
+
+  //
+  @primary-dark-alpha-border: rgba(102, 158, 255, 0.5);
+
+  .@{btn-prefix-cls}-primary.@{btn-prefix-cls}-disabled:not(
+      .@{btn-prefix-cls}-status-warning
+    ):not(.@{btn-prefix-cls}-status-danger):not(
+      .@{btn-prefix-cls}-status-success
+    ) {
+    background-color: @dark-color-alpha-link3;
+    // border-color: @dark-link-4;
+    border-color: @primary-dark-alpha-border;
+  }
+  .@{btn-prefix-cls}-primary.@{btn-prefix-cls}-disabled {
+    color: rgba(255, 255, 255, 0.6);
+  }
+}

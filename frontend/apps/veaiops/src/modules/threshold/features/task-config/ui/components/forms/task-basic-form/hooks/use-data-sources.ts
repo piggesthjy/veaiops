@@ -1,0 +1,109 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import apiClient from '@/utils/api-client';
+import { logger } from '@veaiops/utils';
+import { useMemo } from 'react';
+
+/**
+ * 数据源配置 Hook
+ */
+export const useDataSources = (datasourceType?: string) => {
+  const datasourceDataSource = useMemo(() => {
+    logger.info({
+      message: '[useDataSources] useMemo 执行 - datasourceDataSource 计算',
+      data: {
+        datasourceType,
+        timestamp: Date.now(),
+      },
+      source: 'UseDataSources',
+      component: 'useMemo',
+    });
+
+    if (!datasourceType) {
+      logger.debug({
+        message: '[useDataSources] datasourceDataSource - datasourceType 为空',
+        data: { datasourceType },
+        source: 'UseDataSources',
+        component: 'useDataSources',
+      });
+      return undefined;
+    }
+
+    const dataSource = {
+      serviceInstance: apiClient.dataSources,
+      api: `getApisV1Datasource${datasourceType}`,
+      payload: {},
+      responseEntityKey: 'data',
+      optionCfg: {
+        labelKey: 'name',
+        valueKey: '_id',
+      },
+    };
+
+    logger.info({
+      message: '[useDataSources] datasourceDataSource 创建/更新',
+      data: {
+        datasourceType,
+        api: dataSource.api,
+        dataSourceObject: {
+          api: dataSource.api,
+          hasServiceInstance: Boolean(dataSource.serviceInstance),
+          responseEntityKey: dataSource.responseEntityKey,
+        },
+        timestamp: Date.now(),
+        // 注意：当 datasourceType 变化时，会创建新的 dataSource 对象
+        // 这可能导致 Select.Block 组件检测到 dataSource 变化并触发重新请求
+      },
+      source: 'UseDataSources',
+      component: 'useDataSources',
+    });
+
+    return dataSource;
+  }, [datasourceType]);
+
+  const templateDataSource = useMemo(
+    () => ({
+      serviceInstance: apiClient.metricTemplate,
+      api: 'getApisV1DatasourceTemplate',
+      payload: {},
+      responseEntityKey: 'data',
+      optionCfg: {
+        labelKey: 'name',
+        valueKey: '_id',
+      },
+    }),
+    [],
+  );
+
+  const projectsDataSource = useMemo(
+    () => ({
+      serviceInstance: apiClient.projects,
+      api: 'getApisV1ManagerSystemConfigProjects',
+      payload: {},
+      responseEntityKey: 'data',
+      optionCfg: {
+        labelKey: 'name',
+        valueKey: 'name',
+      },
+    }),
+    [],
+  );
+
+  return {
+    datasourceDataSource,
+    templateDataSource,
+    projectsDataSource,
+  };
+};

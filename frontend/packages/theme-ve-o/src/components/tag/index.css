@@ -1,0 +1,60 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-tag:not(.arco-tag-custom-color):not(.arco-tag-red):not(
+    .arco-tag-orangered
+  ):not(.arco-tag-orange):not(.arco-tag-gold):not(.arco-tag-lime):not(
+    .arco-tag-green
+  ):not(.arco-tag-cyan):not(.arco-tag-blue):not(.arco-tag-arcoblue):not(
+    .arco-tag-purple
+  ):not(.arco-tag-pinkpurple):not(.arco-tag-magenta):not(.arco-tag-gray)
+  .arco-icon-hover.arco-tag-icon-hover {
+  color: var(--color-fill-2);
+}
+.arco-tag:not(.arco-tag-custom-color):not(.arco-tag-red):not(
+    .arco-tag-orangered
+  ):not(.arco-tag-orange):not(.arco-tag-gold):not(.arco-tag-lime):not(
+    .arco-tag-green
+  ):not(.arco-tag-cyan):not(.arco-tag-blue):not(.arco-tag-arcoblue):not(
+    .arco-tag-purple
+  ):not(.arco-tag-pinkpurple):not(.arco-tag-magenta):not(.arco-tag-gray)
+  .arco-icon-hover.arco-tag-icon-hover:hover::before {
+  background-color: var(--color-fill-1);
+}
+.arco-tag .arco-icon-hover:before {
+  border-radius: 50%;
+}
+.arco-tag .arco-icon-hover.arco-tag-icon-hover:before {
+  width: 12px;
+  height: 12px;
+}
+body[arco-theme="dark"] .arco-tag.arco-tag-checked.arco-tag-red {
+  color: #ff706d;
+  background-color: rgba(159, 33, 28, 0.2);
+}
+body[arco-theme="dark"] .arco-tag.arco-tag-checked.arco-tag-gold {
+  color: #f0a50f;
+  background-color: rgba(112, 75, 0, 0.2);
+}
+body[arco-theme="dark"] .arco-tag.arco-tag-checked.arco-tag-blue {
+  color: #6e9fff;
+  background-color: rgba(17, 74, 185, 0.2);
+}
+body[arco-theme="dark"] .arco-tag.arco-tag-checked.arco-tag-green {
+  color: #5cae77;
+  background-color: rgba(28, 94, 53, 0.2);
+}

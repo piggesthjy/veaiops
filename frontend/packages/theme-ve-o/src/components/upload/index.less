@@ -1,0 +1,86 @@
+.@{upload-prefix-cls} {
+  // 整体样式
+  &-list {
+    &-item-text-name {
+      .@{upload-prefix-cls}-list-file-icon {
+        display: inline-flex;
+        margin-right: 8px;
+      }
+    }
+  }
+  // 列表样式
+  &-list {
+    .@{prefix}-icon-hover {
+      &:hover {
+        &::before {
+          width: 28px;
+          height: 28px;
+          background-color: var(~'@{arco-cssvars-prefix}-color-bg-5');
+          border-radius: @radius-small;
+        }
+      }
+    }
+  }
+
+  // 文本
+  .@{prefix}-upload-trigger-drag-text {
+    font-size: 16px;
+  }
+
+  // 盒模型
+  &-trigger-picture {
+    box-sizing: border-box;
+  }
+
+  // 整体样式-error项
+  &-list-item-error &-list-item-text {
+    background-color: rgb(var(~'@{arco-cssvars-prefix}-danger-2'));
+    .@{upload-prefix-cls}-list-error-icon {
+      svg {
+        vertical-align: -2px;
+      }
+    }
+  }
+
+  // 重新上传
+  &-list-item-picture-operation &-list-reupload-icon {
+    font-size: 20px;
+  }
+  // 上传失败
+  &-list-item-error &-list-item-picture-mask {
+    background: rgb(var(~'@{arco-cssvars-prefix}-danger-2'));
+    &:hover {
+      .@{upload-prefix-cls}-list-item-picture-error-tip {
+        display: block;
+      }
+      .@{upload-prefix-cls}-list-item-picture-operation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(2, 8, 20, 0.5);
+      }
+    }
+  }
+  &-type-picture-card {
+    .@{upload-prefix-cls}-trigger-picture-text {
+      svg {
+        font-size: 20px;
+      }
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{upload-prefix-cls} {
+    &-list-item-error {
+      .@{upload-prefix-cls}-list-item-text {
+        background-color: var(~'@{arco-cssvars-prefix}-color-alpha-danger2');
+      }
+      .@{upload-prefix-cls}-list-item-picture-mask {
+        background-color: var(~'@{arco-cssvars-prefix}-color-alpha-danger2');
+      }
+    }
+  }
+}

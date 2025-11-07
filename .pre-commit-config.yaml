@@ -1,0 +1,110 @@
+# Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+repos:
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.5.5
+    hooks:
+      - id: insert-license
+        files: \.py$
+        args:
+          - --license-filepath
+          - veaiops/LICENSE_HEADER.txt
+          - --comment-style
+          - "#"
+      - id: insert-license
+        files: \.(js|ts|jsx|tsx)$
+        args:
+          - --license-filepath
+          - veaiops/LICENSE_HEADER.txt
+          - --comment-style
+          - "//"
+      - id: insert-license
+        files: \.(html|xml)$
+        args:
+          - --license-filepath
+          - veaiops/LICENSE_HEADER.txt
+          - --comment-style
+          - "<!--| | -->"
+      - id: insert-license
+        files: \.(css|scss)$
+        args:
+          - --license-filepath
+          - veaiops/LICENSE_HEADER.txt
+          - --comment-style
+          - "/*| | */"
+      - id: insert-license
+        files: \.ya?ml$
+        exclude: |
+          (?x)^(
+              .*pnpm-lock\.yaml|
+              .*pnpm-workspace\.yaml|
+              .*workspace\.yaml|
+              .*lock\.yaml
+          )$
+        args:
+          - --license-filepath
+          - veaiops/LICENSE_HEADER.txt
+          - --comment-style
+          - "#"
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        exclude: (^mkdocs\.yml|charts/)
+      - id: check-json
+        exclude: |
+          (?x)^(
+              .*tsconfig.*\.json
+          )$
+      - id: check-toml
+      - id: check-added-large-files
+        args: ["--maxkb=1000"]
+        exclude: images/
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: detect-private-key
+      - id: no-commit-to-branch
+        args: ["--branch", "main", "--branch", "master"]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.13.0
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  # Security checks
+  - repo: https://github.com/PyCQA/bandit
+    rev: "1.8.6"
+    hooks:
+      - id: bandit
+        args: ["-r", "--format", "custom", "--severity-level", "high"]
+        additional_dependencies: ["pbr"]
+
+  # Spell checking
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        args: ["--ignore-words-list=te,nd,bu,nin,medias"]
+        exclude: |
+          (?x)^(
+              .*pnpm-lock\.yaml|
+              .*package-lock\.json|
+              .*yarn\.lock
+          )$

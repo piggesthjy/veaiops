@@ -1,0 +1,34 @@
+# skip husky in CI
+# https://typicode.github.io/husky/guide.html#with-env-variables
+[ -n "$CI" ] && exit 0
+
+echo "🔍 Running pre-commit checks..."
+
+# Run Python pre-commit hooks
+echo "🐍 Running Python pre-commit hooks..."
+uv run pre-commit run --all-files
+
+# If Python pre-commit fails, block the commit
+if [ $? -ne 0 ]; then
+    echo "❌ Python pre-commit hooks failed. Please fix the issues and try again."
+    exit 1
+fi
+
+# Run frontend lint-staged checks (if Node environment exists)
+if command -v node >/dev/null 2>&1 && [ -d "frontend/node_modules" ]; then
+    echo "🌐 Running frontend lint-staged checks..."
+    cd frontend && npx lint-staged
+
+    # If frontend checks fail, block the commit
+    if [ $? -ne 0 ]; then
+        echo "❌ Frontend lint checks failed. Please fix the issues and try again."
+        exit 1
+    fi
+
+    # Return to root directory
+    cd ..
+else
+    echo "⚠️  Node.js environment not found or frontend dependencies not installed, skipping frontend checks..."
+fi
+
+echo "✅ All pre-commit checks completed successfully!"

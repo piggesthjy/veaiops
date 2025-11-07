@@ -1,0 +1,188 @@
+/**
+ * 智能空值单元格样式
+ */
+
+.smartEmptyCell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--color-fill-2, #f2f3f5);
+      border-radius: 4px;
+    }
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+  }
+
+  .emptyText {
+    color: var(--color-text-4, #c9cdd4);
+    font-style: italic;
+  }
+
+  .placeholder {
+    color: var(--color-text-3, #86909c);
+    font-size: 12px;
+
+    .clickable &:hover {
+      color: var(--color-primary-6, #165dff);
+    }
+  }
+
+  .addButton {
+    color: var(--color-primary-6, #165dff);
+    font-size: 12px;
+    padding: 0 4px;
+    height: auto;
+
+    &:hover {
+      background-color: var(--color-primary-1, #e8f3ff);
+    }
+  }
+
+  .iconContainer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--color-text-3, #86909c);
+    font-size: 12px;
+
+    .iconText {
+      font-size: 12px;
+    }
+
+    .clickable &:hover {
+      color: var(--color-primary-6, #165dff);
+    }
+  }
+
+  .contextualHint {
+    color: var(--color-warning-6, #ff7d00);
+    font-size: 12px;
+    font-style: italic;
+  }
+
+  .permissionHint {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-4, #c9cdd4);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  .editHint {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-primary-6, #165dff);
+    font-size: 12px;
+    opacity: 0.8;
+
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  .tooltipTrigger {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+}
+
+// 必填字段标签样式
+.smartEmptyCell :global(.arco-tag) {
+  font-size: 11px;
+  padding: 1px 4px;
+  line-height: 1.2;
+}
+
+// 动画
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.8);
+  }
+  to {
+    opacity: 0.8;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+// 暗色主题适配
+@media (prefers-color-scheme: dark) {
+  .smartEmptyCell {
+    &.clickable:hover {
+      background-color: var(--color-fill-3, #2a2d33);
+    }
+
+    .emptyText {
+      color: var(--color-text-4, #6b6f76);
+    }
+
+    .placeholder {
+      color: var(--color-text-3, #878b91);
+    }
+
+    .contextualHint {
+      color: var(--color-warning-5, #ff9626);
+    }
+  }
+}
+
+// 禁用状态
+.smartEmptyCell.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: transparent;
+  }
+
+  .addButton,
+  .iconContainer,
+  .placeholder {
+    color: var(--color-text-4, #c9cdd4);
+    cursor: not-allowed;
+  }
+}
+
+// 加载状态
+.smartEmptyCell.loading {
+  .placeholder {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--color-text-4, #c9cdd4);
+      border-top-color: var(--color-primary-6, #165dff);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}

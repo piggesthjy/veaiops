@@ -1,0 +1,427 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import apiClient from '@/utils/api-client';
+import { Button, Form, Message } from '@arco-design/web-react';
+import { IconPlus } from '@arco-design/web-react/icon';
+import { API_RESPONSE_CODE } from '@veaiops/constants';
+import { useManagementRefresh } from '@veaiops/hooks';
+import { createTableRequestWrapper, logger } from '@veaiops/utils';
+import type {
+  AttributeItem,
+  SubscribeRelationCreate,
+  SubscribeRelationUpdate,
+  SubscribeRelationWithAttributes,
+} from 'api-generate';
+import { StatusCodes } from 'http-status-codes';
+import React, { useState, useCallback, useMemo } from 'react';
+
+/**
+ * 订阅关系表格数据类型
+ */
+export interface SubscriptionTableData extends SubscribeRelationWithAttributes {
+  key: string;
+  [key: string]: any; // 添加索引签名以满足 BaseRecord 约束
+}
+
+/**
+ * 转换订阅关系数据为表格数据
+ */
+const transformSubscriptionToTableData = (
+  subscription: any,
+): SubscriptionTableData => {
+  return {
+    ...subscription,
+    id: subscription.id || `temp-${Date.now()}-${Math.random()}`,
+    key: subscription.id || `temp-${Date.now()}-${Math.random()}`,
+    name: subscription.name || '未命名订阅关系',
+    agent_type: subscription.agent_type,
+    inform_strategy_ids: subscription.inform_strategy_ids || [],
+    event_level: subscription.event_level,
+    start_time: subscription.start_time,
+    end_time: subscription.end_time,
+    created_at: subscription.created_at || new Date().toISOString(),
+    updated_at: subscription.updated_at || new Date().toISOString(),
+    attributes: subscription.attributes || [],
+    interest_products: subscription.interest_products || [],
+    interest_projects: subscription.interest_projects || [],
+    interest_customers: subscription.interest_customers || [],
+    enable_webhook: subscription.enable_webhook,
+    webhook_endpoint: subscription.webhook_endpoint,
+    webhook_headers: subscription.webhook_headers,
+  };
+};
+
+/**
+ * 订阅管理逻辑Hook
+ * 提供订阅管理页面的所有业务逻辑
+ */
+export const useSubscriptionManagementLogic = (
+  refreshTable?: () => Promise<void>,
+) => {
+  // 使用管理刷新 Hook
+  const { afterCreate, afterUpdate, afterDelete } =
+    useManagementRefresh(refreshTable);
+  const [form] = Form.useForm();
+  const [editingSubscription, setEditingSubscription] =
+    useState<SubscribeRelationWithAttributes | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  /**
+   * 创建订阅关系
+   */
+  const createSubscription = useCallback(
+    async (subscriptionData: SubscribeRelationCreate): Promise<boolean> => {
+      try {
+        const response =
+          await apiClient.subscribe.postApisV1ManagerEventCenterSubscribe({
+            requestBody: subscriptionData,
+          });
+
+        if (response.code === API_RESPONSE_CODE.SUCCESS && response.data) {
+          Message.success('事件订阅创建成功');
+          return true;
+        } else {
+          throw new Error(response.message || '创建订阅关系失败');
+        }
+      } catch (error) {
+        Message.error(
+          error instanceof Error ? error.message : '创建订阅关系失败',
+        );
+        return false;
+      }
+    },
+    [],
+  );
+
+  /**
+   *更新订阅关系
+   */
+  const updateSubscription = useCallback(
+    async (
+      subscriptionId: string,
+      updateData: SubscribeRelationUpdate,
+    ): Promise<boolean> => {
+      try {
+        const response =
+          await apiClient.subscribe.putApisV1ManagerEventCenterSubscribe({
+            uid: subscriptionId,
+            requestBody: updateData,
+          });
+
+        if (response.code === API_RESPONSE_CODE.SUCCESS && response.data) {
+          Message.success('订阅更新成功');
+          return true;
+        }
+
+        throw new Error(response.message || '更新订阅关系失败');
+      } catch (error) {
+        Message.error(
+          error instanceof Error ? error.message : '更新订阅关系失败',
+        );
+        return false;
+      }
+    },
+    [],
+  );
+
+  /**
+   *删除订阅关系
+   */
+  const deleteSubscription = useCallback(
+    async (subscriptionId: string): Promise<boolean> => {
+      try {
+        const response =
+          await apiClient.subscribe.deleteApisV1ManagerEventCenterSubscribe({
+            uid: subscriptionId,
+          });
+
+        if (response.code === API_RESPONSE_CODE.SUCCESS) {
+          Message.success('订阅关系删除成功');
+          return true;
+        }
+
+        throw new Error(response.message || '删除订阅关系失败');
+      } catch (error) {
+        Message.error(
+          error instanceof Error ? error.message : '删除订阅关系失败',
+        );
+        return false;
+      }
+    },
+    [],
+  );
+
+  // 删除订阅关系处理器
+  const handleDelete = useCallback(
+    async (subscriptionId: string) => {
+      try {
+        const success = await deleteSubscription(subscriptionId);
+        if (success) {
+          // 删除成功后刷新表格
+          await afterDelete();
+          return true;
+        }
+        return false;
+      } catch (error) {
+        Message.error('删除失败，请重试');
+        return false;
+      }
+    },
+    [deleteSubscription, afterDelete],
+  );
+
+  // 创建订阅关系处理器
+  const handleCreate = useCallback(
+    async (values: SubscribeRelationCreate) => {
+      try {
+        const success = await createSubscription(values);
+        if (success) {
+          setModalVisible(false);
+          form.resetFields();
+          // 创建成功后刷新表格
+          await afterCreate();
+          return true;
+        }
+        return false;
+      } catch (error) {
+        Message.error('创建失败，请重试');
+        return false;
+      }
+    },
+    [createSubscription, form, afterCreate],
+  );
+
+  // 更新订阅关系处理器
+  const handleUpdate = useCallback(
+    async (values: SubscribeRelationUpdate) => {
+      try {
+        const success = await updateSubscription(
+          editingSubscription?._id || '',
+          values,
+        );
+        if (success) {
+          setModalVisible(false);
+          setEditingSubscription(null);
+          form.resetFields();
+          // 更新成功后刷新表格
+          await afterUpdate();
+          return true;
+        }
+        return false;
+      } catch (error) {
+        Message.error('更新失败，请重试');
+        return false;
+      }
+    },
+    [editingSubscription, updateSubscription, form, afterUpdate],
+  );
+
+  // 处理表单提交
+  const handleSubmit = useCallback(
+    async (
+      values: SubscribeRelationCreate | SubscribeRelationUpdate,
+    ): Promise<boolean> => {
+      const success = editingSubscription
+        ? await handleUpdate(values as SubscribeRelationUpdate)
+        : await handleCreate(values as SubscribeRelationCreate);
+
+      if (!success) {
+        // 阻止弹窗在失败时自动关闭
+        throw new Error('Operation failed but error message was displayed.');
+      }
+      return success;
+    },
+    [editingSubscription, handleUpdate, handleCreate],
+  );
+
+  // 打开编辑弹窗
+  const handleEdit = useCallback(
+    (subscription: SubscribeRelationWithAttributes) => {
+      setEditingSubscription(subscription);
+      form.setFieldsValue({
+        ...subscription,
+      });
+      setModalVisible(true);
+    },
+    [form],
+  );
+
+  // 打开新增弹窗
+  const handleAdd = useCallback(() => {
+    setEditingSubscription(null);
+    form.resetFields();
+    setModalVisible(true);
+  }, [form]);
+
+  // 关闭弹窗
+  const handleCancel = useCallback(() => {
+    setModalVisible(false);
+    setEditingSubscription(null);
+    form.resetFields();
+  }, [form]);
+
+  return {
+    // 状态
+    modalVisible,
+    editingSubscription,
+    form,
+
+    // 事件处理器
+    handleEdit,
+    handleAdd,
+    handleCancel,
+    handleSubmit,
+    handleDelete,
+  };
+};
+
+/**
+ * 订阅关系表格配置Hook
+ * 提供数据源配置等（列配置已移至组件中处理）
+ */
+export const useSubscriptionTableConfig = ({
+  handleEdit: _handleEdit,
+  handleDelete: _handleDelete,
+}: {
+  handleEdit: (subscription: SubscribeRelationWithAttributes) => void;
+  handleDelete: (subscriptionId: string) => Promise<boolean>;
+}) => {
+  // 🔍 Hook 执行计数（用于调试）
+  const hookExecutionRef = React.useRef(0);
+  hookExecutionRef.current++;
+
+  logger.debug({
+    message: '[useSubscriptionTableConfig] Hook 执行',
+    data: {
+      executionCount: hookExecutionRef.current,
+      handleEditRef: _handleEdit,
+      handleDeleteRef: _handleDelete,
+    },
+    source: 'useSubscriptionTableConfig',
+    component: 'useSubscriptionTableConfig',
+  });
+
+  /**
+   * CustomTable的request函数
+   * 🔧 使用 useMemo 稳定化函数引用，避免触发不必要的表格刷新
+   * 直接调用API获取数据
+   */
+  const request = useMemo(
+    () => {
+      logger.debug({
+        message: '[useSubscriptionTableConfig] request 函数创建',
+        data: {
+          executionCount: hookExecutionRef.current,
+        },
+        source: 'useSubscriptionTableConfig',
+        component: 'useMemo',
+      });
+
+      return createTableRequestWrapper({
+        apiCall: async (params: Record<string, any>) => {
+          try {
+            const response =
+              await apiClient.subscribe.getApisV1ManagerEventCenterSubscribe({
+                skip: params.skip || 0,
+                limit: params.limit || 10,
+                ...params,
+              });
+
+            if (response.code === API_RESPONSE_CODE.SUCCESS && response.data) {
+              const tableData = response.data.map(
+                transformSubscriptionToTableData,
+              );
+              return {
+                data: tableData,
+                total: (response as any).total ?? tableData.length,
+              };
+            } else {
+              throw new Error(response.message || '获取订阅关系列表失败');
+            }
+          } catch (error) {
+            Message.error('加载订阅关系列表失败，请重试');
+            return {
+              data: [],
+              total: 0,
+            };
+          }
+        },
+        defaultLimit: 10,
+      });
+    },
+    [], // request 函数不依赖任何外部变量，使用空依赖数组
+  );
+
+  // 🔧 使用 useMemo 稳定化 dataSource 对象引用，避免触发不必要的表格刷新
+  const dataSource = useMemo(() => {
+    logger.debug({
+      message: '[useSubscriptionTableConfig] dataSource 对象创建',
+      data: {
+        executionCount: hookExecutionRef.current,
+        requestRef: request,
+      },
+      source: 'useSubscriptionTableConfig',
+      component: 'useMemo',
+    });
+
+    return {
+      request,
+      ready: true,
+      isServerPagination: true,
+    };
+  }, [request]);
+
+  // 🔧 使用 useMemo 稳定化 tableProps 对象引用
+  const tableProps = useMemo(
+    () => ({
+      rowKey: '_id',
+      scroll: { x: 2000 },
+      pagination: {
+        pageSize: 10,
+        showTotal: (total: number) => `共 ${total} 条记录`,
+        showJumper: true,
+        sizeCanChange: true,
+        sizeOptions: [10, 20, 50, 100],
+      },
+    }),
+    [],
+  );
+
+  return {
+    dataSource,
+    tableProps,
+  };
+};
+
+/**
+ * 订阅关系操作按钮配置Hook
+ * 提供表格工具栏操作按钮配置
+ */
+export const useSubscriptionActionConfig = (onAdd: () => void) => {
+  const actions = [
+    React.createElement(
+      Button,
+      {
+        key: 'add',
+        type: 'primary',
+        icon: React.createElement(IconPlus),
+        onClick: onAdd,
+      },
+      '新建订阅',
+    ),
+  ];
+
+  return { actions };
+};

@@ -1,0 +1,225 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-btn.arco-btn-primary:not(.arco-btn-disabled):not(.arco-btn-loading) {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+}
+.arco-btn.arco-btn-primary:not(.arco-btn-disabled):not(
+    .arco-btn-loading
+  ):hover {
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+.arco-btn.arco-btn-primary:not(.arco-btn-disabled):not(
+    .arco-btn-loading
+  ):active {
+  box-shadow: none;
+}
+.arco-btn.arco-btn-primary.arco-btn-disabled {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+}
+.arco-btn.arco-btn-secondary:not(.arco-btn-disabled):not(.arco-btn-loading) {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+}
+.arco-btn.arco-btn-secondary:not(.arco-btn-disabled):not(
+    .arco-btn-loading
+  ):hover {
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
+}
+.arco-btn.arco-btn-secondary:not(.arco-btn-disabled):not(
+    .arco-btn-loading
+  ):active {
+  box-shadow: none;
+}
+.arco-btn.arco-btn-secondary.arco-btn-disabled {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+}
+.arco-btn.arco-btn-outline:not(.arco-btn-disabled):not(.arco-btn-loading) {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+}
+.arco-btn.arco-btn-outline:not(.arco-btn-disabled):not(
+    .arco-btn-loading
+  ):hover {
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
+}
+.arco-btn.arco-btn-outline:not(.arco-btn-disabled):not(
+    .arco-btn-loading
+  ):active {
+  box-shadow: none;
+}
+.arco-btn.arco-btn-outline.arco-btn-disabled {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+}
+.arco-btn-group > span:last-child .arco-btn.arco-btn-size-default {
+  border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+}
+.arco-btn-group > span:first-child .arco-btn.arco-btn-size-default {
+  border-right: 1px solid var(--color-bg-3);
+  border-radius: var(--border-radius-medium) 0 0 var(--border-radius-medium);
+}
+.arco-btn svg {
+  font-size: 16px;
+  vertical-align: -3px;
+}
+.arco-btn-size-mini svg {
+  font-size: 12px;
+  vertical-align: -2px;
+}
+body[arco-theme="dark"].arco-btn-primary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ) {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-primary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ):hover {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-primary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ):active {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-primary.arco-btn-disabled {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-secondary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ) {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-secondary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ):hover {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-secondary:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ):active {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-secondary.arco-btn-disabled {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-outline:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ) {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-outline:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ):hover {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-outline:not(.arco-btn-disabled):not(
+    .arco-btn-not-loading
+  ):active {
+  box-shadow: none;
+}
+body[arco-theme="dark"].arco-btn-outline.arco-btn-disabled {
+  box-shadow: none;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary:not(.arco-btn-disabled):not(.arco-btn-status-warning):not(
+    .arco-btn-status-danger
+  ):not(.arco-btn-status-success) {
+  background-color: #1664ff;
+  border-color: #1759dd;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary:not(.arco-btn-disabled):not(.arco-btn-status-warning):not(
+    .arco-btn-status-danger
+  ):not(.arco-btn-status-success):hover {
+  background-color: #387bff;
+  border-color: #1664ff;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary:not(.arco-btn-disabled):not(.arco-btn-status-warning):not(
+    .arco-btn-status-danger
+  ):not(.arco-btn-status-success):active {
+  background-color: #1759dd;
+  border-color: #114ab9;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-success:not(.arco-btn-disabled) {
+  background-color: #2a814b;
+  border-color: #237040;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-success:not(.arco-btn-disabled):hover {
+  background-color: #309256;
+  border-color: #2a814b;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-success:not(.arco-btn-disabled):active {
+  background-color: #237040;
+  border-color: #1c5e35;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-success.arco-btn-disabled {
+  background-color: rgba(92, 174, 119, 0.3);
+  border-color: rgba(92, 174, 119, 0.5);
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-danger:not(.arco-btn-disabled) {
+  background-color: #d7312a;
+  border-color: #bd2923;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-danger:not(.arco-btn-disabled):hover {
+  background-color: #ee3f38;
+  border-color: #d7312a;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-danger:not(.arco-btn-disabled):active {
+  background-color: #bd2923;
+  border-color: #9f211c;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-danger.arco-btn-disabled {
+  background-color: rgba(255, 112, 109, 0.3);
+  border-color: rgba(255, 112, 109, 0.5);
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-warning:not(.arco-btn-disabled) {
+  background-color: #bd7e00;
+  border-color: #996600;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-warning:not(.arco-btn-disabled):hover {
+  background-color: #d08d06;
+  border-color: #bd7e00;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-warning:not(.arco-btn-disabled):active {
+  background-color: #996600;
+  border-color: #7a5200;
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-status-warning.arco-btn-disabled {
+  background-color: rgba(240, 165, 15, 0.3);
+  border-color: rgba(240, 165, 15, 0.5);
+}
+body[arco-theme="dark"]
+  .arco-btn-primary.arco-btn-disabled:not(.arco-btn-status-warning):not(
+    .arco-btn-status-danger
+  ):not(.arco-btn-status-success) {
+  background-color: #6e9fff;
+  border-color: rgba(102, 158, 255, 0.5);
+}
+body[arco-theme="dark"] .arco-btn-primary.arco-btn-disabled {
+  color: rgba(255, 255, 255, 0.6);
+}

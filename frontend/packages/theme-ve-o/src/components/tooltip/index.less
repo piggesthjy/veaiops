@@ -1,0 +1,22 @@
+.@{tooltip-prefix-cls} {
+  &-content {
+    // background-color: rgb(var(~'@{arco-cssvars-prefix}-color-grey-8'));
+    background-color: @color-grey-8;
+  }
+  &-arrow-container &-arrow {
+    background-color: @color-grey-8;
+    // background-color: rgb(var(~'@{arco-cssvars-prefix}-color-grey-8'));
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{tooltip-prefix-cls} {
+    &-content {
+      // background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    }
+    &-arrow-container .@{tooltip-prefix-cls}-arrow {
+      // background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    }
+  }
+}

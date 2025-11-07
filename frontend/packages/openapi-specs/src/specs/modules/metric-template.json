@@ -1,0 +1,653 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MetricTemplate API",
+    "version": "1.0.0",
+    "description": "MetricTemplate management endpoints"
+  },
+  "paths": {
+    "/apis/v1/datasource/template/": {
+      "get": {
+        "summary": "Get All Metric Templates",
+        "description": "Get all metric templates with optional pagination",
+        "tags": ["Metric Template"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of templates to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "description": "Maximum number of templates to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseMetricTemplateList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Metric Template",
+        "description": "Create a new metric template",
+        "tags": ["Metric Template"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetricTemplateCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/datasource/template/{uid}": {
+      "get": {
+        "summary": "Get Metric Template",
+        "description": "Get a metric template by ID",
+        "tags": ["Metric Template"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Template unique identifier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseMetricTemplate"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Metric Template",
+        "description": "Update a metric template",
+        "tags": ["Metric Template"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Template unique identifier"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetricTemplateUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Metric Template",
+        "description": "Delete a metric template (soft delete)",
+        "tags": ["Metric Template"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Template unique identifier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/datasource/template/{uid}/toggle": {
+      "put": {
+        "summary": "Toggle Template Active Status",
+        "description": "Active or disable a metric template",
+        "tags": ["Metric Template"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Template unique identifier"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToggleActiveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Toggle Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseMetricTemplate"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MetricType": {
+        "type": "string",
+        "enum": [
+          "SelfDefined",
+          "SuccessRate",
+          "SuccessRate100",
+          "ErrorRate",
+          "ErrorRate100",
+          "CounterRate",
+          "Count",
+          "ErrorCount",
+          "FatalErrorCount",
+          "Latency",
+          "LatencySecond",
+          "LatencyMicrosecond",
+          "ResourceUtilizationRate",
+          "ResourceUtilizationRate100",
+          "CPUUsedCore",
+          "MemoryUsedBytes",
+          "Throughput"
+        ],
+        "description": "Metric type enumeration"
+      },
+      "MetricTemplate": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Template ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Template name"
+          },
+          "metric_type": {
+            "$ref": "#/components/schemas/MetricType",
+            "description": "Metric type"
+          },
+          "min_step": {
+            "type": "number",
+            "description": "Minimum step"
+          },
+          "max_value": {
+            "type": "number",
+            "description": "Maximum value"
+          },
+          "min_value": {
+            "type": "number",
+            "description": "Minimum value"
+          },
+          "min_violation": {
+            "type": "number",
+            "description": "Minimum violation value"
+          },
+          "min_violation_ratio": {
+            "type": "number",
+            "description": "Minimum violation ratio"
+          },
+          "normal_range_start": {
+            "type": "number",
+            "description": "Normal range start"
+          },
+          "normal_range_end": {
+            "type": "number",
+            "description": "Normal range end"
+          },
+          "missing_value": {
+            "type": "string",
+            "nullable": true,
+            "description": "Fill value for missing data"
+          },
+          "failure_interval_expectation": {
+            "type": "integer",
+            "description": "Single anomaly elimination period"
+          },
+          "display_unit": {
+            "type": "string",
+            "description": "Display unit"
+          },
+          "linear_scale": {
+            "type": "number",
+            "description": "Display coefficient"
+          },
+          "max_time_gap": {
+            "type": "integer",
+            "description": "Maximum time gap with no data"
+          },
+          "min_ts_length": {
+            "type": "integer",
+            "description": "Minimum time series length"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Whether the template is active",
+            "default": true
+          },
+          "created_user": {
+            "type": "string",
+            "nullable": true,
+            "description": "The user who created the template"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updated_user": {
+            "type": "string",
+            "nullable": true,
+            "description": "The user who last updated the template"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "name",
+          "metric_type",
+          "min_step",
+          "max_value",
+          "min_value",
+          "min_violation",
+          "min_violation_ratio",
+          "normal_range_start",
+          "normal_range_end",
+          "failure_interval_expectation",
+          "display_unit",
+          "linear_scale",
+          "max_time_gap",
+          "min_ts_length"
+        ]
+      },
+      "MetricTemplateCreateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Template name"
+          },
+          "metric_type": {
+            "$ref": "#/components/schemas/MetricType",
+            "description": "Metric type"
+          },
+          "min_step": {
+            "type": "number",
+            "description": "Minimum step"
+          },
+          "max_value": {
+            "type": "number",
+            "description": "Maximum value"
+          },
+          "min_value": {
+            "type": "number",
+            "description": "Minimum value"
+          },
+          "min_violation": {
+            "type": "number",
+            "description": "Minimum violation value"
+          },
+          "min_violation_ratio": {
+            "type": "number",
+            "description": "Minimum violation ratio"
+          },
+          "normal_range_start": {
+            "type": "number",
+            "description": "Normal range start"
+          },
+          "normal_range_end": {
+            "type": "number",
+            "description": "Normal range end"
+          },
+          "missing_value": {
+            "type": "string",
+            "nullable": true,
+            "description": "Fill value for missing data"
+          },
+          "failure_interval_expectation": {
+            "type": "integer",
+            "description": "Single anomaly elimination period"
+          },
+          "display_unit": {
+            "type": "string",
+            "description": "Display unit"
+          },
+          "linear_scale": {
+            "type": "number",
+            "description": "Display coefficient"
+          },
+          "max_time_gap": {
+            "type": "integer",
+            "description": "Maximum time gap with no data"
+          },
+          "min_ts_length": {
+            "type": "integer",
+            "description": "Minimum time series length"
+          }
+        },
+        "required": [
+          "name",
+          "metric_type",
+          "min_step",
+          "max_value",
+          "min_value",
+          "min_violation",
+          "min_violation_ratio",
+          "normal_range_start",
+          "normal_range_end",
+          "failure_interval_expectation",
+          "display_unit",
+          "linear_scale",
+          "max_time_gap",
+          "min_ts_length"
+        ]
+      },
+      "MetricTemplateValue": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Template name"
+          },
+          "metric_type": {
+            "$ref": "#/components/schemas/MetricType",
+            "description": "Metric type"
+          },
+          "min_step": {
+            "type": "number",
+            "description": "Minimum step"
+          },
+          "max_value": {
+            "type": "number",
+            "description": "Maximum value"
+          },
+          "min_value": {
+            "type": "number",
+            "description": "Minimum value"
+          },
+          "min_violation": {
+            "type": "number",
+            "description": "Minimum violation value"
+          },
+          "min_violation_ratio": {
+            "type": "number",
+            "description": "Minimum violation ratio"
+          },
+          "normal_range_start": {
+            "type": "number",
+            "description": "Normal range start"
+          },
+          "normal_range_end": {
+            "type": "number",
+            "description": "Normal range end"
+          },
+          "missing_value": {
+            "type": "string",
+            "nullable": true,
+            "description": "Fill value for missing data"
+          },
+          "failure_interval_expectation": {
+            "type": "integer",
+            "description": "Single anomaly elimination period"
+          },
+          "display_unit": {
+            "type": "string",
+            "description": "Display unit"
+          },
+          "linear_scale": {
+            "type": "number",
+            "description": "Display coefficient"
+          },
+          "max_time_gap": {
+            "type": "integer",
+            "description": "Maximum time gap with no data"
+          },
+          "min_ts_length": {
+            "type": "integer",
+            "description": "Minimum time series length"
+          }
+        },
+        "required": [
+          "name",
+          "metric_type",
+          "min_step",
+          "max_value",
+          "min_value",
+          "min_violation",
+          "min_violation_ratio",
+          "normal_range_start",
+          "normal_range_end",
+          "failure_interval_expectation",
+          "display_unit",
+          "linear_scale",
+          "max_time_gap",
+          "min_ts_length"
+        ]
+      },
+      "MetricTemplateUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Template name"
+          },
+          "metric_type": {
+            "$ref": "#/components/schemas/MetricType",
+            "description": "Metric type"
+          },
+          "min_step": {
+            "type": "number",
+            "description": "Minimum step"
+          },
+          "max_value": {
+            "type": "number",
+            "description": "Maximum value"
+          },
+          "min_value": {
+            "type": "number",
+            "description": "Minimum value"
+          },
+          "min_violation": {
+            "type": "number",
+            "description": "Minimum violation value"
+          },
+          "min_violation_ratio": {
+            "type": "number",
+            "description": "Minimum violation ratio"
+          },
+          "normal_range_start": {
+            "type": "number",
+            "description": "Normal range start"
+          },
+          "normal_range_end": {
+            "type": "number",
+            "description": "Normal range end"
+          },
+          "missing_value": {
+            "type": "string",
+            "nullable": true,
+            "description": "Fill value for missing data"
+          },
+          "failure_interval_expectation": {
+            "type": "integer",
+            "description": "Single anomaly elimination period"
+          },
+          "display_unit": {
+            "type": "string",
+            "description": "Display unit"
+          },
+          "linear_scale": {
+            "type": "number",
+            "description": "Display coefficient"
+          },
+          "max_time_gap": {
+            "type": "integer",
+            "description": "Maximum time gap with no data"
+          },
+          "min_ts_length": {
+            "type": "integer",
+            "description": "Minimum time series length"
+          }
+        },
+        "description": "Update data for metric template. All fields are optional."
+      },
+      "ToggleActiveRequest": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "description": "True: active, False: disabled"
+          }
+        },
+        "required": ["active"]
+      },
+      "APIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "default": 0,
+            "description": "Detailed status code"
+          },
+          "message": {
+            "type": "string",
+            "default": "success",
+            "description": "Response description"
+          },
+          "data": {
+            "description": "Resource data"
+          }
+        }
+      },
+      "APIResponseMetricTemplate": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "default": 0,
+            "description": "Detailed status code"
+          },
+          "message": {
+            "type": "string",
+            "default": "success",
+            "description": "Response description"
+          },
+          "data": {
+            "$ref": "#/components/schemas/MetricTemplate"
+          }
+        }
+      },
+      "APIResponseMetricTemplateList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "default": 0,
+            "description": "Detailed status code"
+          },
+          "message": {
+            "type": "string",
+            "default": "success",
+            "description": "Response description"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetricTemplate"
+            }
+          }
+        }
+      }
+    }
+  }
+}

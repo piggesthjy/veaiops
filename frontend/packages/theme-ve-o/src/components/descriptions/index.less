@@ -1,0 +1,16 @@
+.@{descriptions-prefix-cls} {
+  &-item-label,
+  &-item-value {
+    font-size: @font-size-body-2;
+  }
+  &:not(.@{descriptions-prefix-cls}-border) {
+    .@{descriptions-prefix-cls}-item-label {
+      padding-right: @spacing-8;
+    }
+  }
+  &.@{descriptions-prefix-cls}-layout-inline-vertical {
+    .@{descriptions-prefix-cls}-item-label-inline {
+      margin-bottom: 4px;
+    }
+  }
+}

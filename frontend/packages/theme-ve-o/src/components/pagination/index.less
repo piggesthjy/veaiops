@@ -1,0 +1,112 @@
+.@{pagination-prefix-cls} {
+  &-item {
+    padding: 0 4px;
+  }
+  &-jumper {
+    padding: 0 @spacing-4;
+    background: var(~'@{arco-cssvars-prefix}-color-bg-white');
+    border-radius: @border-radius-medium;
+    border: 1px solid var(~'@{arco-cssvars-prefix}-color-border-3');
+    &-input {
+      box-shadow: none;
+      border: none;
+      &:hover,
+      &:focus {
+        box-shadow: none;
+        border: none;
+      }
+    }
+  }
+  &-option {
+    .@{prefix}-select {
+      min-width: 92px;
+    }
+  }
+  &-total-text {
+    color: var(~'@{arco-cssvars-prefix}-color-text-2');
+  }
+  // 不同尺寸保持两种
+  .tiny-pagination(@paginationSize) {
+    &.@{pagination-prefix-cls}-size-@{paginationSize} {
+      .@{pagination-prefix-cls}-item-prev,
+      .@{pagination-prefix-cls}-item-next {
+        line-height: 18px;
+      }
+      .@{prefix}-select-size-@{paginationSize} {
+        .@{prefix}-select-view {
+          height: 20px;
+          line-height: 18px;
+          font-size: 13px;
+          padding: 0 8px;
+          .@{prefix}-select-arrow-icon {
+            line-height: 6px;
+          }
+        }
+      }
+      .@{pagination-prefix-cls}-jumper {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        height: 20px;
+        &-input {
+          height: 18px;
+          padding-top: @spacing-1;
+          padding-bottom: @spacing-1;
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+    }
+  }
+  .tiny-pagination(mini);
+  .tiny-pagination(small);
+
+  .big-pagination(@paginationSize) {
+    &.@{pagination-prefix-cls}-size-@{paginationSize} {
+      .@{pagination-prefix-cls}-item-prev,
+      .@{pagination-prefix-cls}-item-next {
+        line-height: 22px;
+      }
+      .@{prefix}-select-size-@{paginationSize} {
+        .@{prefix}-select-view {
+          height: 24px;
+          line-height: 22px;
+          font-size: 13px;
+          padding: 0 8px;
+          .@{prefix}-select-arrow-icon {
+            line-height: 6px;
+          }
+        }
+      }
+      .@{pagination-prefix-cls}-jumper-input {
+        height: 22px;
+        padding-top: @spacing-2;
+        padding-bottom: @spacing-2;
+        font-size: 12px;
+      }
+    }
+  }
+  .big-pagination(default);
+  .big-pagination(large);
+  // 简洁模式按钮
+  .@{pagination-prefix-cls}-jumper {
+    .@{pagination-prefix-cls}-jumper-input {
+      width: 26px;
+      padding-left: 4px;
+    }
+    > span {
+      font-size: 12px;
+    }
+  }
+  &-item-simple-pager {
+    margin: 0 6px;
+    .@{pagination-prefix-cls}-jumper {
+      padding: 0 12px 0 0;
+    }
+  }
+}
+// 目前没有全局样式，把icon样式放置于第一个组件内,按需的可能有问题
+.@{prefix}-icon-hover .force-icon {
+  position: relative;
+  vertical-align: -0.09em;
+}

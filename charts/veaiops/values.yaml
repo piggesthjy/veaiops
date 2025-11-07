@@ -1,0 +1,549 @@
+# Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Default values for veaiops.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## @param global.imageRegistry Global Docker image registry
+## @param global.imagePullSecrets Global Docker registry secret names as an array
+## @param global.security.allowInsecureImages Allow use of insecure Docker images
+##
+global:
+  ## @param global.imageRegistry Global Docker image registry
+  imageRegistry: ""
+  ## @param global.imagePullSecrets Global Docker registry secret names as an array
+  ## E.g.
+  ## imagePullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  imagePullSecrets: []
+  security:
+    ## @param global.security.allowInsecureImages Allow use of insecure Docker images
+    allowInsecureImages: false
+
+## Ingress configuration
+## @param ingress.className Specify the ingress class name to use for the Ingress resource.(only support nginx now)
+## @param ingress.host Specify the host to use for the Ingress resource.
+## @param ingress.tlsSecretName Specify the tls secret name to use for the Ingress resource.
+##
+ingress:
+  ## @param ingress.className Specify the ingress class name to use for the Ingress resource.(only support nginx now)
+  className: nginx
+  ## @param ingress.host Specify the host to use for the Ingress resource.
+  host: "veaiops.example-stable.com"
+  ## @param ingress.tlsSecretName Specify the tls secret name to use for the Ingress resource.
+  tlsSecretName: ""
+
+## @param salt Specify the salt to use for the encryption key. Auto generated if empty.
+##
+salt: ""
+
+## @param timeZone used for container tzdata.
+##
+timeZone: "Asia/Shanghai"
+
+## Environment variables configuration
+##
+env:
+  # Init Configs (+required)
+  ## @param env.INIT_ADMIN_USERNAME Initial admin username
+  INIT_ADMIN_USERNAME: "admin"
+  ## @param env.INIT_ADMIN_EMAIL Initial admin email
+  INIT_ADMIN_EMAIL: "admin@veaiops.com"
+  ## @param env.INIT_ADMIN_PASSWORD Initial admin password
+  INIT_ADMIN_PASSWORD: "admin123456"
+
+  # Webhook Configs (+optional)
+  ## @param env.WEBHOOK_SECRET Secret token for webhook authentication
+  WEBHOOK_SECRET: ""
+  ## @param env.WEBHOOK_URL URL to send webhook notifications to
+  WEBHOOK_URL: ""
+  ## @param env.WEBHOOK_EVENT_CENTER_EXTERNAL_URL External URL for the event center webhook
+  WEBHOOK_EVENT_CENTER_EXTERNAL_URL: ""
+
+  # Bot Configs
+  ## @param env.BOT_CHANNEL Bot channel type (e.g. Lark)
+  BOT_CHANNEL: Lark # (+optional)
+  ## @param env.BOT_ID Bot ID
+  BOT_ID: "" # (+optional)
+  ## @param env.BOT_NAME Bot name
+  BOT_NAME: "" # (+optional)
+  ## @param env.BOT_SECRET Bot secret for authentication
+  BOT_SECRET: "" # (+optional)
+  ## @param env.BOT_TEMPLATE_ID Bot template ID
+  BOT_TEMPLATE_ID: "" # (+optional)
+
+  # Agent Configs
+  ## @param env.LLM_API_BASE LLM API base URL
+  LLM_API_BASE: "" # (+optional)
+  ## @param env.LLM_API_KEY LLM API key
+  LLM_API_KEY: "" # (+optional)
+  ## @param env.LLM_EMBEDDING_NAME LLM embedding model name
+  LLM_EMBEDDING_NAME: "" # (+optional)
+  ## @param env.LLM_NAME LLM model name
+  LLM_NAME: "" # (+optional)
+
+  # Log Configs(+optional)
+  ## @param env.LOG_FILE Log file path
+  LOG_FILE: veaiops.log
+  ## @param env.LOG_LEVEL Log level (DEBUG, INFO, WARNING, ERROR)
+  LOG_LEVEL: INFO
+
+  # Otel Configs(+optional)
+  ## @param env.OTEL_ENABLED Enable OpenTelemetry tracing
+  OTEL_ENABLED: "false"
+  ## @param env.OTEL_EXPORTER_OTLP_ENDPOINT OTLP exporter endpoint URL
+  OTEL_EXPORTER_OTLP_ENDPOINT: ""
+  ## @param env.OTEL_MAX_EXPORT_BATCH_SIZE Maximum batch size for OTEL export
+  OTEL_MAX_EXPORT_BATCH_SIZE: "512"
+  ## @param env.OTEL_MAX_QUEUE_SIZE Maximum queue size for OTEL
+  OTEL_MAX_QUEUE_SIZE: "2048"
+  ## @param env.OTEL_SCHEDULE_DELAY_MILLIS OTEL export schedule delay in milliseconds
+  OTEL_SCHEDULE_DELAY_MILLIS: "5000"
+  ## @param env.OTEL_SERVICE_ENVIRONMENT Service environment name
+  OTEL_SERVICE_ENVIRONMENT: production
+  ## @param env.OTEL_SERVICE_NAME Service name for OTEL
+  OTEL_SERVICE_NAME: veaiops
+  ## @param env.OTEL_SERVICE_VERSION Service version for OTEL
+  OTEL_SERVICE_VERSION: 0.0.1
+  ## @param env.OTEL_TRACE_ID_RATIO Ratio of traces to sample (0.0 to 1.0)
+  OTEL_TRACE_ID_RATIO: "1.0"
+
+  # Volcengine Configs(+optional)
+  ## @param env.VOLCENGINE_AK Volcengine access key
+  VOLCENGINE_AK: ""
+  ## @param env.VOLCENGINE_EXTRA_KB_COLLECTIONS Extra knowledge base collections as JSON array
+  VOLCENGINE_EXTRA_KB_COLLECTIONS: '[]'
+  ## @param env.VOLCENGINE_SK Volcengine secret key
+  VOLCENGINE_SK: ""
+  ## @param env.VOLCENGINE_TOS_ENDPOINT Volcengine TOS endpoint URL
+  VOLCENGINE_TOS_ENDPOINT: ""
+  ## @param env.VOLCENGINE_TOS_REGION Volcengine TOS region
+  VOLCENGINE_TOS_REGION: ""
+
+## MongoDB configuration
+## @param mongodb.external.host External MongoDB host (if using external MongoDB)
+## @param mongodb.external.username External MongoDB username
+## @param mongodb.external.password External MongoDB password
+## @param mongodb.enabled Enable embedded MongoDB
+## @param mongodb.image.registry MongoDB image registry
+## @param mongodb.image.repository MongoDB image repository
+## @param mongodb.image.tag MongoDB image tag
+## @param mongodb.auth.enabled Enable MongoDB authentication
+## @param mongodb.auth.rootPassword MongoDB root password
+## @param mongodb.architecture MongoDB architecture (standalone, replicaset)
+## @param mongodb.persistence.enabled Enable MongoDB persistence
+##
+mongodb:
+  external:
+    ## @param mongodb.external.host External MongoDB host (if using external MongoDB)
+    host: ""
+    ## @param mongodb.external.username External MongoDB username
+    username: ""
+    ## @param mongodb.external.password External MongoDB password
+    password: ""
+  ## @param mongodb.enabled Enable embedded MongoDB
+  enabled: true
+  image:
+    ## @param mongodb.image.registry MongoDB image registry
+    registry: veaiops-registry-cn-beijing.cr.volces.com
+    ## @param mongodb.image.repository MongoDB image repository
+    repository: veaiops/mongodb
+    ## @param mongodb.image.tag MongoDB image tag
+    tag: latest
+  auth:
+    ## @param mongodb.auth.enabled Enable MongoDB authentication
+    enabled: true
+    ## @param mongodb.auth.rootPassword MongoDB root password
+    rootPassword: "Veaiops_123456"
+  ## @param mongodb.architecture MongoDB architecture (standalone, replicaset)
+  architecture: standalone
+  persistence:
+    ## @param mongodb.persistence.enabled Enable MongoDB persistence
+    enabled: false
+
+## Redis configuration
+## @param redis.external.host External Redis host (if using external Redis)
+## @param redis.external.password External Redis password
+## @param redis.enabled Enable embedded Redis
+## @param redis.architecture Redis architecture (standalone, sentinel)
+## @param redis.auth.enabled Enable Redis authentication
+## @param redis.image.registry Redis image registry
+## @param redis.image.repository Redis image repository
+## @param redis.image.tag Redis image tag
+## @param redis.master.persistence.enabled Enable Redis master persistence
+## @param redis.replica.persistence.enabled Enable Redis replica persistence
+##
+redis:
+  external:
+    ## @param redis.external.host External Redis host (if using external Redis)
+    host: ""
+    ## @param redis.external.password External Redis password
+    password: ""
+  ## @param redis.enabled Enable embedded Redis
+  enabled: false
+  ## @param redis.architecture Redis architecture (standalone, sentinel)
+  architecture: standalone
+  auth:
+    ## @param redis.auth.enabled Enable Redis authentication
+    enabled: false
+  image:
+    ## @param redis.image.registry Redis image registry
+    registry: veaiops-registry-cn-beijing.cr.volces.com
+    ## @param redis.image.repository Redis image repository
+    repository: veaiops/redis
+    ## @param redis.image.tag Redis image tag
+    tag: latest
+  master:
+    persistence:
+      ## @param redis.master.persistence.enabled Enable Redis master persistence
+      enabled: false
+  replica:
+    persistence:
+      ## @param redis.replica.persistence.enabled Enable Redis replica persistence
+      enabled: false
+
+## Backend service configuration
+## @param backend.labels Labels to apply to backend pods
+## @param backend.podAnnotations Annotations to apply to backend pods
+## @param backend.image.registry Backend image registry
+## @param backend.image.repository Backend image repository
+## @param backend.image.tag Backend image tag
+## @param backend.image.pullPolicy Backend image pull policy
+## @param backend.image.pullSecrets Specify docker-registry secret names as an array
+## @param backend.resources Resource requests and limits for the backend
+## @param backend.nodeSelector Node selector for the backend
+## @param backend.affinity Affinity rules for the backend
+## @param backend.tolerations Tolerations for the backend
+## @param backend.strategy Deployment strategy for the backend
+## @param backend.replicaCount Number of backend replicas to deploy
+##
+backend:
+  ## @param backend.labels Labels to apply to backend pods
+  labels:
+    app: veaiops-backend
+  ## @param backend.podAnnotations Annotations to apply to backend pods
+  podAnnotations: {}
+  ## @param backend.image.registry Backend image registry
+  ## @param backend.image.repository Backend image repository
+  ## @param backend.image.tag Backend image tag (immutable tags are recommended)
+  ## @param backend.image.pullPolicy Backend image pull policy
+  ## @param backend.image.pullSecrets Specify docker-registry secret names as an array
+  ##
+  image:
+    registry: veaiops-registry-cn-beijing.cr.volces.com
+    repository: veaiops/backend
+    tag: latest
+    pullPolicy: Always
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## Example:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+  ## @param backend.resources Resource requests and limits for the backend
+  resources: {}
+    # If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  ## @param backend.nodeSelector Node selector for the backend
+  nodeSelector: {}
+  ## @param backend.affinity Affinity rules for the backend
+  affinity: {}
+  ## @param backend.tolerations Tolerations for the backend
+  tolerations: []
+  # - key: node-role.kubernetes.io/master
+  #   operator: Exists
+  ## @param backend.strategy Deployment strategy for the backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 50%
+  ## @param backend.replicaCount Number of backend replicas to deploy
+  replicaCount: 1
+
+
+## ChatOps service configuration
+## @param chatops.labels Labels to apply to chatops pods
+## @param chatops.podAnnotations Annotations to apply to chatops pods
+## @param chatops.image.registry ChatOps image registry
+## @param chatops.image.repository ChatOps image repository
+## @param chatops.image.tag ChatOps image tag
+## @param chatops.image.pullPolicy ChatOps image pull policy
+## @param chatops.image.pullSecrets Specify docker-registry secret names as an array
+## @param chatops.resources Resource requests and limits for ChatOps
+## @param chatops.nodeSelector Node selector for ChatOps
+## @param chatops.affinity Affinity rules for ChatOps
+## @param chatops.tolerations Tolerations for ChatOps
+## @param chatops.strategy Deployment strategy for ChatOps
+## @param chatops.replicaCount Number of ChatOps replicas to deploy
+##
+chatops:
+  ## @param chatops.labels Labels to apply to chatops pods
+  labels:
+    app: veaiops-chatops
+  ## @param chatops.podAnnotations Annotations to apply to chatops pods
+  podAnnotations: {}
+  ## @param chatops.image.registry ChatOps image registry
+  ## @param chatops.image.repository ChatOps image repository
+  ## @param chatops.image.tag ChatOps image tag (immutable tags are recommended)
+  ## @param chatops.image.pullPolicy ChatOps image pull policy
+  ## @param chatops.image.pullSecrets Specify docker-registry secret names as an array
+  ##
+  image:
+    registry: veaiops-registry-cn-beijing.cr.volces.com
+    repository: veaiops/chatops
+    tag: latest
+    pullPolicy: Always
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## Example:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+  ## @param chatops.resources Resource requests and limits for ChatOps
+  resources: {}
+    # If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  ## @param chatops.nodeSelector Node selector for ChatOps
+  nodeSelector: {}
+  ## @param chatops.affinity Affinity rules for ChatOps
+  affinity: {}
+  ## @param chatops.tolerations Tolerations for ChatOps
+  tolerations: []
+  # - key: node-role.kubernetes.io/master
+  #   operator: Exists
+  ## @param chatops.strategy Deployment strategy for ChatOps
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 50%
+  ## @param chatops.replicaCount Number of ChatOps replicas to deploy
+  replicaCount: 1
+
+## Frontend service configuration
+## @param frontend.labels Labels to apply to frontend pods
+## @param frontend.podAnnotations Annotations to apply to frontend pods
+## @param frontend.image.registry Frontend image registry
+## @param frontend.image.repository Frontend image repository
+## @param frontend.image.tag Frontend image tag
+## @param frontend.image.pullPolicy Frontend image pull policy
+## @param frontend.image.pullSecrets Specify docker-registry secret names as an array
+## @param frontend.resources Resource requests and limits for the frontend
+## @param frontend.nodeSelector Node selector for the frontend
+## @param frontend.affinity Affinity rules for the frontend
+## @param frontend.tolerations Tolerations for the frontend
+## @param frontend.strategy Deployment strategy for the frontend
+## @param frontend.replicaCount Number of frontend replicas to deploy
+##
+frontend:
+  ## @param frontend.labels Labels to apply to frontend pods
+  labels:
+    app: veaiops-frontend
+  ## @param frontend.podAnnotations Annotations to apply to frontend pods
+  podAnnotations: {}
+  ## @param frontend.image.registry Frontend image registry
+  ## @param frontend.image.repository Frontend image repository
+  ## @param frontend.image.tag Frontend image tag (immutable tags are recommended)
+  ## @param frontend.image.pullPolicy Frontend image pull policy
+  ## @param frontend.image.pullSecrets Specify docker-registry secret names as an array
+  ##
+  image:
+    registry: veaiops-registry-cn-beijing.cr.volces.com
+    repository: veaiops/frontend
+    tag: latest
+    pullPolicy: Always
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## Example:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+  ## @param frontend.resources Resource requests and limits for the frontend
+  resources: {}
+    # If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  ## @param frontend.nodeSelector Node selector for the frontend
+  nodeSelector: {}
+  ## @param frontend.affinity Affinity rules for the frontend
+  affinity: {}
+  ## @param frontend.tolerations Tolerations for the frontend
+  tolerations: []
+  # - key: node-role.kubernetes.io/master
+  #   operator: Exists
+  ## @param frontend.strategy Deployment strategy for the frontend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 50%
+  ## @param frontend.replicaCount Number of frontend replicas to deploy
+  replicaCount: 1
+
+
+## Intelligent Threshold service configuration
+## @param intelligentThreshold.labels Labels to apply to intelligent threshold pods
+## @param intelligentThreshold.podAnnotations Annotations to apply to intelligent threshold pods
+## @param intelligentThreshold.image.registry Intelligent threshold image registry
+## @param intelligentThreshold.image.repository Intelligent threshold image repository
+## @param intelligentThreshold.image.tag Intelligent threshold image tag
+## @param intelligentThreshold.image.pullPolicy Intelligent threshold image pull policy
+## @param intelligentThreshold.image.pullSecrets Specify docker-registry secret names as an array
+## @param intelligentThreshold.resources Resource requests and limits for intelligent threshold
+## @param intelligentThreshold.nodeSelector Node selector for intelligent threshold
+## @param intelligentThreshold.affinity Affinity rules for intelligent threshold
+## @param intelligentThreshold.tolerations Tolerations for intelligent threshold
+## @param intelligentThreshold.strategy Deployment strategy for intelligent threshold
+## @param intelligentThreshold.replicaCount Number of intelligent threshold replicas to deploy
+##
+intelligentThreshold:
+  ## @param intelligentThreshold.labels Labels to apply to intelligent threshold pods
+  labels:
+    app: veaiops-intelligent-threshold
+  ## @param intelligentThreshold.podAnnotations Annotations to apply to intelligent threshold pods
+  podAnnotations: { }
+  ## @param intelligentThreshold.image.registry Intelligent threshold image registry
+  ## @param intelligentThreshold.image.repository Intelligent threshold image repository
+  ## @param intelligentThreshold.image.tag Intelligent threshold image tag (immutable tags are recommended)
+  ## @param intelligentThreshold.image.pullPolicy Intelligent threshold image pull policy
+  ## @param intelligentThreshold.image.pullSecrets Specify docker-registry secret names as an array
+  ##
+  image:
+    registry: veaiops-registry-cn-beijing.cr.volces.com
+    repository: veaiops/intelligent-threshold
+    tag: latest
+    pullPolicy: Always
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## Example:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+  ## @param intelligentThreshold.resources Resource requests and limits for intelligent threshold
+  resources: {}
+    # If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  ## @param intelligentThreshold.nodeSelector Node selector for intelligent threshold
+  nodeSelector: {}
+  ## @param intelligentThreshold.affinity Affinity rules for intelligent threshold
+  affinity: {}
+  ## @param intelligentThreshold.tolerations Tolerations for intelligent threshold
+  tolerations: []
+  # - key: node-role.kubernetes.io/master
+  #   operator: Exists
+  ## @param intelligentThreshold.strategy Deployment strategy for intelligent threshold
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 50%
+  ## @param intelligentThreshold.replicaCount Number of intelligent threshold replicas to deploy
+  replicaCount: 1
+
+## Intelligent Threshold Cron Job configuration
+## @param intelligentThresholdCron.podAnnotations Annotations to apply to intelligent threshold cron job pods
+## @param intelligentThresholdCron.schedule Schedule for the cron job
+## @param intelligentThresholdCron.successfulJobsHistoryLimit Number of successful jobs to keep
+## @param intelligentThresholdCron.failedJobsHistoryLimit Number of failed jobs to keep
+## @param intelligentThresholdCron.image.registry Intelligent threshold cron job image registry
+## @param intelligentThresholdCron.image.repository Intelligent threshold cron job image repository
+## @param intelligentThresholdCron.image.tag Intelligent threshold cron job image tag
+## @param intelligentThresholdCron.image.pullPolicy Intelligent threshold cron job image pull policy
+## @param intelligentThresholdCron.image.pullSecrets Specify docker-registry secret names as an array
+##
+intelligentThresholdCron:
+  ## @param intelligentThresholdCron.podAnnotations Annotations to apply to intelligent threshold cron job pods
+  podAnnotations: {}
+  ## @param intelligentThresholdCron.schedule Schedule for the cron job
+  schedule: "0 0 * * *"
+  ## @param intelligentThresholdCron.successfulJobsHistoryLimit Number of successful jobs to keep
+  successfulJobsHistoryLimit: 3
+  ## @param intelligentThresholdCron.failedJobsHistoryLimit Number of failed jobs to keep
+  failedJobsHistoryLimit: 3
+  image:
+    ## @param intelligentThresholdCron.image.registry Intelligent threshold cron job image registry
+    registry: veaiops-registry-cn-beijing.cr.volces.com
+    ## @param intelligentThresholdCron.image.repository Intelligent threshold cron job image repository
+    repository: veaiops/curlimages-curl
+    ## @param intelligentThresholdCron.image.tag Intelligent threshold cron job image tag
+    tag: 8.5.0
+    ## @param intelligentThresholdCron.image.pullPolicy Intelligent threshold cron job image pull policy
+    pullPolicy: Always
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## Example:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+
+## Initialization job configuration
+## @param initial.podAnnotations Annotations to apply to initialization job pods
+## @param initial.image.registry Initialization job image registry
+## @param initial.image.repository Initialization job image repository
+## @param initial.image.tag Initialization job image tag
+## @param initial.image.pullPolicy Initialization job image pull policy
+## @param initial.image.pullSecrets Specify docker-registry secret names as an array
+##
+initial:
+  ## @param initial.podAnnotations Annotations to apply to initialization job pods
+  podAnnotations: {}
+  ## @param initial.image.registry Initialization job image registry
+  ## @param initial.image.repository Initialization job image repository
+  ## @param initial.image.tag Initialization job image tag (immutable tags are recommended)
+  ## @param initial.image.pullPolicy Initialization job image pull policy
+  ## @param initial.image.pullSecrets Specify docker-registry secret names as an array
+  ##
+  image:
+    registry: veaiops-registry-cn-beijing.cr.volces.com
+    repository: veaiops/initial
+    tag: latest
+    pullPolicy: Always
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## Example:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []

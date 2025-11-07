@@ -1,0 +1,76 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * 阿里云指标选择组件
+ * @description 专门处理阿里云数据源的指标选择
+ * @author AI Assistant
+ * @date 2025-01-16
+ */
+
+import type React from 'react';
+import styles from '../../../../datasource-wizard.module.less';
+import { MetricList, MetricSearch } from '../../../shared';
+import type { AliyunMetricSelectionProps } from '../../../shared';
+import { EmptyState } from './empty-state';
+import { LoadingState } from './loading-state';
+import { SelectionAlert } from './selection-alert';
+import { StepHeader } from './step-header';
+import { useAliyunMetricSelection } from './use-aliyun-metric-selection';
+
+export const AliyunMetricSelection: React.FC<AliyunMetricSelectionProps> = ({
+  metrics,
+  selectedMetric,
+  loading,
+  searchText,
+  onSearchChange,
+  actions,
+  state,
+}) => {
+  // 使用自定义 hook 处理业务逻辑
+  const { handleMetricSelect } = useAliyunMetricSelection(actions);
+
+  if (loading) {
+    return <LoadingState />;
+  }
+
+  if (metrics.length === 0) {
+    return <EmptyState />;
+  }
+
+  return (
+    <div className={styles.stepContent}>
+      <StepHeader />
+
+      {/* 搜索框 */}
+      <MetricSearch searchText={searchText} onSearchChange={onSearchChange} />
+
+      {/* 指标列表 */}
+      <MetricList
+        metrics={metrics}
+        selectedMetric={selectedMetric}
+        searchText={searchText}
+        selectedGroupBy={state.aliyun.selectedGroupBy}
+        onMetricSelect={handleMetricSelect}
+        onGroupByChange={(values: string[]) =>
+          actions.setSelectedGroupBy(values)
+        }
+      />
+
+      <SelectionAlert selectedMetric={selectedMetric} />
+    </div>
+  );
+};
+
+export default AliyunMetricSelection;

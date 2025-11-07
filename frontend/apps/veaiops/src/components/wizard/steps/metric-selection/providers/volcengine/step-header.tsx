@@ -1,0 +1,32 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * 步骤头部组件
+ * @description 显示火山引擎指标选择步骤的标题和描述信息
+ */
+
+import type React from 'react';
+import styles from '../../../../datasource-wizard.module.less';
+
+export const StepHeader: React.FC = () => {
+  return (
+    <>
+      <div className={styles.stepTitle}>选择监控指标</div>
+      <div className={styles.stepDescription}>
+        选择要监控的指标项，指标定义了具体要采集的监控数据
+      </div>
+    </>
+  );
+};

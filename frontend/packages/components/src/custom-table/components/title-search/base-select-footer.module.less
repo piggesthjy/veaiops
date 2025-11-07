@@ -1,0 +1,45 @@
+.footer {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  padding: 8px 12px 4px 12px;
+}
+
+.select-all {
+  margin-right: 12px;
+}
+
+.dropdown {
+  min-width: 160px;
+  max-width: 320px;
+}
+
+.loading {
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spin {
+  margin: 12px;
+}
+
+.popup-wrap {
+  & > :global(.arco-select-popup) {
+    box-shadow: none;
+    padding: 0;
+    border: none;
+    overflow: visible;
+  }
+}
+
+.popup {
+  box-sizing: border-box;
+  padding: 4px 6px;
+  border: 1px solid var(--color-border-2);
+  border-radius: var(--border-radius-medium);
+  background-color: var(--color-bg-white);
+  box-shadow: 0px 0px 32px rgba(205, 213, 222, 0.42);
+  overflow: hidden;
+}

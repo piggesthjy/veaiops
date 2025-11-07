@@ -1,0 +1,90 @@
+# Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+version: '3.8'
+
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.102.1
+    volumes:
+      - ./conf/otel-collector-config.yml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - "4317:4317"    # OTLP gRPC receiver
+      - "4318:4318"    # OTLP/HTTP receiver
+      - "8889:8889"    # Prometheus exporter
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.57
+    ports:
+      - "16686:16686"  # Jaeger UI
+      - "14268:14268"  # OTLP/HTTP trace receiver (for collector to send to)
+
+  prometheus:
+    image: prom/prometheus:v2.51.2
+    volumes:
+      - ./conf/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  # grafana service name
+  grafana:
+    image: grafana/grafana:11.0.0
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  # redis service name
+  redis:
+    image: redis:7.2
+    container_name: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./temp/redis_data:/data
+      - ./temp/logs:/logs
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  # mongodb service name
+  mongodb:
+    container_name: veaiops_mongo
+    image: mongo:7.0
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=example_user
+      - MONGO_INITDB_ROOT_PASSWORD=change_me_before_prod
+    volumes:
+      - ./temp/mongo_data:/data/db
+      - ./temp/mongo_config_data:/data/configdb
+    command:
+      - "--auth"
+
+  nginx:
+    restart: always
+    container_name: nginx
+    image: nginx:1.27
+    user: "root:root"
+    ports:
+      - 80:80
+    volumes:
+      - ../../frontend/apps/volcaiops/output:/var/www
+      - ./temp/logs/nginx:/var/log/nginx
+      - ./conf/conf.d:/etc/nginx/conf.d
+    environment:
+      - NGINX_PORT=80
+      - TZ=Asia/Shanghai

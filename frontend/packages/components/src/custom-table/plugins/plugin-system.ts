@@ -1,0 +1,149 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * CustomTable 插件系统实现 - 模块化重构版本
+ * 基于模块化架构提供高性能、可扩展的插件管理系统
+ *
+
+ * @date 2025-12-19
+ */
+import type {
+  Plugin,
+  PluginContext,
+  PluginLifecycle,
+  PluginManager,
+} from '@/custom-table/types/plugins/core';
+import {
+  PluginEventSystem,
+  PluginExecutor,
+  PluginLifecycleManager,
+  PluginPerformanceMonitor,
+  PluginRegistry,
+  validatePluginConfig,
+} from './core';
+
+/**
+ * @name 创建插件管理器
+ */
+export function createPluginManager(): PluginManager {
+  // 创建核心模块
+  const registry = new PluginRegistry();
+  const lifecycleManager = new PluginLifecycleManager(registry);
+  const executor = new PluginExecutor(registry);
+  const performanceMonitor = new PluginPerformanceMonitor(registry);
+  const eventSystem = new PluginEventSystem();
+
+  return {
+    // 插件注册管理
+    register: async <Config = Record<string, unknown>>(
+      plugin: Plugin<Config>,
+    ): Promise<void> => {
+      if (!validatePluginConfig(plugin)) {
+        throw new Error(`Invalid plugin configuration for "${plugin.name}"`);
+      }
+      const result = await registry.register(
+        plugin as Plugin<Record<string, unknown>>,
+      );
+      if (!result.success && result.error) {
+        throw result.error;
+      }
+    },
+    unregister: async (pluginName: string): Promise<void> => {
+      registry.unregister(pluginName);
+    },
+
+    // 插件查询
+    getPlugin: (pluginName: string) => registry.getPlugin(pluginName),
+    getPlugins: () => registry.getPlugins(),
+    getAllPlugins: () => registry.getPlugins(),
+    getEnabledPlugins: () => registry.getEnabledPlugins(),
+    isEnabled: (pluginName: string) => registry.isEnabled(pluginName),
+
+    // 插件生命周期管理
+    enable: async (pluginName: string): Promise<void> => {
+      const result = await lifecycleManager.enablePlugin(pluginName);
+      if (!result.success && result.error) {
+        throw result.error;
+      }
+    },
+    disable: async (pluginName: string): Promise<void> => {
+      const result = await lifecycleManager.disablePlugin(pluginName);
+      if (!result.success && result.error) {
+        throw result.error;
+      }
+    },
+    executeHook: async ({
+      lifecycle,
+      context,
+    }: {
+      lifecycle: PluginLifecycle;
+      context: any;
+    }): Promise<void> => {
+      const result = await lifecycleManager.executeHook({ lifecycle, context });
+      if (!result.success && result.error) {
+        throw result.error;
+      }
+    },
+
+    // 插件执行
+    use: <T>({
+      pluginName,
+      method,
+      args = [],
+    }: { pluginName: string; method: string; args?: unknown[] }): T =>
+      executor.use<T>({ pluginName, method, args }) as T,
+    render: ({
+      pluginName,
+      renderer,
+      args = [],
+    }: { pluginName: string; renderer: string; args?: unknown[] }) =>
+      executor.render({ pluginName, renderer, args }),
+
+    // 性能监控
+    getMetrics: () => performanceMonitor.getPerformanceMetrics(),
+
+    // 事件系统
+    emit: (event: string, ...args: unknown[]) =>
+      eventSystem.emit(event, ...args),
+    on: (event: string, listener: (...args: unknown[]) => void) =>
+      eventSystem.on({ event, listener }),
+
+    // 上下文管理
+    setPluginContext: ({
+      pluginName,
+      context,
+    }: { pluginName: string; context: PluginContext }) =>
+      registry.setPluginContext({ pluginName, context }),
+
+    // 添加缺失的属性和方法
+    plugins: new Map(),
+    metrics: performanceMonitor.getPerformanceMetrics(),
+    isPluginEnabled: (pluginName: string) => registry.isEnabled(pluginName),
+    isPluginInstalled: (pluginName: string) =>
+      Boolean(registry.getPlugin(pluginName)),
+    getActivePlugins: () => registry.getEnabledPlugins(),
+    setup: async (_context: PluginContext) => {
+      // 初始化设置
+    },
+  };
+}
+
+// 重新导出工具函数，保持向后兼容
+export {
+  cleanupPlugins,
+  enhanceProps,
+  initializePlugins,
+  wrapWithPlugins,
+} from './core';

@@ -1,0 +1,158 @@
+.@{list-prefix-cls} {
+  @list-small-header-padding: 7px @spacing-7;
+  @list-default-header-padding: 11px @spacing-7;
+  @list-large-header-padding: 15px @spacing-7;
+  @list-small-content-padding: @spacing-4 @spacing-4;
+  @list-default-content-padding: @spacing-6 @spacing-4;
+  @list-large-content-padding: @spacing-7 @spacing-4;
+
+  &-wrapper {
+    padding: 1px;
+  }
+
+  .list-size(@size) {
+    &-hoverable {
+      .@{list-prefix-cls}-content {
+        .@{list-prefix-cls}-item {
+          &:first-child {
+            .@{list-prefix-cls}-item-content {
+              &:hover {
+                &::before {
+                  display: none;
+                }
+              }
+            }
+          }
+          border-bottom: none;
+          overflow: visible;
+          .@{list-prefix-cls}-item-main {
+            overflow: visible;
+          }
+          .@{list-prefix-cls}-item-content {
+            &:hover {
+              position: relative;
+              background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+              border-radius: @border-radius-medium;
+              .hide-border-common {
+                content: '';
+                display: block;
+                position: absolute;
+                z-index: 1;
+                width: calc(100% + 16px);
+                left: -8px;
+                height: 1px;
+                background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+              }
+              &::before {
+                .hide-border-common;
+                top: -1px;
+              }
+              &::after {
+                .hide-border-common;
+                bottom: -1px;
+              }
+            }
+          }
+          &:not(:last-child) {
+            margin-bottom: 1px;
+            .@{list-prefix-cls}-item-main {
+              box-shadow: 0px 1px 0px rgba(213, 219, 227, 0.5);
+            }
+          }
+        }
+      }
+    }
+    &-@{size} {
+      .@{list-prefix-cls}-header {
+        padding: ~'@{list-@{size}-header-padding}';
+      }
+      .@{list-prefix-cls}-content {
+        .@{list-prefix-cls}-item {
+          padding: 0 @spacing-4;
+          border-bottom: none;
+          overflow: visible;
+          .@{list-prefix-cls}-item-main {
+            overflow: visible;
+          }
+          .@{list-prefix-cls}-item-content {
+            padding: ~'@{list-@{size}-content-padding}';
+          }
+          &:not(:last-child) {
+            margin-bottom: 1px;
+            .@{list-prefix-cls}-item-main {
+              box-shadow: 0px 1px 0px rgba(213, 219, 227, 0.5);
+            }
+          }
+        }
+      }
+    }
+    &.@{list-prefix-cls}-no-split {
+      .@{list-prefix-cls}-content {
+        .@{list-prefix-cls}-item {
+          &:not(:last-child) {
+            .@{list-prefix-cls}-item-main {
+              box-shadow: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  .list-size(small);
+  .list-size(default);
+  .list-size(large);
+  // empty
+  .@{prefix}-empty {
+    .@{prefix}-empty-wrapper .@{prefix}-empty-image {
+      font-size: 48px;
+    }
+  }
+  // icon
+  &-item-action {
+    padding-left: @spacing-4;
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{list-prefix-cls} {
+    .list-size(@size) {
+      &-hoverable {
+        .@{list-prefix-cls}-content {
+          .@{list-prefix-cls}-item {
+            &:not(:last-child) {
+              .@{list-prefix-cls}-item-main {
+                box-shadow: 0px 1px 0px @dark-color-border-2;
+              }
+            }
+          }
+        }
+      }
+      &-@{size} {
+        .@{list-prefix-cls}-content {
+          .@{list-prefix-cls}-item {
+            &:not(:last-child) {
+              .@{list-prefix-cls}-item-main {
+                box-shadow: 0px 1px 0px @dark-color-border-2;
+              }
+            }
+          }
+        }
+      }
+      &.@{list-prefix-cls}-no-split {
+        .@{list-prefix-cls}-content {
+          .@{list-prefix-cls}-item {
+            &:not(:last-child) {
+              .@{list-prefix-cls}-item-main {
+                box-shadow: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .list-size(small);
+    .list-size(default);
+    .list-size(large);
+  }
+}

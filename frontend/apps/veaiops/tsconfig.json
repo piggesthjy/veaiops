@@ -1,0 +1,71 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    // 被引用的项目必须能够 emit，不能禁用
+    "noEmit": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@task-config": ["./src/modules/threshold/features/task-config"],
+      "@task-config/*": ["./src/modules/threshold/features/task-config/*"],
+      "@threshold/shared": ["./src/modules/threshold/shared"],
+      // System 模块路径别名
+      "@system": ["./src/modules/system"],
+      "@system/*": ["./src/modules/system/*"],
+      "@bot": ["./src/modules/system/features/bot"],
+      "@bot/*": ["./src/modules/system/features/bot/*"],
+      "@datasource": ["./src/modules/system/features/datasource"],
+      "@datasource/*": ["./src/modules/system/features/datasource/*"],
+      "@account": ["./src/modules/system/features/account"],
+      "@account/*": ["./src/modules/system/features/account/*"],
+      "@project": ["./src/modules/system/features/project"],
+      "@project/*": ["./src/modules/system/features/project/*"],
+      "@customer": ["./src/modules/system/features/customer"],
+      "@customer/*": ["./src/modules/system/features/customer/*"],
+      "@card-template": ["./src/modules/system/features/card-template"],
+      "@card-template/*": ["./src/modules/system/features/card-template/*"],
+      "@oncall/api": ["./src/modules/oncall/api"],
+      "@oncall/shared": ["./src/modules/oncall/shared"],
+      "@oncall-config": ["./src/modules/oncall/features/config"],
+      "@oncall-config/*": ["./src/modules/oncall/features/config/*"],
+      // Event Center 功能模块路径别名（通过通配符简化）
+      "@ec/history": ["./src/modules/event-center/features/history"],
+      "@ec/strategy": ["./src/modules/event-center/features/strategy"],
+      "@ec/subscription": ["./src/modules/event-center/features/subscription"],
+      "@ec/statistics": ["./src/modules/event-center/features/statistics"],
+      "@ec/shared": ["./src/modules/event-center/shared"],
+      // Wizard 组件相关路径别名
+      "@wizard": ["./src/components/wizard"],
+      "@wizard/*": ["./src/components/wizard/*"],
+      "@wizard/types": ["./src/components/wizard/types"],
+      "@veaiops/components": ["../../packages/components/src"],
+      "@veaiops/utils": ["../../packages/utils/src"],
+      "@veaiops/types": ["../../packages/types/src"],
+      "@veaiops/constants": ["../../packages/constants/src"],
+      "@veaiops/hooks": ["../../packages/hooks/src"],
+      "@veaiops/api-client": ["../../packages/api-client/src"],
+      // 向后兼容：api-generate 路径映射到新的 @veaiops/api-client
+      "api-generate/*": ["../../packages/api-client/src/*"],
+      "api-generate": ["../../packages/api-client/src"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "modern-app-env.d.ts",
+    "modern.config.ts",
+    "tailwind.config.ts"
+  ],
+  "references": [
+    { "path": "../../packages/components" },
+    { "path": "../../packages/utils" },
+    { "path": "../../packages/types" },
+    { "path": "../../packages/constants" },
+    { "path": "../../packages/hooks" },
+    { "path": "../../packages/api-client" }
+  ]
+}

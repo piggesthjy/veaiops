@@ -1,0 +1,1910 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VolcAIOpsKit - Event Center API",
+    "version": "1.0.0",
+    "description": "事件中心管理相关接口"
+  },
+  "paths": {
+    "/apis/v1/manager/event-center/inform-strategy/": {
+      "get": {
+        "summary": "Get All Inform Strategies",
+        "description": "Get all inform strategies with optional pagination and filtering",
+        "tags": ["Inform Strategy"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Strategy name filter"
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ChannelType"
+            },
+            "description": "Channel type filter"
+          },
+          {
+            "name": "bot_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "App ID filter"
+          },
+          {
+            "name": "show_all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether to show disabled items"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of inform strategies to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "description": "Maximum number of inform strategies to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseInformStrategyList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Inform Strategy",
+        "description": "Create a new inform strategy",
+        "tags": ["Inform Strategy"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InformStrategyCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseInformStrategy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/inform-strategy/{uid}": {
+      "get": {
+        "summary": "Get Inform Strategy",
+        "description": "Get an inform strategy by ID",
+        "tags": ["Inform Strategy"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Inform strategy unique identifier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseInformStrategy"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Inform Strategy",
+        "description": "Update an inform strategy",
+        "tags": ["Inform Strategy"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Inform strategy unique identifier"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InformStrategyUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseInformStrategy"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Inform Strategy",
+        "description": "Delete an inform strategy",
+        "tags": ["Inform Strategy"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Inform strategy unique identifier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/inform-strategy/{uid}/toggle": {
+      "put": {
+        "summary": "Toggle Inform Strategy Active Status",
+        "description": "Enable or disable an inform strategy",
+        "tags": ["Inform Strategy"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Inform strategy unique identifier"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToggleActiveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Toggle Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseInformStrategy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/subscribe/": {
+      "get": {
+        "summary": "Get Subscribes",
+        "description": "Get all subscribes with optional pagination and filtering",
+        "tags": ["Subscribe"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Subscribe name"
+          },
+          {
+            "name": "agents",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Subscribe agents"
+          },
+          {
+            "name": "event_levels",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/EventLevel"
+              }
+            },
+            "description": "Event levels"
+          },
+          {
+            "name": "enable_webhook",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "If Enable webhook"
+          },
+          {
+            "name": "products",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Interest products"
+          },
+          {
+            "name": "projects",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Interest projects"
+          },
+          {
+            "name": "customers",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Interest customers"
+          },
+          {
+            "name": "show_all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Weather Show disabled items"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseSubscribeRelationList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Subscribe",
+        "description": "Create a new subscribe",
+        "tags": ["Subscribe"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscribeRelationCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseSubscribeRelation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/subscribe/{uid}": {
+      "get": {
+        "summary": "Get Subscribe",
+        "description": "Get a subscribe by ID",
+        "tags": ["Subscribe"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseSubscribeRelation"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Subscribe",
+        "description": "Update a subscribe",
+        "tags": ["Subscribe"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscribeRelationUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseSubscribeRelation"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Subscribe",
+        "description": "Delete a subscribe",
+        "tags": ["Subscribe"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/subscribe/{uid}/toggle": {
+      "put": {
+        "summary": "Toggle Subscribe",
+        "description": "Enable or disable a subscribe",
+        "tags": ["Subscribe"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToggleActiveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Toggle Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseSubscribeRelation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/event/": {
+      "get": {
+        "summary": "Get Events",
+        "description": "Retrieve a list of events with optional filtering and pagination",
+        "tags": ["Event"],
+        "parameters": [
+          {
+            "name": "agent_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/AgentType"
+              }
+            },
+            "description": "Filter events by agent type (multiple selection allowed)"
+          },
+          {
+            "name": "event_level",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["INFO", "WARNING", "ERROR", "CRITICAL"]
+              }
+            },
+            "description": "Filter events by event level"
+          },
+          {
+            "name": "show_status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/EventShowStatus"
+              }
+            },
+            "description": "Filter events by show status (multiple selection allowed). 显示状态筛选，允许的值为：等待发送、发送成功、未订阅、未命中规则、命中过滤规则、告警抑制"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Filter events by region"
+          },
+          {
+            "name": "projects",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Filter events by projects"
+          },
+          {
+            "name": "products",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Filter events by products"
+          },
+          {
+            "name": "customers",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Filter events by customers"
+          },
+          {
+            "name": "start_time",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter events from start time"
+          },
+          {
+            "name": "end_time",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter events to end time"
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "desc"
+            },
+            "description": "Sort order by creation time"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of events to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "description": "Maximum number of events to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseEventList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Event",
+        "description": "Create a new event",
+        "tags": ["Event"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseEvent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/event/{event_id}": {
+      "get": {
+        "summary": "Get Event",
+        "description": "Get an event by ID",
+        "tags": ["Event"],
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseEvent"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Event",
+        "description": "Delete an event (soft delete)",
+        "tags": ["Event"],
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/event/chatops/": {
+      "post": {
+        "summary": "Create Chatops Event",
+        "description": "Create a new chatops event from agent notification",
+        "tags": ["Event"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentNotification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/agent_template/": {
+      "get": {
+        "summary": "Get All Agent Templates",
+        "description": "Get all agent templates with optional pagination",
+        "tags": ["Agent Template"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of agent templates to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "description": "Maximum number of agent templates to return"
+          },
+          {
+            "name": "agents",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Filter templates by agent type"
+          },
+          {
+            "name": "channels",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Filter templates by channel type"
+          },
+          {
+            "name": "template_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter templates by template ID"
+          },
+          {
+            "name": "show_all",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether to show disabled items"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseAgentTemplateList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Agent Template",
+        "description": "Create a new agent template",
+        "tags": ["Agent Template"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentTemplateCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseAgentTemplate"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/event-center/agent_template/{agent_template_id}": {
+      "get": {
+        "summary": "Get Agent Template",
+        "description": "Get an agent template by ID",
+        "tags": ["Agent Template"],
+        "parameters": [
+          {
+            "name": "agent_template_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseAgentTemplate"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Agent Template",
+        "description": "Update an agent template",
+        "tags": ["Agent Template"],
+        "parameters": [
+          {
+            "name": "agent_template_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentTemplateUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseAgentTemplate"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Agent Template",
+        "description": "Delete an agent template",
+        "tags": ["Agent Template"],
+        "parameters": [
+          {
+            "name": "agent_template_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChannelType": {
+        "type": "string",
+        "enum": ["Lark", "DingTalk", "WeChat", "Webhook"],
+        "description": "Channel type enumeration for different messaging platforms"
+      },
+      "APIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {}
+        }
+      },
+      "APIResponseBoolean": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "boolean"
+          }
+        }
+      },
+      "BotVO": {
+        "type": "object",
+        "description": "机器人视图对象",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "机器人文档ID"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType",
+            "description": "通道类型"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "机器人ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "机器人名称"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "是否激活"
+          }
+        },
+        "required": ["id", "channel", "bot_id", "name", "is_active"]
+      },
+      "GroupChatVO": {
+        "type": "object",
+        "description": "群聊视图对象",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "群聊文档ID"
+          },
+          "open_chat_id": {
+            "type": "string",
+            "description": "开放群聊ID"
+          },
+          "chat_name": {
+            "type": "string",
+            "description": "群聊名称"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "是否激活"
+          }
+        },
+        "required": ["id", "open_chat_id", "chat_name", "is_active"]
+      },
+      "InformStrategy": {
+        "type": "object",
+        "description": "通知策略响应对象（InformStrategyVO）",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "消息卡片通知策略ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "消息卡片通知策略名称",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "description": {
+            "type": "string",
+            "description": "消息卡片通知策略描述"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType",
+            "description": "通知Channel类型"
+          },
+          "bot": {
+            "$ref": "#/components/schemas/BotVO",
+            "description": "机器人信息"
+          },
+          "group_chats": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupChatVO"
+            },
+            "description": "群聊列表"
+          }
+        },
+        "required": ["id", "name", "channel", "bot", "group_chats"]
+      },
+      "ToggleActiveRequest": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "description": "是否启用策略"
+          }
+        },
+        "required": ["active"]
+      },
+      "InformStrategyCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "消息卡片通知策略名称",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "description": {
+            "type": "string",
+            "description": "消息卡片通知策略描述"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType",
+            "description": "通知Channel类型"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "机器人ID",
+            "minLength": 10,
+            "maxLength": 32
+          },
+          "chat_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "群ID列表",
+            "minItems": 1
+          }
+        },
+        "required": ["name", "channel", "bot_id", "chat_ids"]
+      },
+      "InformStrategyUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "消息卡片通知策略名称",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "description": {
+            "type": "string",
+            "description": "消息卡片通知策略描述"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType",
+            "description": "通知Channel类型"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "机器人ID",
+            "minLength": 10,
+            "maxLength": 32
+          },
+          "chat_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "群ID列表",
+            "minItems": 1
+          }
+        }
+      },
+      "APIResponseInformStrategy": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/InformStrategy"
+          }
+        }
+      },
+      "PaginatedAPIResponseInformStrategyList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InformStrategy"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        }
+      },
+      "AttributeItem": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Attribute key"
+          },
+          "name": {
+            "type": "string",
+            "enum": ["CUSTOMER", "PRODUCT", "PROJECT", "DATASOURCE", "METRIC"]
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["key", "name", "value"]
+      },
+      "SubscribeRelationCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "agent_type": {
+            "$ref": "#/components/schemas/AgentType"
+          },
+          "inform_strategy_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "event_level": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventLevel"
+            },
+            "description": "The list of event levels. Empty means subscribe to all levels."
+          },
+          "enable_webhook": {
+            "type": "boolean"
+          },
+          "webhook_endpoint": {
+            "type": "string"
+          },
+          "webhook_headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "interest_products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interest_projects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interest_customers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "agent_type",
+          "start_time",
+          "end_time",
+          "event_level"
+        ]
+      },
+      "SubscribeRelationUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "agent_type": {
+            "$ref": "#/components/schemas/AgentType"
+          },
+          "inform_strategy_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "event_level": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventLevel"
+            },
+            "description": "The list of event levels. Empty means subscribe to all levels."
+          },
+          "enable_webhook": {
+            "type": "boolean"
+          },
+          "webhook_endpoint": {
+            "type": "string"
+          },
+          "webhook_headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "interest_products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interest_projects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interest_customers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "agent_type",
+          "start_time",
+          "end_time",
+          "event_level"
+        ]
+      },
+      "SubscribeRelationWithAttributes": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB document ID"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "agent_type": {
+            "$ref": "#/components/schemas/AgentType"
+          },
+          "inform_strategy_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeItem"
+            }
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "event_level": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventLevel"
+            }
+          },
+          "enable_webhook": {
+            "type": "boolean"
+          },
+          "webhook_endpoint": {
+            "type": "string"
+          },
+          "webhook_headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "interest_products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interest_projects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interest_customers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "APIResponseSubscribeRelation": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SubscribeRelationWithAttributes"
+          }
+        }
+      },
+      "PaginatedAPIResponseSubscribeRelationList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubscribeRelationWithAttributes"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        }
+      },
+      "AgentType": {
+        "type": "string",
+        "enum": [
+          "chatops_interest_agent",
+          "chatops_proactive_reply_agent",
+          "chatops_reactive_reply_agent",
+          "intelligent_threshold_agent"
+        ],
+        "description": "Agent type enumeration"
+      },
+      "EventLevel": {
+        "type": "string",
+        "enum": ["P0", "P1", "P2"],
+        "description": "Event level enumeration"
+      },
+      "EventStatus": {
+        "type": "integer",
+        "enum": [0, 1, 2, 3, 4, 11, 12, 13],
+        "x-enum-varnames": [
+          "INITIAL",
+          "SUBSCRIBED",
+          "CARD_BUILT",
+          "DISTRIBUTED",
+          "NO_DISTRIBUTION",
+          "CHATOPS_NO_MATCH",
+          "CHATOPS_RULE_FILTERED",
+          "CHATOPS_RULE_LIMITED"
+        ],
+        "x-enum-descriptions": [
+          "初始化",
+          "已订阅",
+          "已构建卡片",
+          "已分发",
+          "无分发",
+          "ChatOps未匹配",
+          "ChatOps规则过滤",
+          "ChatOps规则限制"
+        ],
+        "description": "Event status codes: 0=INITIAL, 1=SUBSCRIBED, 2=CARD_BUILT, 3=DISPATCHED, 4=NONE_DISPATCH, 11=CHATOPS_NOT_MATCHED, 12=CHATOPS_RULE_FILTERED, 13=CHATOPS_RULE_RESTRAINED"
+      },
+      "EventShowStatus": {
+        "type": "string",
+        "enum": [
+          "等待发送",
+          "发送成功",
+          "未订阅",
+          "未命中规则",
+          "命中过滤规则",
+          "告警抑制"
+        ],
+        "x-enum-varnames": [
+          "PENDING",
+          "SUCCESS",
+          "NOT_SUBSCRIBED",
+          "NOT_MATCHED",
+          "FILTERED",
+          "RESTRAINED"
+        ],
+        "description": "Event show status with Chinese display names. 对应 Python EventShowStatus(str, Enum): PENDING=\"等待发送\", SUCCESS=\"发送成功\", NOT_SUBSCRIBED=\"未订阅\", NOT_MATCHED=\"未命中规则\", FILTERED=\"命中过滤规则\", RESTRAINED=\"告警抑制\". 等待发送=PENDING (status 0,1,2), 发送成功=SUCCESS (status 3), 未订阅=NOT_SUBSCRIBED (status 4), 未命中规则=NOT_MATCHED (status 11), 命中过滤规则=FILTERED (status 12), 告警抑制=RESTRAINED (status 13)"
+      },
+      "AgentNotification": {
+        "type": "object",
+        "properties": {
+          "agent_type": {
+            "$ref": "#/components/schemas/AgentType"
+          },
+          "content": {
+            "type": "object",
+            "description": "Notification content",
+            "additionalProperties": true
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional metadata",
+            "additionalProperties": true
+          }
+        },
+        "required": ["agent_type", "content"]
+      },
+      "ChannelMsg": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType"
+          },
+          "template_id": {
+            "type": "string",
+            "description": "The template ID for the message"
+          },
+          "template_variables": {
+            "type": "object",
+            "description": "The variables for the message template",
+            "additionalProperties": true
+          }
+        },
+        "required": ["channel", "template_variables"]
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "MongoDB document ID"
+          },
+          "event_id": {
+            "type": "string",
+            "description": "Unique event identifier"
+          },
+          "agent_type": {
+            "$ref": "#/components/schemas/AgentType",
+            "description": "The type of the agent that generated the event"
+          },
+          "event_level": {
+            "$ref": "#/components/schemas/EventLevel",
+            "description": "The level of the event"
+          },
+          "region": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The region associated with the event",
+            "default": []
+          },
+          "project": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The project associated with the event",
+            "default": []
+          },
+          "product": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The product associated with the event",
+            "default": []
+          },
+          "customer": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The customer associated with the event",
+            "default": []
+          },
+          "raw_data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AgentNotification"
+              },
+              {
+                "type": "object",
+                "description": "VolcengineAlarmRawData"
+              }
+            ],
+            "description": "The raw data of the event"
+          },
+          "datasource_type": {
+            "type": "string",
+            "description": "The type of the datasource that generated the event"
+          },
+          "channel_msg": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ChannelMsg"
+            },
+            "description": "The message content for each channel"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventStatus",
+            "description": "The status of the event",
+            "default": 0
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp when the event was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp when the event was last updated"
+          }
+        },
+        "required": ["agent_type", "event_level", "raw_data", "datasource_type"]
+      },
+      "APIResponseEvent": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Event"
+          }
+        }
+      },
+      "APIResponseString": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          }
+        }
+      },
+      "PaginatedAPIResponseEventList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        }
+      },
+      "AgentTemplate": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "数据库唯一标识"
+          },
+          "id": {
+            "type": "string",
+            "description": "代理模板ID"
+          },
+          "agents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of agents"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType"
+          },
+          "template_id": {
+            "type": "string",
+            "description": "Template ID"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "更新时间"
+          }
+        },
+        "required": ["id", "agents", "channel", "template_id"]
+      },
+      "AgentTemplateCreateRequest": {
+        "type": "object",
+        "properties": {
+          "agents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of agents"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType",
+            "description": "Channel type"
+          },
+          "template_id": {
+            "type": "string",
+            "description": "Template ID"
+          }
+        },
+        "required": ["agents", "channel", "template_id"]
+      },
+      "AgentTemplateUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "agents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of agents"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/ChannelType"
+          },
+          "template_id": {
+            "type": "string",
+            "description": "Template ID"
+          }
+        }
+      },
+      "APIResponseAgentTemplate": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/AgentTemplate"
+          }
+        }
+      },
+      "PaginatedAPIResponseAgentTemplateList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgentTemplate"
+            }
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "EventDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "show_status": {
+                "$ref": "#/components/schemas/EventShowStatus",
+                "description": "The show status of the event (computed field based on status). 状态（基于status字段计算）"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Global Config API",
+    "version": "1.0.0",
+    "description": "Global configuration API endpoints"
+  },
+  "paths": {
+    "/apis/v1/manager/system-config/global-config/": {
+      "get": {
+        "summary": "Get Global Config",
+        "description": "Get global configuration",
+        "tags": ["Global Config"],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseGlobalConfig"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "APIResponseGlobalConfig": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

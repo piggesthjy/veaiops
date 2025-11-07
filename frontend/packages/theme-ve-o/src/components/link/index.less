@@ -1,0 +1,17 @@
+.@{link-prefix-cls} {
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{link-prefix-cls} {
+    &.@{link-prefix-cls}-disabled {
+      color: @dark-color-alpha-link3;
+    }
+    &.@{link-prefix-cls}-is-success.@{link-prefix-cls}-disabled {
+      color: @dark-color-alpha-success3;
+    }
+    &.@{link-prefix-cls}-is-error.@{link-prefix-cls}-disabled {
+      color: @dark-color-alpha-danger3;
+    }
+  }
+}

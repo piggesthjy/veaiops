@@ -1,0 +1,218 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-table .arco-table-col-has-filter {
+  display: flex;
+  align-items: center;
+}
+.arco-table .arco-table-col-has-filter .arco-table-cell-with-sorter {
+  padding-right: 0;
+}
+.arco-table .arco-table-col-has-filter .arco-table-filters {
+  position: static;
+  width: auto;
+  margin-left: 4px;
+  border-radius: 2px;
+}
+.arco-table .arco-table-col-has-filter .arco-table-filters svg {
+  font-size: 12px;
+}
+.arco-table .arco-table-col-has-filter .arco-table-filters:hover {
+  background-color: var(--color-bg-6);
+}
+.arco-table .arco-table-expand-icon-cell button,
+.arco-table .arco-table-cell-expand-icon button {
+  vertical-align: middle;
+  background-color: transparent;
+}
+.arco-table .arco-table-expand-icon-cell .force-icon,
+.arco-table .arco-table-cell-expand-icon .force-icon {
+  width: unset;
+  height: unset;
+  padding: 1px;
+  border-radius: 1.5px;
+  box-shadow: 0 0.75px 0.75px rgba(0, 0, 0, 0.05), 0 0 0 0.75px
+    rgba(213, 219, 227, 0.5);
+}
+.arco-table .arco-table-expand-icon-cell .force-icon:hover,
+.arco-table .arco-table-cell-expand-icon .force-icon:hover {
+  color: rgb(var(--primary-6));
+  box-shadow: 0 0.75px 0.75px rgba(70, 79, 96, 0.16), 0 0 0 0.75px #006eff;
+}
+.arco-table .arco-table-expand-icon-cell .force-icon-minus,
+.arco-table .arco-table-cell-expand-icon .force-icon-minus {
+  border-radius: 1.5px;
+  color: rgb(var(--primary-6));
+  box-shadow: 0 0.75px 0.75px rgba(70, 79, 96, 0.16), 0 0 0 0.75px #006eff;
+}
+.arco-table-scroll-position-left .arco-table-col-fixed-right-first::after,
+.arco-table-scroll-position-middle .arco-table-col-fixed-right-first::after {
+  box-shadow: inset -6px 0 8px -3px rgba(0, 0, 0, 0.05);
+}
+.arco-table:not(.arco-table-has-fixed-col-left).arco-table-scroll-position-right
+  .arco-table-content-scroll::before {
+  box-shadow: inset 6px 0 8px -3px rgba(0, 0, 0, 0.05);
+}
+.arco-table:not(
+    .arco-table-has-fixed-col-left
+  ).arco-table-scroll-position-middle
+  .arco-table-content-scroll::before {
+  box-shadow: inset 6px 0 8px -3px rgba(0, 0, 0, 0.05);
+}
+.arco-table-expand-content
+  .arco-table:not(.arco-table-fixed-column)
+  .arco-table-td
+  .arco-table
+  .arco-table-th,
+.arco-table-expand-content
+  .arco-table:not(.arco-table-fixed-column)
+  .arco-table-td
+  .arco-table
+  .arco-table-td {
+  background-color: transparent;
+}
+.arco-table-expand-content
+  .arco-table:not(.arco-table-fixed-column)
+  > .arco-table-td {
+  background-color: var(--color-bg-2);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05) inset;
+}
+.arco-table-expand-content
+  .arco-table:not(.arco-table-fixed-column)
+  > .arco-table-td
+  .arco-table
+  .arco-table-th,
+.arco-table-expand-content
+  .arco-table:not(.arco-table-fixed-column)
+  > .arco-table-td
+  .arco-table
+  .arco-table-td {
+  border-bottom: none;
+  box-shadow: none;
+}
+.arco-table-expand-content
+  .arco-table:not(.arco-table-fixed-column)
+  > .arco-table-td:hover {
+  background-color: var(--color-bg-4);
+}
+.arco-table-expand-content > .arco-table-td {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05) inset;
+}
+.arco-table-expand-content .arco-table-td {
+  background-color: var(--color-bg-2);
+}
+.arco-table-expand-content .arco-table-td .arco-table .arco-table-th,
+.arco-table-expand-content .arco-table-td .arco-table .arco-table-td {
+  border-bottom: none;
+  box-shadow: none;
+  border-left: none;
+}
+.arco-table-expand-content .arco-table-td:hover {
+  background-color: var(--color-bg-4);
+}
+.arco-table-expand-content .arco-table-td:hover .arco-table-th {
+  background-color: var(--color-bg-4);
+}
+.arco-table-expand-content + tr td {
+  box-shadow: 0 -2px 6px 0 rgba(153, 153, 153, 0.03);
+}
+.arco-table .arco-table-cell-mouseenter {
+  background-color: var(--color-bg-5);
+}
+.arco-table .arco-table-col-sorted .arco-table-cell-mouseenter {
+  background-color: var(--color-bg-6);
+}
+.arco-table .arco-table-sorter-icon.arco-table-sorter-icon-active svg {
+  color: rgb(var(--link-6));
+}
+.arco-table .arco-table-sorter-icon .force-icon-caret-up,
+.arco-table .arco-table-sorter-icon .force-icon-caret-down {
+  position: absolute;
+  top: 50%;
+  font-size: 12px;
+  color: var(--color-fill-2);
+  transition: all 0.1s linear;
+}
+.arco-table .arco-table-sorter-icon .force-icon-caret-up {
+  top: -2px;
+  left: 0;
+}
+.arco-table .arco-table-sorter-icon .force-icon-caret-down {
+  top: -3px;
+  left: 0;
+}
+.arco-table.arco-table-border-cell .arco-table-operation.arco-table-checkbox {
+  padding-left: 0;
+}
+.arco-table:not(.arco-table-border-cell) .arco-table-selection-col {
+  padding-left: 16px;
+}
+.arco-table:not(.arco-table-border-cell)
+  .arco-table-operation.arco-table-checkbox {
+  padding-left: 16px;
+}
+.arco-table .arco-empty {
+  padding: 12px 0 28px 0;
+}
+.arco-table .arco-empty .arco-empty-wrapper .arco-empty-image {
+  font-size: 60px;
+}
+.arco-table .arco-table-empty-row .arco-table-td {
+  border-bottom: none;
+}
+.arco-table .arco-table-empty-row .arco-table-expand-fixed-row {
+  border-left: none;
+}
+.arco-table.arco-table-has-fixed-col-left.arco-table-border
+  .arco-table-empty-row
+  .arco-table-expand-fixed-row,
+.arco-table.arco-table-has-fixed-col-right.arco-table-border
+  .arco-table-empty-row
+  .arco-table-expand-fixed-row {
+  border-left: 1px solid var(--color-border-2);
+}
+body[arco-theme="dark"] .arco-table.arco-table-fixed-column .arco-table-header {
+  background-color: transparent;
+}
+body[arco-theme="dark"] .arco-table.arco-table-fixed-column .arco-table-th {
+  backdrop-filter: blur(20px);
+}
+body[arco-theme="dark"]
+  .arco-table.arco-table-fixed-column
+  .arco-table-th.arco-table-col-fixed-right-first,
+body[arco-theme="dark"]
+  .arco-table.arco-table-fixed-column
+  .arco-table-th.arco-table-col-fixed-left-first {
+  background-color: #1a1b1e;
+}
+body[arco-theme="dark"]
+  .arco-table.arco-table-fixed-column
+  .arco-table-col-fixed-right,
+body[arco-theme="dark"]
+  .arco-table.arco-table-fixed-column
+  .arco-table-col-fixed-left {
+  background-color: #1a1b1e;
+}
+body[arco-theme="dark"] .arco-table-filters-popup {
+  background-color: #282a2f;
+}
+body[arco-theme="dark"] .arco-table .arco-table-expand-content .arco-table-td {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+body[arco-theme="dark"] .arco-table-body {
+  background-color: transparent;
+}

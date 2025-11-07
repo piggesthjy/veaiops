@@ -1,0 +1,79 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-input-tag-input::placeholder {
+  font-size: 13px;
+}
+.arco-input-tag .arco-input-tag-clear-icon::before {
+  background-color: var(--color-bg-6);
+}
+.arco-input-tag .arco-input-tag-clear-icon:hover::before {
+  background-color: var(--color-fill-1) !important;
+}
+.arco-input-tag.arco-input-tag-focus {
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+}
+.arco-input-tag.arco-input-tag-error.arco-input-tag-focus {
+  box-shadow: 0px 0px 0px 2px rgba(var(--danger-6), 0.3);
+}
+.arco-input-tag .arco-tag {
+  height: 20px;
+}
+.arco-input-tag-inner {
+  padding-left: 1px;
+}
+.arco-input-tag .arco-input-tag-tag .arco-tag-close-btn {
+  color: var(--color-fill-2);
+}
+.arco-input-tag .arco-input-tag-tag .arco-tag-close-btn:hover:before {
+  background-color: var(--color-fill-1) !important;
+  opacity: 0.4;
+}
+.arco-input-tag-size-mini {
+  padding: 0 2px;
+}
+.arco-input-tag-size-default {
+  padding: 0 6px;
+}
+.arco-input-tag-size-large {
+  padding: 0 8px;
+}
+.arco-input-tag .arco-icon-hover::before {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.arco-input-tag .arco-icon-hover:hover::before {
+  background-color: var(--color-fill-1);
+}
+.arco-input-tag-addbefore {
+  border: 1px solid var(--color-border-3);
+  border-right: none;
+}
+.arco-input-tag-addafter {
+  border: 1px solid var(--color-border-3);
+  border-left: none;
+}
+.arco-input-tag-disabled,
+.arco-input-tag-disabled .arco-input-tag-input-disabled {
+  color: var(--color-text-3);
+  -webkit-text-fill-color: initial;
+}
+.arco-input-tag-disabled::placeholder,
+.arco-input-tag-disabled .arco-input-tag-input-disabled::placeholder {
+  color: var(--color-text-4);
+}

@@ -1,0 +1,99 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import { Drawer, Space, Typography } from '@arco-design/web-react';
+import type { Project } from 'api-generate';
+import type React from 'react';
+import { BasicInfoCard, OperationInfoCard, TimeInfoCard } from './sections';
+
+/**
+ * Format date time
+ * Delegate to unified formatDateTime from @veaiops/utils for consistent timezone handling
+ */
+import { formatDateTime as formatDateTimeUtils } from '@veaiops/utils';
+
+const { Title } = Typography;
+
+/**
+ * Project detail drawer component parameters
+ */
+interface ProjectDetailDrawerProps {
+  visible: boolean;
+  project: Project | null;
+  onClose: () => void;
+}
+
+const formatDateTime = (dateTime?: string) => {
+  return dateTime ? formatDateTimeUtils(dateTime, true) : '-';
+};
+
+/**
+ * Project detail drawer component - refactored version
+ *
+ * Splitting strategy:
+ * - sections/ directory stores each information card component
+ * - hooks/ directory stores business logic (if needed)
+ * - index.tsx is responsible for assembly and rendering
+ * - types.ts stores type definitions
+ */
+export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({
+  visible,
+  project,
+  onClose,
+}) => {
+  if (!project) {
+    return null;
+  }
+
+  return (
+    <Drawer
+      width={720}
+      title={
+        <div className="flex items-center justify-between py-2">
+          <Space align="center" size="medium">
+            <Title heading={5} className="m-0 text-gray-900">
+              项目详情
+            </Title>
+          </Space>
+        </div>
+      }
+      visible={visible}
+      onCancel={onClose}
+      footer={null}
+      focusLock={false}
+      bodyStyle={{
+        padding: '0',
+      }}
+      headerStyle={{
+        padding: '16px 24px',
+      }}
+      className="bg-gray-50"
+    >
+      <div className="p-6">
+        <Space direction="vertical" size="large" className="w-full">
+          {/* Basic information card */}
+          <BasicInfoCard project={project} />
+
+          {/* Time information card */}
+          <TimeInfoCard project={project} />
+
+          {/* Operation instructions card */}
+          <OperationInfoCard />
+        </Space>
+      </div>
+    </Drawer>
+  );
+};
+
+export default ProjectDetailDrawer;

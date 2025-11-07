@@ -1,0 +1,32 @@
+@import 'variable';
+
+.@{prefix} {
+  &-close-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+    margin-right: 16px;
+  }
+
+  &-detail-popover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  &-link {
+    font-size: 14px;
+  }
+
+  &-popover-wrapper {
+    .arco-popover-content {
+      margin-right: 16px;
+    }
+    .arco-tag-content {
+      text-align: center;
+    }
+  }
+}

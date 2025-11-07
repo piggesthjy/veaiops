@@ -1,0 +1,853 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VolcAIOpsKit - Oncall API",
+    "version": "1.0.0",
+    "description": "值班管理相关接口"
+  },
+  "paths": {
+    "/apis/v1/manager/rule-center/oncall/{channel}/{bot_id}": {
+      "get": {
+        "summary": "Get Oncall Rules by App ID",
+        "description": "Get interest rules according to App ID",
+        "tags": ["Oncall Rule"],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Channel"
+          },
+          {
+            "name": "bot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "App ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Oncall rules retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseInterestList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/rule-center/oncall/{interest_uuid}": {
+      "put": {
+        "summary": "Update Interest Rule",
+        "description": "Update an interest rule",
+        "tags": ["Oncall Rule"],
+        "parameters": [
+          {
+            "name": "interest_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Interest rule UUID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterestUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Interest rule updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseInterest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/rule-center/oncall/{interest_uuid}/active": {
+      "put": {
+        "summary": "Update Interest Active Status",
+        "description": "Update the active status of an interest rule for a specific bot",
+        "tags": ["Oncall Rule"],
+        "parameters": [
+          {
+            "name": "interest_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Interest rule UUID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "is_active": {
+                    "type": "boolean",
+                    "description": "Whether the interest rule is active"
+                  }
+                },
+                "required": ["is_active"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Interest active status updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/rule-center/oncall/{channel}/{bot_id}/oncall_schedule/": {
+      "post": {
+        "summary": "Create Oncall Schedule",
+        "description": "Create a new oncall schedule for a specific rule",
+        "tags": ["Oncall Schedule"],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Channel"
+          },
+          {
+            "name": "bot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "App ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OncallScheduleCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Oncall schedule created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseOncallSchedule"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get Oncall Schedules",
+        "description": "Get all oncall schedules for a specific rule",
+        "tags": ["Oncall Schedule"],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Channel"
+          },
+          {
+            "name": "bot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "App ID"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of schedules to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "description": "Maximum number of schedules to return"
+          },
+          {
+            "name": "start_time",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter schedules from start time"
+          },
+          {
+            "name": "end_time",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter schedules to end time"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Oncall schedules retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAPIResponseOncallScheduleList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/rule-center/oncall/oncall_schedule/{schedule_id}": {
+      "get": {
+        "summary": "Get Oncall Schedule",
+        "description": "Get an oncall schedule by ID",
+        "tags": ["Oncall Schedule"],
+        "parameters": [
+          {
+            "name": "schedule_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Schedule ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Oncall schedule retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseOncallSchedule"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Oncall Schedule",
+        "description": "Update an oncall schedule",
+        "tags": ["Oncall Schedule"],
+        "parameters": [
+          {
+            "name": "schedule_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Schedule ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OncallScheduleUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Oncall schedule updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseOncallSchedule"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Oncall Schedule",
+        "description": "Delete an oncall schedule",
+        "tags": ["Oncall Schedule"],
+        "parameters": [
+          {
+            "name": "schedule_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Schedule ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Oncall schedule deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "APIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {}
+        }
+      },
+      "APIResponseBoolean": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Interest": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Interest rule UUID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Interest rule name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Interest rule description"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2"],
+            "description": "告警等级"
+          },
+          "examples_positive": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Positive examples"
+          },
+          "examples_negative": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Negative examples"
+          },
+          "action_category": {
+            "type": "string",
+            "enum": ["Detect", "Filter"],
+            "description": "Interest action category"
+          },
+          "inspect_category": {
+            "type": "string",
+            "enum": ["Semantic", "RE"],
+            "description": "Interest inspect category"
+          },
+          "regular_expression": {
+            "type": "string",
+            "description": "Regular expression for RE inspection"
+          },
+          "inspect_history": {
+            "type": "integer",
+            "default": 0,
+            "description": "Number of history messages to inspect"
+          },
+          "silence_delta": {
+            "type": "string",
+            "description": "告警抑制间隔"
+          },
+          "is_active": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether the interest rule is active"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          },
+          "version": {
+            "type": "integer",
+            "description": "Version number"
+          }
+        },
+        "required": ["name", "action_category", "inspect_category"]
+      },
+      "InterestUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "规则名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2"],
+            "description": "告警等级"
+          },
+          "silence_delta": {
+            "type": "string",
+            "description": "告警抑制间隔"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "是否启用状态"
+          },
+          "examples_positive": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "正面示例（当检测类别为语义分析时可编辑）"
+          },
+          "examples_negative": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "反面示例（当检测类别为语义分析时可编辑）"
+          },
+          "regular_expression": {
+            "type": "string",
+            "description": "正则表达式（当检测类别为正则表达式时可编辑）"
+          }
+        }
+      },
+      "APIResponseInterest": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Interest"
+          }
+        }
+      },
+      "APIResponseInterestList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Interest"
+            }
+          }
+        }
+      },
+      "OncallSchedule": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "值班计划ID"
+          },
+          "rule_id": {
+            "type": "string",
+            "description": "关联的规则ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "值班计划名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "值班计划描述"
+          },
+          "schedule_type": {
+            "type": "string",
+            "enum": ["daily", "weekly", "monthly", "custom"],
+            "description": "值班计划类型"
+          },
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "description": "用户ID"
+                },
+                "user_name": {
+                  "type": "string",
+                  "description": "用户名"
+                },
+                "contact_info": {
+                  "type": "object",
+                  "description": "联系信息",
+                  "properties": {
+                    "phone": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "chat_id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "priority": {
+                  "type": "integer",
+                  "description": "优先级"
+                }
+              },
+              "required": ["user_id", "user_name"]
+            },
+            "description": "值班参与者列表"
+          },
+          "schedule_config": {
+            "type": "object",
+            "description": "值班计划配置",
+            "properties": {
+              "rotation_interval": {
+                "type": "integer",
+                "description": "轮换间隔（小时）"
+              },
+              "start_time": {
+                "type": "string",
+                "format": "time",
+                "description": "开始时间"
+              },
+              "end_time": {
+                "type": "string",
+                "format": "time",
+                "description": "结束时间"
+              },
+              "timezone": {
+                "type": "string",
+                "description": "时区"
+              },
+              "weekdays": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 6
+                },
+                "description": "工作日（0=周日，6=周六）"
+              }
+            }
+          },
+          "escalation_policy": {
+            "type": "object",
+            "description": "升级策略",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "description": "是否启用升级"
+              },
+              "escalation_timeout": {
+                "type": "integer",
+                "description": "升级超时时间（分钟）"
+              },
+              "escalation_levels": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "level": {
+                      "type": "integer"
+                    },
+                    "participants": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "timeout": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "description": "升级级别配置"
+              }
+            }
+          },
+          "is_active": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否激活"
+          },
+          "effective_start": {
+            "type": "string",
+            "format": "date-time",
+            "description": "生效开始时间"
+          },
+          "effective_end": {
+            "type": "string",
+            "format": "date-time",
+            "description": "生效结束时间"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "更新时间"
+          }
+        },
+        "required": [
+          "rule_id",
+          "name",
+          "schedule_type",
+          "participants",
+          "schedule_config"
+        ]
+      },
+      "OncallScheduleCreateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "值班计划名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "值班计划描述"
+          },
+          "schedule_type": {
+            "type": "string",
+            "enum": ["daily", "weekly", "monthly", "custom"],
+            "description": "值班计划类型"
+          },
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "description": "用户ID"
+                },
+                "user_name": {
+                  "type": "string",
+                  "description": "用户名"
+                },
+                "contact_info": {
+                  "type": "object",
+                  "description": "联系信息"
+                },
+                "priority": {
+                  "type": "integer",
+                  "description": "优先级"
+                }
+              },
+              "required": ["user_id", "user_name"]
+            },
+            "description": "值班参与者列表"
+          },
+          "schedule_config": {
+            "type": "object",
+            "description": "值班计划配置"
+          },
+          "escalation_policy": {
+            "type": "object",
+            "description": "升级策略"
+          },
+          "effective_start": {
+            "type": "string",
+            "format": "date-time",
+            "description": "生效开始时间"
+          },
+          "effective_end": {
+            "type": "string",
+            "format": "date-time",
+            "description": "生效结束时间"
+          }
+        },
+        "required": ["name", "schedule_type", "participants", "schedule_config"]
+      },
+      "OncallScheduleUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "值班计划名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "值班计划描述"
+          },
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "值班参与者列表"
+          },
+          "schedule_config": {
+            "type": "object",
+            "description": "值班计划配置"
+          },
+          "escalation_policy": {
+            "type": "object",
+            "description": "升级策略"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "是否激活"
+          },
+          "effective_start": {
+            "type": "string",
+            "format": "date-time",
+            "description": "生效开始时间"
+          },
+          "effective_end": {
+            "type": "string",
+            "format": "date-time",
+            "description": "生效结束时间"
+          }
+        }
+      },
+      "APIResponseOncallSchedule": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/OncallSchedule"
+          }
+        }
+      },
+      "PaginatedAPIResponseOncallScheduleList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OncallSchedule"
+            }
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "skip": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

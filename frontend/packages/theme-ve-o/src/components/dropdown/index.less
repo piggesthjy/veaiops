@@ -1,0 +1,134 @@
+.@{dropdown-prefix-cls} {
+  background-color: var(~'@{arco-cssvars-prefix}-color-bg-8');
+  box-shadow: 0px 0px 32px rgba(205, 213, 222, 0.42);
+  border-radius: @radius-medium;
+  .dropdown-padding-fix() {
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 3px;
+      right: 3px;
+      background: var(~'@{arco-cssvars-prefix}-color-bg-4');
+      z-index: -1;
+      top: 0;
+      bottom: 0;
+      border-radius: @radius-medium;
+    }
+  }
+  &-menu-inner {
+    padding: 3px;
+  }
+  &-menu-group-title {
+    margin-bottom: @spacing-2;
+  }
+  &-menu-pop-header {
+    height: 32px;
+    line-height: 32px;
+    border-radius: @radius-medium;
+    &:not(:last-child) {
+      margin-bottom: @spacing-2;
+    }
+    &:hover {
+      background-color: transparent;
+      .dropdown-padding-fix();
+    }
+  }
+  &-menu-item {
+    height: 32px;
+    line-height: 32px;
+    border-radius: @radius-medium;
+    &.@{dropdown-prefix-cls}-menu-selected {
+      &:hover {
+        color: rgba(var(~'@{arco-cssvars-prefix}-link-6'));
+      }
+      background-color: transparent;
+      .dropdown-padding-fix();
+    }
+    &:not(:last-child) {
+      margin-bottom: @spacing-2;
+    }
+    &:not(.@{dropdown-prefix-cls}-menu-disabled) {
+      &:hover {
+        background-color: transparent;
+        .dropdown-padding-fix();
+      }
+    }
+  }
+  // 多级菜单
+  .@{dropdown-prefix-cls}-menu-pop-header {
+    .@{dropdown-prefix-cls}-menu-icon-suffix {
+      color: rbg(var(~'@{arco-cssvars-prefix}-color-fill-2'));
+    }
+  }
+  // 特殊需求
+  a {
+    text-decoration: none;
+  }
+  // dark模式 此dark模式只能用token，不能用css变量。建议不要使用theme这个API，而是直接用暗黑模式。
+  &-menu&-menu-dark {
+    .@{dropdown-prefix-cls}-menu-item,
+    .@{dropdown-prefix-cls}-menu-pop-header {
+      color: @dark-color-text-3;
+      &:hover {
+        color: @dark-link-6;
+        &::before {
+          background: @dark-color-bg-4;
+        }
+      }
+    }
+    .@{dropdown-prefix-cls}-menu-pop-header.@{dropdown-prefix-cls}-menu-selected {
+      background: @dark-color-bg-4;
+      color: @dark-link-6;
+    }
+    .@{dropdown-prefix-cls}-menu-item.@{dropdown-prefix-cls}-menu-selected {
+      color: @dark-link-6;
+      &:hover {
+        color: @dark-color-text-1;
+      }
+      &::before {
+        background: @dark-color-bg-4;
+      }
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{dropdown-prefix-cls} {
+    box-shadow: none;
+    .@{dropdown-prefix-cls}-menu.@{dropdown-prefix-cls}-menu-dark {
+      .@{dropdown-prefix-cls}-menu-item,
+      .@{dropdown-prefix-cls}-menu-pop-header {
+        color: var(~'@{arco-cssvars-prefix}-color-text-3');
+        &:hover {
+          color: rgba(var(~'@{arco-cssvars-prefix}-link-6'));
+          &::before {
+            background: var(~'@{arco-cssvars-prefix}-color-bg-4');
+          }
+        }
+      }
+      .@{dropdown-prefix-cls}-menu-pop-header {
+        &:hover {
+          background: transparent;
+        }
+      }
+      .@{dropdown-prefix-cls}-menu-pop-header.@{dropdown-prefix-cls}-menu-selected {
+        background: var(~'@{arco-cssvars-prefix}-color-bg-4');
+        color: rgba(var(~'@{arco-cssvars-prefix}-link-6'));
+      }
+      .@{dropdown-prefix-cls}-menu-item.@{dropdown-prefix-cls}-menu-selected {
+        color: rgba(var(~'@{arco-cssvars-prefix}-link-6'));
+        &:hover {
+          color: var(~'@{arco-cssvars-prefix}-color-text-1');
+        }
+        &::before {
+          background: var(~'@{arco-cssvars-prefix}-color-bg-4');
+        }
+      }
+    }
+    .@{prefix}-trigger-arrow-container .@{prefix}-trigger-arrow {
+      background: var(~'@{arco-cssvars-prefix}-color-bg-8');
+    }
+  }
+}

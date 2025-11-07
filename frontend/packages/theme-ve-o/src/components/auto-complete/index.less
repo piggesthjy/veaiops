@@ -1,0 +1,62 @@
+.@{auto-complete-prefix-cls} {
+  // foucs状态
+  &.@{prefix}-input-focus {
+    .@{prefix}-input-inner-wrapper {
+      border: 1px solid rgb(var(~'@{arco-cssvars-prefix}-link-6'));
+      box-shadow: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-primary-6), 0.3)';
+      background-color: transparent;
+    }
+    .@{prefix}-input-inner-wrapper-error {
+      border: 1px solid rgb(var(~'@{arco-cssvars-prefix}-danger-6'));
+      box-shadow: ~'0px 0px 0px 2px rgba(var(@{arco-cssvars-prefix}-danger-6), 0.3)';
+    }
+  }
+
+  // 弹出框
+  &-popup {
+    .@{prefix}-select-popup {
+      padding: @spacing-3;
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+      box-shadow: 0px 0px 32px rgba(205, 213, 222, 0.42);
+    }
+    .@{prefix}-select-highlight {
+      font-weight: 700;
+    }
+  }
+  // close icon
+  .@{prefix}-icon-hover {
+    &::before {
+      width: 14px;
+      height: 14px;
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-5');
+      border-radius: @border-radius-circle;
+    }
+    &:hover {
+      &::before {
+        background-color: var(~'@{arco-cssvars-prefix}-color-fill-1');
+      }
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{auto-complete-prefix-cls} {
+    // foucs状态
+    &.@{prefix}-input-focus {
+      .@{prefix}-input-inner-wrapper {
+        box-shadow: 0px 0px 0px 2px rgba(69, 131, 255, 0.3);
+      }
+      .@{prefix}-input-inner-wrapper-error {
+        box-shadow: 0px 0px 0px 2px rgba(223, 76, 82, 0.3);
+      }
+    }
+
+    // 弹出框
+    &-popup {
+      .@{prefix}-select-popup {
+        box-shadow: none;
+      }
+    }
+  }
+}

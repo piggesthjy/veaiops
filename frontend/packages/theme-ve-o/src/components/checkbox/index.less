@@ -1,0 +1,16 @@
+.@{checkbox-prefix-cls} {
+  &.@{checkbox-prefix-cls}-disabled.@{checkbox-prefix-cls}-checked {
+    .@{checkbox-prefix-cls}-text {
+      color: var(~'@{arco-cssvars-prefix}-color-text-3');
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{checkbox-prefix-cls} {
+    &.@{checkbox-prefix-cls}-disabled .@{checkbox-prefix-cls}-mask-icon {
+      color: @dark-color-grey-2;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.bottom {
+  margin: 12px;
+
+  :global(.arco-divider-text) {
+    color: var(--color-text-2);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 22px;
+  }
+}
+
+.custom-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  :global {
+    .arco-table-th-item-title {
+      display: inline-block;
+    }
+  }
+}
+
+.footer {
+  width: calc(100%);
+  position: fixed;
+  bottom: 0;
+  padding: 18px 18px;
+  background: white;
+  transform: translateX(-70px);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    background-color: lighten(white, 10%); /* 按照 10% 亮度将颜色调整为更浅 */
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2); /* 悬停时的阴影效果 */
+  }
+}

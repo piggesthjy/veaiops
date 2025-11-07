@@ -1,0 +1,26 @@
+.tag {
+  text-align: center;
+  :global {
+    .arco-tag-content {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+// 匹配用户提供的DOM结构样式
+:global {
+  .rd-tag-pro {
+    display: inline-block;
+
+    &.rd-tag-pro-big {
+      // 大尺寸标签样式
+    }
+  }
+
+  .rd-tag {
+    &.rd-tag-outline {
+      // 轮廓样式标签
+    }
+  }
+}

@@ -1,0 +1,52 @@
+# Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+exporters:
+  logging:
+    loglevel: debug
+
+  otlp/jaeger:
+    endpoint: "jaeger:4317"  # 核心配置：Jaeger的gRPC接收端口
+    tls:
+      insecure: true
+      insecure_skip_verify: true
+
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    const_labels:
+      collector: "opentelemetry-collector"
+
+processors:
+  batch:
+    send_batch_size: 1000
+    timeout: 10s
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [logging, otlp/jaeger]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [logging, prometheus]

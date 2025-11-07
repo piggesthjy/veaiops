@@ -1,0 +1,68 @@
+# Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Quick Checks
+
+on:
+  pull_request:
+    paths:
+      - '**.py'
+      - '**.js'
+      - '**.ts'
+      - '**.html'
+      - '**.css'
+      - '**.yml'
+      - '**.yaml'
+      - '.pre-commit-config.yaml'
+      - 'pyproject.toml'
+
+jobs:
+  lint-only:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch all history for better diff detection
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+
+    - name: Cache pre-commit
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+
+    - name: Install pre-commit
+      run: uv tool install pre-commit
+
+    - name: Run pre-commit on changed files
+      run: |
+        # Get changed files in this PR
+        git diff --name-only origin/${{ github.base_ref }}...HEAD > changed_files.txt
+
+        # Run pre-commit only on changed files
+        if [ -s changed_files.txt ]; then
+          uv tool run pre-commit run --files $(cat changed_files.txt | tr '\n' ' ')
+        else
+          echo "No files to check"
+        fi

@@ -1,0 +1,62 @@
+.list-filter {
+  background-color: var(--color-bg-3);
+  border: 1px solid var(--color-border-2);
+  padding: 10px;
+  border-radius: 4px;
+  &-no-bg-no-border {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.listFilterNoBgNoBorder {
+  background-color: transparent;
+  border: none;
+  :global {
+    .arco-volc3-select-view {
+      height: 32px !important;
+    }
+
+    .arco-volc3-input {
+      height: 32px !important;
+    }
+  }
+
+  .listSwitchTabs {
+    :global {
+      .arco-tabs-header {
+        padding: 2px;
+      }
+
+      .arco-tabs-header-nav-capsule .arco-tabs-header-title {
+        line-height: 32px;
+      }
+    }
+  }
+
+  .list-filter-content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .list-filter-content-search-card {
+    width: 20px;
+    margin-left: -8px;
+
+    :global {
+      .arco-volc3-card {
+        border-radius: 4px 0 0 4px;
+        border-right: 0;
+        padding: 5px 13px;
+        height: 32px;
+        min-width: 80px !important;
+      }
+
+      .arco-volc3-card-body {
+        padding: 0;
+        line-height: 22px;
+        font-size: 13px;
+      }
+    }
+  }
+}

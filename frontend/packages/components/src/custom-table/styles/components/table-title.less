@@ -1,0 +1,31 @@
+/* 表格标题样式 */
+.custom-table-title {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center;
+  width: 100%;
+
+  .title-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-text-1);
+    flex: 1;
+    order: 1;
+  }
+
+  .title-actions {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto !important;
+    flex-shrink: 0;
+    order: 2;
+    justify-self: flex-end;
+  }
+}
+
+/* 确保工具栏在右边的额外样式 */
+.custom-table-title .title-actions {
+  margin-left: auto !important;
+  align-self: flex-end;
+}

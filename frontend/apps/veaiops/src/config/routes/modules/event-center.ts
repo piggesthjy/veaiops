@@ -1,0 +1,53 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import type { RouteConfig } from '@/types/route';
+import React from 'react';
+// 直接从 routes/config 目录导入，避免通过 config/index.ts 造成循环引用
+// 使用 ../config 会解析到 routes/config/index.ts，不会经过 config/index.ts
+import { EventCenterPages } from '../config';
+
+/**
+ * 事件中心路由配置
+ */
+export const eventCenterRoutes: RouteConfig[] = [
+  {
+    path: '/event-center/strategy',
+    element: React.createElement(EventCenterPages.Strategy),
+    title: '消息卡片通知策略',
+    icon: 'IconNotification',
+    requireAuth: true,
+  },
+  {
+    path: '/event-center/subscribe-relation',
+    element: React.createElement(EventCenterPages.SubscribeRelation),
+    title: '事件订阅',
+    icon: 'IconSubscribe',
+    requireAuth: true,
+  },
+  {
+    path: '/event-center/history',
+    element: React.createElement(EventCenterPages.History),
+    title: '历史事件',
+    icon: 'IconHistory',
+    requireAuth: true,
+  },
+  {
+    path: '/event-center/statistics',
+    element: React.createElement(EventCenterPages.Statistics),
+    title: '统计分析',
+    icon: 'IconBarChart',
+    requireAuth: true,
+  },
+];

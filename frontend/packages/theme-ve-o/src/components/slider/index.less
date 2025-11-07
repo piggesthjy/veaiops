@@ -1,0 +1,113 @@
+.@{slider-prefix} {
+  .@{slider-prefix}-road {
+    //水平
+    &:not(&.@{slider-prefix}-road-vertical) {
+      .@{slider-prefix}-button {
+        width: 10px;
+        height: 18px;
+        // top: -8px;
+        margin-top: -5px;
+        border-radius: 4px;
+        box-shadow:
+          0px 3.81242px 6.35403px rgba(0, 0, 0, 0.15),
+          0px 0px 1.27081px rgba(0, 0, 0, 0.1);
+        &::after {
+          width: 10px;
+          height: 18px;
+          border-radius: 4px;
+          transform: scale(1);
+        }
+      }
+    }
+    // 垂直
+    &.@{slider-prefix}-road-vertical {
+      .@{slider-prefix}-button {
+        width: 18px;
+        height: 10px;
+        // top: -8px;
+        margin-left: -5px;
+        border-radius: 4px;
+        &::after {
+          width: 18px;
+          height: 10px;
+          border-radius: 4px;
+          transform: scale(1);
+        }
+      }
+    }
+
+    &:not(&.@{slider-prefix}-road-disabled) {
+      .@{slider-prefix}-button {
+        &:hover {
+          box-shadow:
+            0px 3.81242px 6.35403px rgba(9, 30, 66, 0.2),
+            0px 0px 1.27081px rgba(9, 30, 66, 0.4);
+          &::after {
+            border-color: rgb(var(~'@{arco-cssvars-prefix}-primary-6'));
+          }
+        }
+      }
+      .@{slider-prefix}-button-active {
+        &::after {
+          border-color: rgb(var(~'@{arco-cssvars-prefix}-primary-6'));
+          box-shadow: ~'0px 4px 4px rgba(0, 0, 0, 0.25), 0px 3.81242px 6.35403px rgba(9, 30, 66, 0.2), 0px 0px 0px 3px rgba(var(@{arco-cssvars-prefix}-primary-6), 0.3)';
+        }
+      }
+    }
+
+    &.@{slider-prefix}-road-disabled {
+      .@{slider-prefix}-button {
+        box-shadow:
+          0px 3.81242px 6.35403px rgba(9, 30, 66, 0.2),
+          0px 0px 1.27081px rgba(9, 30, 66, 0.4);
+        &::after {
+          background: #ebecf0;
+        }
+      }
+    }
+  }
+
+  // 刻度
+  .@{slider-prefix}-ticks .@{slider-prefix}-tick {
+    margin-top: 4px;
+  }
+
+  // 标签文本
+  &-marks {
+    top: 18px;
+  }
+  &-with-marks {
+    padding-left: 4px;
+    & .arco-slider-marks-text:first-child {
+      left: -4px !important;
+      transform: translateX(0%);
+    }
+  }
+  // marks样式处理
+  &-dots {
+    .@{slider-prefix}-dot-wrapper {
+      .@{slider-prefix}-dot {
+        width: 2px;
+        border-width: 1px;
+        border-radius: 0;
+        background-color: transparent;
+      }
+      &:not(:first-child):not(:last-child) {
+        .@{slider-prefix}-dot {
+          margin-left: 1px;
+        }
+      }
+    }
+  }
+  // vertical
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{slider-prefix} {
+    .@{slider-prefix}-road.@{slider-prefix}-road-disabled
+      .@{slider-prefix}-button::after {
+      background-color: @dark-color-bg-8;
+    }
+  }
+}

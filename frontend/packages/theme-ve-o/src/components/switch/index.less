@@ -1,0 +1,36 @@
+.@{switch-prefix-cls} {
+  // box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.08);
+  &:not(.arco-switch-type-line) {
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.08);
+  }
+  &-dot {
+    box-shadow:
+      0px 1px 4px rgba(0, 0, 0, 0.15),
+      0px 1.16667px 0px rgba(20, 20, 20, 0.08);
+  }
+  &-loading {
+    .force-icon-loading {
+      animation: arco-loading-circle 1s linear infinite;
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{switch-prefix-cls} {
+    &-dot {
+      background-color: var(~'@{arco-cssvars-prefix}-color-fill-5');
+    }
+    &[disabled]:not(&-checked) .@{switch-prefix-cls}-dot {
+      background-color: @dark-color-grey-2;
+    }
+    &-checked[disabled] {
+      .@{switch-prefix-cls}-text {
+        color: @dark-color-grey-2;
+      }
+      .@{switch-prefix-cls}-dot {
+        background-color: @dark-color-grey-2;
+      }
+    }
+  }
+}

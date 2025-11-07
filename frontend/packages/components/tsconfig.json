@@ -1,0 +1,36 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    // 不设置 rootDir，让 TypeScript 自动推断，避免跨包引用时的 rootDir 冲突
+    // 被引用的项目必须能够 emit，不能禁用
+    "noEmit": false,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@veaiops/api-client": ["../api-client/src"],
+      "@veaiops/constants": ["../constants/src"],
+      "@veaiops/utils": ["../utils/src"],
+      "@veaiops/types": ["../types/src"],
+      "@veaiops/hooks": ["../hooks/src"],
+      // 包内路径别名（相对 baseUrl = .）
+      // 通配符 @/* 可以匹配所有 @/xxx 路径，包括目录本身（TypeScript 会自动解析 index.ts）
+      "@/*": ["src/*"],
+      // 明确映射 types 目录，确保 TypeScript 能够正确解析
+      "@/custom-table/types": ["src/custom-table/types/index.ts"],
+      "@/custom-table/types/*": ["src/custom-table/types/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.*", "**/*.spec.*"],
+  "references": [
+    { "path": "../api-client" },
+    { "path": "../constants" },
+    { "path": "../utils" },
+    { "path": "../types" },
+    { "path": "../hooks" }
+  ]
+}

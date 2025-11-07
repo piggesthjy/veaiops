@@ -1,0 +1,217 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import type {
+  DataSourceSetter,
+  SearchKeyConfig,
+  SelectDataSourceProps,
+  SelectOption,
+  veArchSelectBlockProps,
+} from './interface';
+
+/**
+ * 插件类型枚举
+ * 统一管理所有插件的标识符，提高类型安全性和可维护性
+ */
+export enum PluginType {
+  /** 数据获取插件 */
+  DATA_FETCHER = 'data-fetcher',
+  /** 搜索处理插件 */
+  SEARCH_HANDLER = 'search-handler',
+  /** 分页插件 */
+  PAGINATION = 'pagination',
+  /** 粘贴处理插件 */
+  PASTE_HANDLER = 'paste-handler',
+  /** 缓存处理插件 */
+  CACHE_HANDLER = 'cache-handler',
+}
+
+/**
+ * 插件基础接口
+ */
+export interface Plugin<T = any> {
+  name: string;
+  init?: (context: PluginContext) => void | Promise<void>;
+  destroy?: () => void;
+  config?: T;
+}
+
+/**
+ * 插件上下文，包含组件的状态和方法
+ */
+export interface PluginContext {
+  props: veArchSelectBlockProps;
+  state: SelectBlockState;
+  setState: (state: Partial<SelectBlockState>) => void;
+  utils: PluginUtils;
+  getPlugin?: <T extends Plugin>(pluginName: string) => T | undefined;
+}
+
+/**
+ * 组件状态接口
+ */
+export interface SelectBlockState {
+  fetchOptions: SelectOption[];
+  initFetchOptions: SelectOption[];
+  fetching: boolean;
+  loading: boolean;
+  skip: number;
+  searchValue: string;
+  canTriggerLoadMore: boolean;
+  mounted: boolean;
+  stateVersion?: number; // 🔧 用于强制重新渲染的版本号
+  lastDataSourceApi?: string; // 🔧 用于追踪上一次的 dataSource API，检测 dataSource 变化
+}
+
+/**
+ * 插件工具函数
+ */
+export interface PluginUtils {
+  ensureArray: <T>(value: T | T[] | null | undefined) => T[];
+  removeUndefinedValues: (target: any) => any;
+  splitPastedText: (text: string, separators?: string[]) => string[];
+  sessionStore: {
+    get: (key: string, defaultValue?: any) => any;
+    set: (key: string, value: any) => void;
+    remove: (key: string) => void;
+  };
+}
+
+/**
+ * 数据获取插件接口
+ */
+export interface DataFetcherPlugin extends Plugin<DataFetcherConfig> {
+  fetchByDataSetter: (
+    dataSource: DataSourceSetter,
+    params: Record<string, any>,
+  ) => Promise<SelectOption[]>;
+  fetchByFunction: (
+    dataSource: (props: SelectDataSourceProps) => Promise<any>,
+    params: any,
+  ) => Promise<SelectOption[]>;
+  fetchData: (
+    dataSource:
+      | DataSourceSetter
+      | ((props: SelectDataSourceProps) => Promise<any>),
+    remoteSearchParams: Record<string, any>,
+    externalContext?: PluginContext,
+  ) => Promise<SelectOption[]>;
+  processOptions: (
+    options: SelectOption[],
+    isAppend?: boolean,
+    apiName?: string,
+    externalContext?: PluginContext,
+  ) => SelectOption[];
+  updatePaginationState: (options: SelectOption[], apiName?: string) => void;
+  setCacheHandler: (cacheHandler: CacheHandlerPlugin) => void;
+}
+
+export interface DataFetcherConfig {
+  limit: number;
+  handleParams: (params: any) => any;
+  handleOptions: (props: {
+    options: SelectOption[];
+    value: any;
+  }) => SelectOption[];
+}
+
+/**
+ * 搜索处理插件接口
+ */
+export interface SearchHandlerPlugin extends Plugin<SearchHandlerConfig> {
+  getSearchParams: (inputValue: string) => Record<string, any>;
+  createDebouncedSearch: () => (params: SearchParams) => Promise<boolean>;
+  setDataFetcher: (dataFetcher: DataFetcherPlugin) => void;
+  setCacheHandler: (cacheHandler: CacheHandlerPlugin) => void;
+  createSearchCallback: () =>
+    | ((value: string, reason: any) => void)
+    | undefined;
+}
+
+export interface SearchHandlerConfig {
+  searchKey?: string;
+  remoteSearchKey?: string;
+  multiSearchKeys?: SearchKeyConfig[];
+  formatRemoteSearchKey?: (v: string) => any;
+  debounceDelay?: number;
+}
+
+export interface SearchParams {
+  initValue?: any;
+  inputValue?: string;
+  scroll?: boolean;
+  isOptionAppend?: boolean;
+}
+
+/**
+ * 分页插件接口
+ */
+export interface PaginationPlugin extends Plugin<PaginationConfig> {
+  handlePopupScroll: (element: HTMLElement) => Promise<boolean>;
+  resetPagination: () => void;
+  setSearchHandler: (searchHandler: SearchHandlerPlugin) => void;
+  handleVisibleChange: (visible: boolean) => void;
+}
+
+export interface PaginationConfig {
+  limit: number;
+  enabled: boolean;
+}
+
+/**
+ * 粘贴处理插件接口
+ */
+export interface PasteHandlerPlugin extends Plugin<PasteHandlerConfig> {
+  handlePaste: (event: ClipboardEvent) => void;
+  createPasteHandler: () => ((event: ClipboardEvent) => void) | undefined;
+}
+
+export interface PasteHandlerConfig {
+  allowPasteMultiple: boolean;
+  tokenSeparators: string[];
+  onPaste?: (pastedValues: string[], event: ClipboardEvent) => void;
+  beforePasteProcess?: (value: string) => string;
+  mode?: string;
+}
+
+/**
+ * 缓存处理插件接口
+ */
+export interface CacheHandlerPlugin extends Plugin<CacheHandlerConfig> {
+  getFromCache: (key: string) => any;
+  setToCache: (key: string, data: any) => void;
+  removeFromCache: (key: string) => void;
+  scheduleRemoval: (key: string, delay?: number) => void;
+}
+
+export interface CacheHandlerConfig {
+  cacheKey?: string;
+  dataSourceShare: boolean;
+  isFirstHint: boolean;
+  autoRemoveDelay?: number;
+}
+
+/**
+ * 插件管理器接口
+ */
+export interface PluginManager {
+  plugins: Map<string, Plugin>;
+  context: PluginContext;
+
+  register: <T extends Plugin>(plugin: T) => void;
+  unregister: (pluginName: string) => void;
+  getPlugin: <T extends Plugin>(pluginName: string) => T | undefined;
+  init: () => Promise<void>;
+  destroy: () => void;
+}

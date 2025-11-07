@@ -1,0 +1,234 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// StepIndicator 组件样式
+
+.stepsContainer {
+  margin: 0 0 32px;
+  width: 100%;
+  padding: 24px;
+  background: var(--color-bg-2);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+.stepsWrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 0 40px; // 为箭头留出空间
+
+  // 隐藏滚动条
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
+
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari
+  }
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  flex: 0 0 280px; // 固定宽度
+  min-width: 0;
+  height: 220px; // 与 introCard 高度一致
+}
+
+.connectorWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 60px;
+  height: 220px; // 与 introCard 高度一致
+
+  // 隐藏最后一个连接器，但保持其占位空间
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+.connector {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60px;
+  height: 100%;
+}
+
+.connectorLine {
+  width: 3px;
+  height: 100%;
+  background: var(--color-border-2);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+
+  .connector.completed & {
+    background: #00b42a;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #00b42a;
+      animation: progressFlow 2s ease-in-out;
+    }
+  }
+}
+
+.connectorDot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-bg-1);
+  border: 3px solid var(--color-border-2);
+  transition: all 0.4s ease;
+
+  .connector.completed & {
+    background: #00b42a;
+    box-shadow: 0 0 0 4px rgba(0, 180, 42, 0.1);
+  }
+}
+
+// 滚动箭头样式
+.scrollArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: var(--color-bg-1);
+  border: 1px solid var(--color-border-2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: var(--color-border-1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+    background: rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &.left {
+    left: 8px;
+  }
+
+  &.right {
+    right: 8px;
+  }
+
+  &.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .arrowIcon {
+    font-size: 16px;
+    color: var(--color-text-2);
+    transition: color 0.3s ease;
+  }
+
+  &:hover .arrowIcon {
+    color: var(--color-text-1);
+  }
+}
+
+// 响应式设计
+@media (max-width: 1200px) {
+  .stepItem {
+    flex: 0 0 240px; // 小屏幕下稍微缩小
+  }
+}
+
+@media (max-width: 768px) {
+  .stepsContainer {
+    padding: 16px;
+    margin: 16px 0 24px;
+  }
+
+  .stepsWrapper {
+    padding: 0 20px; // 移动端减少padding
+  }
+
+  .stepItem {
+    flex: 0 0 200px; // 移动端更小的固定宽度
+    height: auto; // 移动端自动高度
+  }
+
+  .scrollArrow {
+    width: 32px;
+    height: 32px;
+
+    &.left {
+      left: 4px;
+    }
+
+    &.right {
+      right: 4px;
+    }
+
+    .arrowIcon {
+      font-size: 14px;
+    }
+  }
+
+  .connectorWrapper {
+    width: 100%;
+    height: 40px;
+    flex: 0 0 40px;
+  }
+
+  .connector {
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+  }
+
+  .connectorLine {
+    width: 100%;
+    height: 3px;
+  }
+
+  .connectorDot {
+    left: 50%;
+    top: 50%;
+  }
+}

@@ -1,0 +1,77 @@
+.@{time-picker-prefix-cls} {
+  &-cell-selected {
+    display: flex;
+    justify-content: center;
+  }
+  &-cell-selected &-cell-inner {
+    width: 100%;
+    margin: 0 6px;
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    border-radius: @border-radius-medium;
+    color: rgb(var(~'@{arco-cssvars-prefix}-primary-6'));
+  }
+  &-cell-selected:hover &-cell-inner {
+    color: var(~'@{arco-cssvars-prefix}-color-text-1');
+  }
+
+  &-container {
+    margin-top: 2px;
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+    // border: none;
+  }
+  &-cell:not(&-cell-selected):not(&-cell-disabled):hover &-cell-inner {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+    border-radius: @border-radius-medium;
+    margin: 0 6px;
+  }
+  // footer
+  &-footer-extra-wrapper,
+  &-footer-btn-wrapper {
+    border-top: 1px solid var(~'@{arco-cssvars-prefix}-color-border-2');
+  }
+  // close icon
+  .@{prefix}-icon-hover {
+    &::before {
+      width: 14px;
+      height: 14px;
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-5');
+      border-radius: @border-radius-circle;
+    }
+    &:hover {
+      &::before {
+        background-color: var(~'@{arco-cssvars-prefix}-color-fill-1');
+      }
+    }
+  }
+}
+// 覆写快捷选项
+.@{prefix}-picker-range-container-shortcuts-placement-left,
+.@{prefix}-picker-container-shortcuts-placement-left {
+  .@{prefix}-picker-shortcuts {
+    .@{prefix}-btn.@{prefix}-btn-secondary:not(.@{prefix}-btn-disabled):not(
+        .@{prefix}-btn-not-loading
+      ) {
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+      font-weight: normal;
+      &:hover {
+        color: rgb(var(~'@{arco-cssvars-prefix}-primary-6'));
+        background-color: rgb(var(~'@{arco-cssvars-prefix}-link-2'));
+        font-weight: 500;
+      }
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{time-picker-prefix-cls} {
+    &-container {
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-8');
+    }
+    &-list:not(:last-child) {
+      border-right-color: @dark-color-border-2;
+    }
+  }
+}

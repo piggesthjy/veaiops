@@ -1,0 +1,76 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * 表格警告 Hook 相关类型定义
+ */
+import type React from 'react';
+
+/**
+ * useAlert Hook Props
+ */
+export interface UseAlertProps {
+  isAlertShow?: boolean;
+  alertType?: 'info' | 'success' | 'warning' | 'error';
+  alertContent?: React.ReactNode;
+  showIcon?: boolean;
+  closable?: boolean;
+  onClose?: () => void;
+  description?: React.ReactNode;
+  action?: React.ReactNode;
+  banner?: boolean;
+  style?: React.CSSProperties;
+  className?: string;
+}
+
+/**
+ * 警告状态
+ */
+export interface AlertState {
+  visible: boolean;
+  type: 'info' | 'success' | 'warning' | 'error';
+  message?: React.ReactNode;
+  description?: React.ReactNode;
+  showIcon: boolean;
+  closable: boolean;
+  action?: React.ReactNode;
+}
+
+/**
+ * 警告操作
+ */
+export interface AlertActions {
+  show: (config: Partial<AlertState>) => void;
+  hide: () => void;
+  update: (config: Partial<AlertState>) => void;
+  clear: () => void;
+}
+
+/**
+ * useAlert Hook 返回值
+ */
+export interface UseAlertResult {
+  alertState: AlertState;
+  alertActions: AlertActions;
+  alertProps: {
+    visible: boolean;
+    type: AlertState['type'];
+    message: React.ReactNode;
+    description?: React.ReactNode;
+    showIcon: boolean;
+    closable: boolean;
+    action?: React.ReactNode;
+    onClose: () => void;
+  };
+}

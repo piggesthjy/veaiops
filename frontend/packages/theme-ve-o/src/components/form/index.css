@@ -1,0 +1,935 @@
+/*
+  Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
+@dark-text : arco-theme='dark';
+.arco-form-horizontal .arco-form-label-item-left > label {
+  position: relative;
+  padding-left: 16px;
+}
+.arco-form-horizontal .arco-form-label-item-left .arco-form-item-symbol {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.arco-form-label-item > label {
+  line-height: 1;
+}
+.arco-form-item-feedback {
+  z-index: 2;
+}
+.arco-form-label-item .arco-form-item-tooltip {
+  color: var(--color-fill-2);
+  font-size: 14px;
+}
+.arco-form-item-status-error
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled) {
+  border: 1px solid rgb(var(--danger-3));
+}
+.arco-form-item-status-error
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:not(.arco-input-disabled):hover {
+  border: transparent;
+}
+.arco-form-item-status-error
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:not(.arco-input-disabled):focus {
+  box-shadow: none;
+}
+.arco-form-item-status-error
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):hover {
+  border: 1px solid rgb(var(--danger-6));
+}
+.arco-form-item-status-error .arco-input:not(.arco-input-disabled):hover {
+  border: 1px solid rgb(var(--danger-6));
+}
+.arco-form-item-status-error .arco-input:not(.arco-input-disabled):focus {
+  box-shadow: 0px 0px 0px 2px rgba(var(--danger-6), 0.3);
+}
+.arco-form-item-status-error .arco-input:not(.arco-input-disabled):focus:hover {
+  box-shadow: 0px 0px 0px 2px rgba(var(--danger-6), 0.3);
+}
+.arco-form-item-status-error .arco-input-group .arco-input-inner-wrapper-focus {
+  border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+  box-shadow: 0px 0px 0px 2px rgba(var(--danger-6), 0.3);
+  border: 1px solid rgb(var(--danger-7));
+}
+.arco-form-item-status-error
+  .arco-input-group
+  .arco-input-inner-wrapper-focus:hover {
+  border: 1px solid rgb(var(--danger-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--danger-6), 0.3);
+}
+.arco-form-item-status-error .arco-input-group-addbefore {
+  border-left: 1px solid rgb(var(--danger-3));
+  border-top: 1px solid rgb(var(--danger-3));
+  border-bottom: 1px solid rgb(var(--danger-3));
+}
+.arco-form-item-status-error .arco-input-group-addbefore .arco-select {
+  margin-left: -12px;
+}
+.arco-form-item-status-error
+  .arco-input-group-addbefore
+  .arco-select:not(
+    .arco-form-item-status-error
+      .arco-input-group-addbefore
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border-color: transparent;
+}
+.arco-form-item-status-error
+  .arco-input-group-addbefore
+  .arco-select:not(
+    .arco-form-item-status-error
+      .arco-input-group-addbefore
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view:first-of-type {
+  border-radius: var(--border-radius-medium) 0 0 var(--border-radius-medium);
+}
+.arco-form-item-status-error
+  .arco-input-group-addbefore
+  .arco-select:hover:not(
+    .arco-form-item-status-error
+      .arco-input-group-addbefore
+      .arco-select:hover.arco-select-disabled
+  )
+  .arco-select-view {
+  border-color: rgb(var(--danger-6));
+}
+.arco-form-item-status-error
+  .arco-input-group-addafter
+  .arco-select:not(
+    .arco-form-item-status-error
+      .arco-input-group-addafter
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border-left-color: transparent;
+}
+.arco-form-item-status-error
+  .arco-input-group-addafter:hover:not(
+    .arco-form-item-status-error
+      .arco-input-group-addafter:hover.arco-select-disabled
+  )
+  .arco-select-view {
+  border-left-color: rgb(var(--danger-6));
+}
+.arco-form-item-status-error
+  .arco-input-number
+  .arco-input-inner-wrapper:not(
+    .arco-input-inner-wrapper-disabled
+  ).arco-input-inner-wrapper-focus {
+  border-radius: var(--border-radius-medium);
+  border: 1px solid rgb(var(--danger-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--danger-6), 0.3);
+}
+.arco-form-item-status-error
+  .arco-input-number
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:focus {
+  box-shadow: none;
+}
+.arco-form-item-status-error
+  .arco-input-number
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:focus:hover {
+  box-shadow: none;
+}
+.arco-form-item-status-error
+  .arco-select:not(
+    .arco-form-item-status-error .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border: 1px solid rgb(var(--danger-3));
+}
+.arco-form-item-status-error
+  .arco-select:not(
+    .arco-form-item-status-error .arco-select.arco-select-disabled
+  ):hover
+  .arco-select-view {
+  border: 1px solid rgb(var(--danger-6));
+}
+.arco-form-item-status-error
+  .arco-select.arco-select-focused:not(
+    .arco-form-item-status-error
+      .arco-select.arco-select-focused.arco-select-disabled
+  )
+  .arco-select-view {
+  background-color: #ffffff;
+  border: 1px solid rgb(var(--danger-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--danger-6), 0.3);
+}
+.arco-form-item-status-error .arco-picker:not(.arco-picker-disabled) {
+  border: 1px solid rgb(var(--danger-3));
+}
+.arco-form-item-status-error .arco-picker:not(.arco-picker-disabled):hover {
+  border: 1px solid rgb(var(--danger-6));
+}
+.arco-form-item-status-error
+  .arco-picker:not(.arco-picker-disabled).arco-picker-focused {
+  box-shadow: 0px 0px 0px 2px rgba(var(--danger-6), 0.3);
+}
+.arco-form-item-status-warning
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled) {
+  border: 1px solid rgb(var(--warning-3));
+}
+.arco-form-item-status-warning
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:not(.arco-input-disabled):hover {
+  border: transparent;
+}
+.arco-form-item-status-warning
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:not(.arco-input-disabled):focus {
+  box-shadow: none;
+}
+.arco-form-item-status-warning
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):hover {
+  border: 1px solid rgb(var(--warning-6));
+}
+.arco-form-item-status-warning .arco-input:not(.arco-input-disabled):hover {
+  border: 1px solid rgb(var(--warning-6));
+}
+.arco-form-item-status-warning .arco-input:not(.arco-input-disabled):focus {
+  box-shadow: 0px 0px 0px 2px rgba(var(--warning-6), 0.3);
+}
+.arco-form-item-status-warning
+  .arco-input:not(.arco-input-disabled):focus:hover {
+  box-shadow: 0px 0px 0px 2px rgba(var(--warning-6), 0.3);
+}
+.arco-form-item-status-warning
+  .arco-input-group
+  .arco-input-inner-wrapper-focus {
+  border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+  box-shadow: 0px 0px 0px 2px rgba(var(--warning-6), 0.3);
+  border: 1px solid rgb(var(--warning-7));
+}
+.arco-form-item-status-warning
+  .arco-input-group
+  .arco-input-inner-wrapper-focus:hover {
+  border: 1px solid rgb(var(--warning-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--warning-6), 0.3);
+}
+.arco-form-item-status-warning .arco-input-group-addbefore {
+  border-left: 1px solid rgb(var(--warning-3));
+  border-top: 1px solid rgb(var(--warning-3));
+  border-bottom: 1px solid rgb(var(--warning-3));
+}
+.arco-form-item-status-warning .arco-input-group-addbefore .arco-select {
+  margin-left: -12px;
+}
+.arco-form-item-status-warning
+  .arco-input-group-addbefore
+  .arco-select:not(
+    .arco-form-item-status-warning
+      .arco-input-group-addbefore
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border-color: transparent;
+}
+.arco-form-item-status-warning
+  .arco-input-group-addbefore
+  .arco-select:not(
+    .arco-form-item-status-warning
+      .arco-input-group-addbefore
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view:first-of-type {
+  border-radius: var(--border-radius-medium) 0 0 var(--border-radius-medium);
+}
+.arco-form-item-status-warning
+  .arco-input-group-addbefore
+  .arco-select:hover:not(
+    .arco-form-item-status-warning
+      .arco-input-group-addbefore
+      .arco-select:hover.arco-select-disabled
+  )
+  .arco-select-view {
+  border-color: rgb(var(--warning-6));
+}
+.arco-form-item-status-warning
+  .arco-input-group-addafter
+  .arco-select:not(
+    .arco-form-item-status-warning
+      .arco-input-group-addafter
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border-left-color: transparent;
+}
+.arco-form-item-status-warning
+  .arco-input-group-addafter:hover:not(
+    .arco-form-item-status-warning
+      .arco-input-group-addafter:hover.arco-select-disabled
+  )
+  .arco-select-view {
+  border-left-color: rgb(var(--warning-6));
+}
+.arco-form-item-status-warning
+  .arco-input-number
+  .arco-input-inner-wrapper:not(
+    .arco-input-inner-wrapper-disabled
+  ).arco-input-inner-wrapper-focus {
+  border-radius: var(--border-radius-medium);
+  border: 1px solid rgb(var(--warning-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--warning-6), 0.3);
+}
+.arco-form-item-status-warning
+  .arco-input-number
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:focus {
+  box-shadow: none;
+}
+.arco-form-item-status-warning
+  .arco-input-number
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:focus:hover {
+  box-shadow: none;
+}
+.arco-form-item-status-warning
+  .arco-select:not(
+    .arco-form-item-status-warning .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border: 1px solid rgb(var(--warning-3));
+}
+.arco-form-item-status-warning
+  .arco-select:not(
+    .arco-form-item-status-warning .arco-select.arco-select-disabled
+  ):hover
+  .arco-select-view {
+  border: 1px solid rgb(var(--warning-6));
+}
+.arco-form-item-status-warning
+  .arco-select.arco-select-focused:not(
+    .arco-form-item-status-warning
+      .arco-select.arco-select-focused.arco-select-disabled
+  )
+  .arco-select-view {
+  background-color: #ffffff;
+  border: 1px solid rgb(var(--warning-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--warning-6), 0.3);
+}
+.arco-form-item-status-warning .arco-picker:not(.arco-picker-disabled) {
+  border: 1px solid rgb(var(--warning-3));
+}
+.arco-form-item-status-warning .arco-picker:not(.arco-picker-disabled):hover {
+  border: 1px solid rgb(var(--warning-6));
+}
+.arco-form-item-status-warning
+  .arco-picker:not(.arco-picker-disabled).arco-picker-focused {
+  box-shadow: 0px 0px 0px 2px rgba(var(--warning-6), 0.3);
+}
+.arco-form-item-status-success
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled) {
+  border: 1px solid rgb(var(--success-3));
+}
+.arco-form-item-status-success
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:not(.arco-input-disabled):hover {
+  border: transparent;
+}
+.arco-form-item-status-success
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:not(.arco-input-disabled):focus {
+  box-shadow: none;
+}
+.arco-form-item-status-success
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):hover {
+  border: 1px solid rgb(var(--success-6));
+}
+.arco-form-item-status-success .arco-input:not(.arco-input-disabled):hover {
+  border: 1px solid rgb(var(--success-6));
+}
+.arco-form-item-status-success .arco-input:not(.arco-input-disabled):focus {
+  box-shadow: 0px 0px 0px 2px rgba(var(--success-6), 0.3);
+}
+.arco-form-item-status-success
+  .arco-input:not(.arco-input-disabled):focus:hover {
+  box-shadow: 0px 0px 0px 2px rgba(var(--success-6), 0.3);
+}
+.arco-form-item-status-success
+  .arco-input-group
+  .arco-input-inner-wrapper-focus {
+  border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+  box-shadow: 0px 0px 0px 2px rgba(var(--success-6), 0.3);
+  border: 1px solid rgb(var(--success-7));
+}
+.arco-form-item-status-success
+  .arco-input-group
+  .arco-input-inner-wrapper-focus:hover {
+  border: 1px solid rgb(var(--success-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--success-6), 0.3);
+}
+.arco-form-item-status-success .arco-input-group-addbefore {
+  border-left: 1px solid rgb(var(--success-3));
+  border-top: 1px solid rgb(var(--success-3));
+  border-bottom: 1px solid rgb(var(--success-3));
+}
+.arco-form-item-status-success .arco-input-group-addbefore .arco-select {
+  margin-left: -12px;
+}
+.arco-form-item-status-success
+  .arco-input-group-addbefore
+  .arco-select:not(
+    .arco-form-item-status-success
+      .arco-input-group-addbefore
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border-color: transparent;
+}
+.arco-form-item-status-success
+  .arco-input-group-addbefore
+  .arco-select:not(
+    .arco-form-item-status-success
+      .arco-input-group-addbefore
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view:first-of-type {
+  border-radius: var(--border-radius-medium) 0 0 var(--border-radius-medium);
+}
+.arco-form-item-status-success
+  .arco-input-group-addbefore
+  .arco-select:hover:not(
+    .arco-form-item-status-success
+      .arco-input-group-addbefore
+      .arco-select:hover.arco-select-disabled
+  )
+  .arco-select-view {
+  border-color: rgb(var(--success-6));
+}
+.arco-form-item-status-success
+  .arco-input-group-addafter
+  .arco-select:not(
+    .arco-form-item-status-success
+      .arco-input-group-addafter
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border-left-color: transparent;
+}
+.arco-form-item-status-success
+  .arco-input-group-addafter:hover:not(
+    .arco-form-item-status-success
+      .arco-input-group-addafter:hover.arco-select-disabled
+  )
+  .arco-select-view {
+  border-left-color: rgb(var(--success-6));
+}
+.arco-form-item-status-success
+  .arco-input-number
+  .arco-input-inner-wrapper:not(
+    .arco-input-inner-wrapper-disabled
+  ).arco-input-inner-wrapper-focus {
+  border-radius: var(--border-radius-medium);
+  border: 1px solid rgb(var(--success-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--success-6), 0.3);
+}
+.arco-form-item-status-success
+  .arco-input-number
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:focus {
+  box-shadow: none;
+}
+.arco-form-item-status-success
+  .arco-input-number
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:focus:hover {
+  box-shadow: none;
+}
+.arco-form-item-status-success
+  .arco-select:not(
+    .arco-form-item-status-success .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border: 1px solid rgb(var(--success-3));
+}
+.arco-form-item-status-success
+  .arco-select:not(
+    .arco-form-item-status-success .arco-select.arco-select-disabled
+  ):hover
+  .arco-select-view {
+  border: 1px solid rgb(var(--success-6));
+}
+.arco-form-item-status-success
+  .arco-select.arco-select-focused:not(
+    .arco-form-item-status-success
+      .arco-select.arco-select-focused.arco-select-disabled
+  )
+  .arco-select-view {
+  background-color: #ffffff;
+  border: 1px solid rgb(var(--success-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--success-6), 0.3);
+}
+.arco-form-item-status-success .arco-picker:not(.arco-picker-disabled) {
+  border: 1px solid rgb(var(--success-3));
+}
+.arco-form-item-status-success .arco-picker:not(.arco-picker-disabled):hover {
+  border: 1px solid rgb(var(--success-6));
+}
+.arco-form-item-status-success
+  .arco-picker:not(.arco-picker-disabled).arco-picker-focused {
+  box-shadow: 0px 0px 0px 2px rgba(var(--success-6), 0.3);
+}
+.arco-form-item-status-validating
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled) {
+  border: 1px solid rgb(var(--primary-3));
+}
+.arco-form-item-status-validating
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:not(.arco-input-disabled):hover {
+  border: transparent;
+}
+.arco-form-item-status-validating
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:not(.arco-input-disabled):focus {
+  box-shadow: none;
+}
+.arco-form-item-status-validating
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):hover {
+  border: 1px solid rgb(var(--primary-6));
+}
+.arco-form-item-status-validating .arco-input:not(.arco-input-disabled):hover {
+  border: 1px solid rgb(var(--primary-6));
+}
+.arco-form-item-status-validating .arco-input:not(.arco-input-disabled):focus {
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+}
+.arco-form-item-status-validating
+  .arco-input:not(.arco-input-disabled):focus:hover {
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+}
+.arco-form-item-status-validating
+  .arco-input-group
+  .arco-input-inner-wrapper-focus {
+  border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+  border: 1px solid rgb(var(--primary-7));
+}
+.arco-form-item-status-validating
+  .arco-input-group
+  .arco-input-inner-wrapper-focus:hover {
+  border: 1px solid rgb(var(--primary-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+}
+.arco-form-item-status-validating .arco-input-group-addbefore {
+  border-left: 1px solid rgb(var(--primary-3));
+  border-top: 1px solid rgb(var(--primary-3));
+  border-bottom: 1px solid rgb(var(--primary-3));
+}
+.arco-form-item-status-validating .arco-input-group-addbefore .arco-select {
+  margin-left: -12px;
+}
+.arco-form-item-status-validating
+  .arco-input-group-addbefore
+  .arco-select:not(
+    .arco-form-item-status-validating
+      .arco-input-group-addbefore
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border-color: transparent;
+}
+.arco-form-item-status-validating
+  .arco-input-group-addbefore
+  .arco-select:not(
+    .arco-form-item-status-validating
+      .arco-input-group-addbefore
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view:first-of-type {
+  border-radius: var(--border-radius-medium) 0 0 var(--border-radius-medium);
+}
+.arco-form-item-status-validating
+  .arco-input-group-addbefore
+  .arco-select:hover:not(
+    .arco-form-item-status-validating
+      .arco-input-group-addbefore
+      .arco-select:hover.arco-select-disabled
+  )
+  .arco-select-view {
+  border-color: rgb(var(--primary-6));
+}
+.arco-form-item-status-validating
+  .arco-input-group-addafter
+  .arco-select:not(
+    .arco-form-item-status-validating
+      .arco-input-group-addafter
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border-left-color: transparent;
+}
+.arco-form-item-status-validating
+  .arco-input-group-addafter:hover:not(
+    .arco-form-item-status-validating
+      .arco-input-group-addafter:hover.arco-select-disabled
+  )
+  .arco-select-view {
+  border-left-color: rgb(var(--primary-6));
+}
+.arco-form-item-status-validating
+  .arco-input-number
+  .arco-input-inner-wrapper:not(
+    .arco-input-inner-wrapper-disabled
+  ).arco-input-inner-wrapper-focus {
+  border-radius: var(--border-radius-medium);
+  border: 1px solid rgb(var(--primary-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+}
+.arco-form-item-status-validating
+  .arco-input-number
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:focus {
+  box-shadow: none;
+}
+.arco-form-item-status-validating
+  .arco-input-number
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled)
+  .arco-input:focus:hover {
+  box-shadow: none;
+}
+.arco-form-item-status-validating
+  .arco-select:not(
+    .arco-form-item-status-validating .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border: 1px solid rgb(var(--primary-3));
+}
+.arco-form-item-status-validating
+  .arco-select:not(
+    .arco-form-item-status-validating .arco-select.arco-select-disabled
+  ):hover
+  .arco-select-view {
+  border: 1px solid rgb(var(--primary-6));
+}
+.arco-form-item-status-validating
+  .arco-select.arco-select-focused:not(
+    .arco-form-item-status-validating
+      .arco-select.arco-select-focused.arco-select-disabled
+  )
+  .arco-select-view {
+  background-color: #ffffff;
+  border: 1px solid rgb(var(--primary-7));
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+}
+.arco-form-item-status-validating .arco-picker:not(.arco-picker-disabled) {
+  border: 1px solid rgb(var(--primary-3));
+}
+.arco-form-item-status-validating
+  .arco-picker:not(.arco-picker-disabled):hover {
+  border: 1px solid rgb(var(--primary-6));
+}
+.arco-form-item-status-validating
+  .arco-picker:not(.arco-picker-disabled).arco-picker-focused {
+  box-shadow: 0px 0px 0px 2px rgba(var(--primary-6), 0.3);
+}
+.arco-form .arco-input-group .arco-input-inner-wrapper-focus {
+  border-radius: var(--border-radius-medium) 0 0 var(--border-radius-medium);
+}
+.arco-form
+  .arco-input-group
+  .arco-input-inner-wrapper-focus:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+.arco-form
+  .arco-input-group
+  .arco-input-inner-wrapper-has-prefix.arco-input-inner-wrapper-focus {
+  border-radius: var(--border-radius-medium);
+}
+.arco-form .arco-input-has-suffix .arco-input-inner-wrapper-focus {
+  border-radius: var(--border-radius-medium);
+}
+.arco-form .arco-autocomplete .arco-input-group .arco-input-inner-wrapper-focus,
+.arco-form
+  .arco-input-number
+  .arco-input-group
+  .arco-input-inner-wrapper-focus {
+  border-radius: var(--border-radius-medium);
+}
+.arco-form .arco-input-group-addbefore .arco-select-view:first-of-type {
+  border-radius: var(--border-radius-medium) 0 0 var(--border-radius-medium);
+}
+.arco-form .arco-input-group-addbefore + .arco-input-inner-wrapper-focus {
+  border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+}
+.arco-form .arco-input-group-addafter .arco-select-view:first-of-type {
+  border-radius: 0 var(--border-radius-medium) var(--border-radius-medium) 0;
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-error
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled) {
+  border: 1px solid rgba(255, 112, 109, 0.3);
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-error
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):hover {
+  border-color: rgb(var(--danger-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-error
+  .arco-input-group
+  .arco-input-inner-wrapper-focus {
+  border: 1px solid rgb(var(--danger-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-error
+  .arco-input-number
+  .arco-input-inner-wrapper:not(
+    .arco-input-inner-wrapper-disabled
+  ).arco-input-inner-wrapper-focus {
+  border: 1px solid rgb(var(--danger-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-error
+  .arco-select:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-error
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border: 1px solid rgba(255, 112, 109, 0.3);
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-error
+  .arco-select:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-error
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view:hover {
+  border-color: rgb(var(--danger-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-error
+  .arco-select.arco-select-focused:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-error
+      .arco-select.arco-select-focused.arco-select-disabled
+  )
+  .arco-select-view {
+  background-color: transparent;
+  border: 1px solid rgb(var(--danger-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-error
+  .arco-picker:not(.arco-picker-disabled) {
+  border: 1px solid rgba(255, 112, 109, 0.3);
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-error
+  .arco-picker:not(.arco-picker-disabled):hover {
+  border-color: rgb(var(--danger-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-warning
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled) {
+  border: 1px solid rgb(var(--warning-3));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-warning
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):hover {
+  border-color: rgb(var(--warning-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-warning
+  .arco-input-group
+  .arco-input-inner-wrapper-focus {
+  border: 1px solid rgb(var(--warning-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-warning
+  .arco-input-number
+  .arco-input-inner-wrapper:not(
+    .arco-input-inner-wrapper-disabled
+  ).arco-input-inner-wrapper-focus {
+  border: 1px solid rgb(var(--warning-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-warning
+  .arco-select:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-warning
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border: 1px solid rgb(var(--warning-3));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-warning
+  .arco-select:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-warning
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view:hover {
+  border-color: rgb(var(--warning-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-warning
+  .arco-select.arco-select-focused:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-warning
+      .arco-select.arco-select-focused.arco-select-disabled
+  )
+  .arco-select-view {
+  background-color: transparent;
+  border: 1px solid rgb(var(--warning-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-warning
+  .arco-picker:not(.arco-picker-disabled) {
+  border: 1px solid rgb(var(--warning-3));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-warning
+  .arco-picker:not(.arco-picker-disabled):hover {
+  border-color: rgb(var(--warning-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-validating
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled) {
+  border: 1px solid rgb(var(--primary-3));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-validating
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):hover {
+  border-color: rgb(var(--primary-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-validating
+  .arco-input-group
+  .arco-input-inner-wrapper-focus {
+  border: 1px solid rgb(var(--primary-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-validating
+  .arco-input-number
+  .arco-input-inner-wrapper:not(
+    .arco-input-inner-wrapper-disabled
+  ).arco-input-inner-wrapper-focus {
+  border: 1px solid rgb(var(--primary-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-validating
+  .arco-select:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-validating
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border: 1px solid rgb(var(--primary-3));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-validating
+  .arco-select:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-validating
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view:hover {
+  border-color: rgb(var(--primary-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-validating
+  .arco-select.arco-select-focused:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-validating
+      .arco-select.arco-select-focused.arco-select-disabled
+  )
+  .arco-select-view {
+  background-color: transparent;
+  border: 1px solid rgb(var(--primary-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-validating
+  .arco-picker:not(.arco-picker-disabled) {
+  border: 1px solid rgb(var(--primary-3));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-validating
+  .arco-picker:not(.arco-picker-disabled):hover {
+  border-color: rgb(var(--primary-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-success
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled) {
+  border: 1px solid rgb(var(--success-3));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-success
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):hover {
+  border-color: rgb(var(--success-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-success
+  .arco-input-group
+  .arco-input-inner-wrapper-focus {
+  border: 1px solid rgb(var(--success-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-success
+  .arco-input-number
+  .arco-input-inner-wrapper:not(
+    .arco-input-inner-wrapper-disabled
+  ).arco-input-inner-wrapper-focus {
+  border: 1px solid rgb(var(--success-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-success
+  .arco-select:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-success
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view {
+  border: 1px solid rgb(var(--success-3));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-success
+  .arco-select:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-success
+      .arco-select.arco-select-disabled
+  )
+  .arco-select-view:hover {
+  border-color: rgb(var(--success-6));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-success
+  .arco-select.arco-select-focused:not(
+    body[arco-theme="dark"]
+      .arco-form-item-status-success
+      .arco-select.arco-select-focused.arco-select-disabled
+  )
+  .arco-select-view {
+  background-color: transparent;
+  border: 1px solid rgb(var(--success-7));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-success
+  .arco-picker:not(.arco-picker-disabled) {
+  border: 1px solid rgb(var(--success-3));
+}
+body[arco-theme="dark"]
+  .arco-form-item-status-success
+  .arco-picker:not(.arco-picker-disabled):hover {
+  border-color: rgb(var(--success-6));
+}

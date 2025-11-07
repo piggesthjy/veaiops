@@ -1,0 +1,32 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    // 根目录不设置 composite，避免需要构建产物
+    "composite": false,
+    "baseUrl": ".",
+    "paths": {
+      // 仅配置应用层（apps）的路径别名
+      "@/*": ["apps/veaiops/src/*"],
+      "api-generate": ["apps/veaiops/api-generate"]
+    }
+  },
+  // 仅包含应用层文件，packages 通过 references 引用（继承配置但不强制构建）
+  "include": ["apps/**/*", "tsconfig.*.json"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    ".nx",
+    "**/node_modules",
+    "**/dist"
+  ],
+  // 通过 references 引用所有子项目，让 TypeScript 使用各子项目的 tsconfig.json 配置
+  "references": [
+    { "path": "./packages/components" },
+    { "path": "./packages/constants" },
+    { "path": "./packages/utils" },
+    { "path": "./packages/types" },
+    { "path": "./packages/hooks" },
+    { "path": "./apps/veaiops" }
+  ]
+}

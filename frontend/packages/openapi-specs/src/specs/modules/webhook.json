@@ -1,0 +1,67 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VolcAIOpsKit - Webhook APIs",
+    "version": "1.0.0",
+    "description": "Webhook 相关接口"
+  },
+  "paths": {
+    "/apis/v1/hook/{provider}": {
+      "post": {
+        "summary": "Payload Webhook",
+        "description": "接收来自不同提供商的 Webhook 负载",
+        "tags": ["Webhook"],
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Webhook 提供商"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Webhook 负载数据"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Webhook 处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "APIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {}
+        }
+      }
+    }
+  }
+}

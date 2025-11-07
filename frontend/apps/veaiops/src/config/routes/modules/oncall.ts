@@ -1,0 +1,49 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import type { RouteConfig } from '@/types/route';
+import React from 'react';
+// 直接从 routes/config 目录导入，避免通过 config/index.ts 造成循环引用
+// 使用 ../config 会解析到 routes/config/index.ts，不会经过 config/index.ts
+import { OncallPages } from '../config';
+
+/**
+ * Oncall异动模块路由配置
+ */
+export const oncallRoutes: RouteConfig[] = [
+  {
+    path: '/oncall/config',
+    element: React.createElement(OncallPages.Config),
+    title: 'Oncall异动配置',
+    requireAuth: true,
+  },
+  {
+    path: '/oncall/rules',
+    element: React.createElement(OncallPages.Rules),
+    title: 'Oncall异动规则',
+    requireAuth: true,
+  },
+  {
+    path: '/oncall/history',
+    element: React.createElement(OncallPages.History),
+    title: 'Oncall异动历史',
+    requireAuth: true,
+  },
+  {
+    path: '/oncall/stats',
+    element: React.createElement(OncallPages.Statistics),
+    title: 'Oncall异动统计',
+    requireAuth: true,
+  },
+];

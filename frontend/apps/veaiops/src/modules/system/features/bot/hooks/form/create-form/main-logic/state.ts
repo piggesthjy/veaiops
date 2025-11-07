@@ -1,0 +1,48 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import { Form } from '@arco-design/web-react';
+import type { BotFormData } from '@bot/lib';
+import { ChannelType } from 'api-generate';
+import { useState } from 'react';
+
+/**
+ * Bot创建表单状态管理
+ */
+export const useBotCreateFormState = () => {
+  const [form] = Form.useForm<BotFormData>();
+  const [kbCollections, setKbCollections] = useState<string[]>([]);
+  const [showSecrets, setShowSecrets] = useState({
+    secret: false,
+    ak: false,
+    sk: false,
+    api_key: false,
+  });
+  const [showAdvancedConfig, setShowAdvancedConfig] = useState(false);
+  const [selectedChannel, setSelectedChannel] = useState<ChannelType>(
+    ChannelType.LARK,
+  );
+
+  return {
+    form,
+    kbCollections,
+    setKbCollections,
+    showSecrets,
+    setShowSecrets,
+    showAdvancedConfig,
+    setShowAdvancedConfig,
+    selectedChannel,
+    setSelectedChannel,
+  };
+};

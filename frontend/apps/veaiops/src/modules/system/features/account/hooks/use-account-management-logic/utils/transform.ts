@@ -1,0 +1,42 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import type { User as LocalUser } from '@account';
+import type { User } from 'api-generate';
+
+// 直接使用 api-generate 中的 User 类型
+type ApiUser = User;
+type UserTableData = LocalUser;
+
+/**
+ * 转换用户数据为表格数据
+ *
+ * @param user - API 返回的用户数据（api-generate 中的 User 类型）
+ * @returns 转换后的用户表格数据
+ */
+export const transformUserToTableData = (user: ApiUser): UserTableData => {
+  const now = new Date().toISOString();
+  return {
+    ...user,
+    id: user._id || `temp-${Date.now()}-${Math.random()}`,
+    key: user._id || `temp-${Date.now()}-${Math.random()}`,
+    // 将 API 字段映射到本地字段
+    role: user.is_supervisor ? 'admin' : 'user',
+    status: user.is_active ? 'active' : 'inactive',
+    is_system_admin: user.is_supervisor || false,
+    // 确保时间戳字段有默认值
+    created_at: user.created_at || now,
+    updated_at: user.updated_at || now,
+  };
+};

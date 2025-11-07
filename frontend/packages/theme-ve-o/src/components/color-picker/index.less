@@ -1,0 +1,13 @@
+.@{color-prefix-cls} {
+  &-picker {
+    border: 1px solid var(~'@{arco-cssvars-prefix}-color-border-3');
+    background-color: var(~'@{arco-cssvars-prefix}-color-grey-1');
+    &:not(&-disabled):hover {
+      border-color: rgb(var(~'@{arco-cssvars-prefix}-link-6'));
+      background-color: var(~'@{arco-cssvars-prefix}-color-grey-1');
+    }
+  }
+  &-picker&-picker-disabled {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+  }
+}

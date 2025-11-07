@@ -1,0 +1,433 @@
+// Copyright 2025 Beijing Volcano Engine Technology Co., Ltd. and/or its affiliates
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import { logger } from '@veaiops/utils';
+import { useMemo } from 'react';
+
+/**
+ * 通用的自动刷新CRUD操作类型
+ */
+export interface AutoRefreshOperations {
+  delete: (id: string) => Promise<boolean>;
+  update: () => Promise<{ success: boolean; error?: Error }>;
+  create?: (data: any) => Promise<{ success: boolean; error?: Error }>;
+}
+
+/**
+ * 创建自动刷新CRUD操作的Hook
+ *
+ * 这个Hook提供了一种通用的方式来包装CRUD操作，使其在执行成功后自动触发表格刷新。
+ * 适用于任何需要自动刷新表格的异步操作场景。
+ *
+ * ## 核心特性
+ *
+ * ✅ **自动刷新**: 操作成功后自动触发表格刷新，无需手动调用
+ * ✅ **错误处理**: 统一的错误处理和日志记录
+ * ✅ **类型安全**: 完整的TypeScript类型支持
+ * ✅ **灵活配置**: 支持可选的API函数配置
+ * ✅ **通用性**: 可用于任何表格组件的CRUD操作
+ *
+ * ## 基本用法
+ *
+ * ```typescript
+ * import { useAutoRefreshOperations } from '@/modules/threshold/features/task-config/hooks';
+ *
+ * const MyComponent = () => {
+ *   const tableRef = useRef<TaskTableRef>(null);
+ *
+ *   // 获取刷新函数
+ *   const refreshTable = useCallback(async () => {
+ *     await tableRef.current?.refresh();
+ *   }, []);
+ *
+ *   // 创建自动刷新操作
+ *   const operations = useAutoRefreshOperations({
+ *     refreshFn: refreshTable, // 刷新函数
+ *     deleteApi: async (id) => await deleteApi(id), // 删除API
+ *     updateApi: async () => await batchUpdateApi(), // 更新API
+ *     createApi: async (data) => await createApi(data), // 创建API（可选）
+ *   });
+ *
+ *   // 使用操作
+ *   const handleDelete = async (id: string) => {
+ *     try {
+ *       const success = await operations.delete(id);
+ *       if (success) {
+ *         // 删除成功，表格已自动刷新（由 hook 处理）
+ *       }
+ *     } catch (error) {
+ *       // 错误已由hook处理，这里只需要处理UI反馈
+ *       message.error('删除失败');
+ *     }
+ *   };
+ *
+ *   return <TaskTable ref={tableRef} onDelete={handleDelete} />;
+ * };
+ * ```
+ *
+ * ## 高级用法
+ *
+ * ### 1. 部分配置（只使用删除操作）
+ *
+ * ```typescript
+ * const operations = useAutoRefreshOperations({
+ *   refreshFn: refreshTable,
+ *   deleteApi: async (id) => await deleteApi(id), // 只配置删除
+ *   // updateApi 和 createApi 可以省略
+ * });
+ * ```
+ *
+ * ### 2. 使用自定义操作包装器
+ *
+ * ```typescript
+ * import { createOperationWrapper } from '@/modules/threshold/features/task-config/hooks';
+ *
+ * const customDelete = createOperationWrapper({
+ *   operation: async (id: string) => {
+ *     // 自定义删除逻辑
+ *     const result = await api.delete(id);
+ *     return result;
+ *   },
+ *   refreshFn: refreshTable,
+ *   successCondition: (result) => result.success, // 自定义成功条件
+ * });
+ *
+ * const handleDelete = async (id: string) => {
+ *   await customDelete(id);
+ * };
+ * ```
+ *
+ * ### 3. 与表格组件集成
+ *
+ * ```typescript
+ * const TaskTableWithAutoRefresh = forwardRef<TaskTableRef>((props, ref) => {
+ *   const { refresh, operations } = useTaskTableConfig(props);
+ *
+ *   useImperativeHandle(ref, () => ({
+ *     refresh,
+ *     operations, // 暴露自动刷新操作
+ *   }), [refresh, operations]);
+ *
+ *   return <CustomTable {...props} />;
+ * });
+ * ```
+ *
+ * @param params - 参数对象
+ * @param params.refreshFn - 表格刷新函数，支持返回 Promise<void> 或 Promise<{ success: boolean; error?: Error }>
+ * @param params.deleteApi - 删除API函数，接收id参数，返回boolean表示是否成功
+ * @param params.updateApi - 更新API函数，用于批量操作等，返回void
+ * @param params.createApi - 创建API函数，接收数据参数（可选）
+ * @returns 自动刷新的CRUD操作对象
+ */
+export interface UseAutoRefreshOperationsParams {
+  refreshFn: () => Promise<void> | Promise<{ success: boolean; error?: Error }>;
+  deleteApi?: (id: string) => Promise<boolean>;
+  updateApi?: () =>
+    | Promise<void>
+    | Promise<{ success: boolean; error?: Error }>;
+  createApi?: (
+    data: any,
+  ) => Promise<void> | Promise<{ success: boolean; error?: Error }>;
+}
+
+export const useAutoRefreshOperations = ({
+  refreshFn,
+  deleteApi,
+  updateApi,
+  createApi,
+}: UseAutoRefreshOperationsParams): AutoRefreshOperations => {
+  return useMemo(
+    () => ({
+      /**
+       * 删除操作 - 执行成功后自动刷新表格
+       * @param id - 要删除的记录ID
+       * @returns 删除是否成功
+       */
+      delete: async (id: string): Promise<boolean> => {
+        if (!deleteApi) {
+          // ✅ 正确：使用 logger 记录警告
+          logger.warn({
+            message: 'useAutoRefreshOperations: deleteApi not provided',
+            data: { id },
+            source: 'AutoRefreshOperations',
+            component: 'delete',
+          });
+          return false;
+        }
+
+        try {
+          const success = await deleteApi(id);
+          if (success) {
+            // 操作成功后自动刷新表格
+            const refreshResult = await refreshFn();
+            // 如果刷新失败，记录警告但不影响删除操作本身
+            if (
+              refreshResult &&
+              typeof refreshResult === 'object' &&
+              'success' in refreshResult &&
+              !refreshResult.success &&
+              refreshResult.error
+            ) {
+              logger.warn({
+                message: '删除后刷新表格失败',
+                data: {
+                  error: refreshResult.error.message,
+                  id,
+                },
+                source: 'AutoRefreshOperations',
+                component: 'delete',
+              });
+            }
+          }
+          return success;
+        } catch (error) {
+          // ✅ 正确：使用 logger 记录错误，并透出实际错误信息
+          const errorObj =
+            error instanceof Error ? error : new Error(String(error));
+          logger.error({
+            message: 'Delete operation failed',
+            data: {
+              error: errorObj.message,
+              stack: errorObj.stack,
+              errorObj,
+              id,
+            },
+            source: 'AutoRefreshOperations',
+            component: 'delete',
+          });
+          // ✅ 正确：将错误转换为 Error 对象再抛出（符合 @typescript-eslint/only-throw-error 规则）
+          throw errorObj;
+        }
+      },
+
+      /**
+       * 更新操作 - 执行成功后自动刷新表格
+       * 适用于批量更新、状态变更等操作
+       *
+       * @returns 返回 { success: boolean; error?: Error } 格式的结果对象
+       */
+      update: async (): Promise<{ success: boolean; error?: Error }> => {
+        if (!updateApi) {
+          // ✅ 正确：使用 logger 记录警告
+          logger.warn({
+            message: 'useAutoRefreshOperations: updateApi not provided',
+            data: undefined,
+            source: 'AutoRefreshOperations',
+            component: 'update',
+          });
+          return { success: false, error: new Error('updateApi not provided') };
+        }
+
+        try {
+          const updateResult = await updateApi();
+          // 检查更新操作是否成功（如果返回结果对象）
+          const updateSuccess =
+            updateResult &&
+            typeof updateResult === 'object' &&
+            'success' in updateResult
+              ? updateResult.success
+              : true; // 如果返回 void，默认认为成功
+
+          if (updateSuccess) {
+            // 操作成功后自动刷新表格
+            const refreshResult = await refreshFn();
+            // 如果刷新失败，记录警告但不影响更新操作本身
+            if (
+              refreshResult &&
+              typeof refreshResult === 'object' &&
+              'success' in refreshResult &&
+              !refreshResult.success &&
+              refreshResult.error
+            ) {
+              logger.warn({
+                message: '更新后刷新表格失败',
+                data: {
+                  error: refreshResult.error.message,
+                },
+                source: 'AutoRefreshOperations',
+                component: 'update',
+              });
+            }
+            return { success: true };
+          } else {
+            // 更新操作失败，返回失败结果
+            const updateError =
+              updateResult &&
+              typeof updateResult === 'object' &&
+              'error' in updateResult
+                ? (updateResult as { error?: Error }).error
+                : new Error('更新操作失败');
+            return { success: false, error: updateError };
+          }
+        } catch (error) {
+          // ✅ 正确：使用 logger 记录错误，并透出实际错误信息
+          const errorObj =
+            error instanceof Error ? error : new Error(String(error));
+          logger.error({
+            message: 'Update operation failed',
+            data: {
+              error: errorObj.message,
+              stack: errorObj.stack,
+              errorObj,
+            },
+            source: 'AutoRefreshOperations',
+            component: 'update',
+          });
+          return { success: false, error: errorObj };
+        }
+      },
+
+      /**
+       * 创建操作 - 执行成功后自动刷新表格（可选）
+       *
+       * @param data - 创建的数据
+       * @returns 返回 { success: boolean; error?: Error } 格式的结果对象
+       */
+      create: createApi
+        ? async (data: any): Promise<{ success: boolean; error?: Error }> => {
+            try {
+              const createResult = await createApi(data);
+              // 检查创建操作是否成功（如果返回结果对象）
+              const createSuccess =
+                createResult &&
+                typeof createResult === 'object' &&
+                'success' in createResult
+                  ? createResult.success
+                  : true; // 如果返回 void，默认认为成功
+
+              if (createSuccess) {
+                // 操作成功后自动刷新表格
+                const refreshResult = await refreshFn();
+                // 如果刷新失败，记录警告但不影响创建操作本身
+                if (
+                  refreshResult &&
+                  typeof refreshResult === 'object' &&
+                  'success' in refreshResult &&
+                  !refreshResult.success &&
+                  refreshResult.error
+                ) {
+                  logger.warn({
+                    message: '创建后刷新表格失败',
+                    data: {
+                      error: refreshResult.error.message,
+                      data,
+                    },
+                    source: 'AutoRefreshOperations',
+                    component: 'create',
+                  });
+                }
+                return { success: true };
+              } else {
+                // 创建操作失败，返回失败结果
+                const createError =
+                  createResult &&
+                  typeof createResult === 'object' &&
+                  'error' in createResult
+                    ? (createResult as { error?: Error }).error
+                    : new Error('创建操作失败');
+                return { success: false, error: createError };
+              }
+            } catch (error) {
+              // ✅ 正确：使用 logger 记录错误，并透出实际错误信息
+              const errorObj =
+                error instanceof Error ? error : new Error(String(error));
+              logger.error({
+                message: 'Create operation failed',
+                data: {
+                  error: errorObj.message,
+                  stack: errorObj.stack,
+                  errorObj,
+                  data,
+                },
+                source: 'AutoRefreshOperations',
+                component: 'create',
+              });
+              return { success: false, error: errorObj };
+            }
+          }
+        : undefined,
+    }),
+    [refreshFn, deleteApi, updateApi, createApi],
+  );
+};
+
+/**
+ * 高级用法：自定义操作包装器参数接口
+ */
+export interface CreateOperationWrapperParams<TArgs extends any[], TResult> {
+  operation: (...args: TArgs) => Promise<TResult>;
+  refreshFn: () => Promise<void> | Promise<{ success: boolean; error?: Error }>;
+  successCondition?: (result: TResult) => boolean;
+}
+
+/**
+ * 高级用法：自定义操作包装器
+ *
+ * 如果需要更复杂的操作逻辑，可以使用这个函数来创建自定义的包装器
+ */
+export const createOperationWrapper = <TArgs extends any[], TResult>({
+  operation,
+  refreshFn,
+  successCondition,
+}: CreateOperationWrapperParams<TArgs, TResult>) => {
+  return async (...args: TArgs): Promise<TResult> => {
+    try {
+      const result = await operation(...args);
+
+      // 检查是否需要刷新（默认为true，或者使用自定义条件）
+      const shouldRefresh = successCondition ? successCondition(result) : true;
+
+      if (shouldRefresh) {
+        const refreshResult = await refreshFn();
+        // 如果刷新失败，记录警告但不影响操作本身
+        if (
+          refreshResult &&
+          typeof refreshResult === 'object' &&
+          'success' in refreshResult &&
+          !refreshResult.success &&
+          refreshResult.error
+        ) {
+          logger.warn({
+            message: '操作后刷新表格失败',
+            data: {
+              error: refreshResult.error.message,
+              stack: refreshResult.error.stack,
+              errorObj: refreshResult.error,
+            },
+            source: 'AutoRefreshOperations',
+            component: 'createOperationWrapper',
+          });
+        }
+      }
+
+      return result;
+    } catch (error) {
+      // ✅ 正确：使用 logger 记录错误，并透出实际错误信息
+      const errorObj =
+        error instanceof Error ? error : new Error(String(error));
+      logger.error({
+        message: 'Operation failed',
+        data: {
+          error: errorObj.message,
+          stack: errorObj.stack,
+          errorObj,
+        },
+        source: 'AutoRefreshOperations',
+        component: 'createOperationWrapper',
+      });
+      // ✅ 正确：将错误转换为 Error 对象再抛出（符合 @typescript-eslint/only-throw-error 规则）
+      throw errorObj;
+    }
+  };
+};

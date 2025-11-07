@@ -1,0 +1,610 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Bots API",
+    "version": "1.0.0",
+    "description": "Bot management API endpoints"
+  },
+  "paths": {
+    "/apis/v1/manager/system-config/bots/": {
+      "get": {
+        "summary": "Get All Bots",
+        "description": "Get all bots with optional filtering and pagination",
+        "tags": ["Bots"],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            },
+            "description": "Number of bots to skip"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "description": "Maximum number of bots to return"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter bots by name (fuzzy matching)"
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ChannelType"
+            },
+            "description": "Filter bots by channel type"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBotList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Bot",
+        "description": "Create a new bot",
+        "tags": ["Bots"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BotCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBot"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/bots/{uid}": {
+      "get": {
+        "summary": "Get Bot By Id",
+        "description": "Get a bot by ID",
+        "tags": ["Bots"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBot"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Bot By Id",
+        "description": "Update a bot",
+        "tags": ["Bots"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BotUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseBot"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Bot By Id",
+        "description": "Delete a bot",
+        "tags": ["Bots"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/bots/{uid}/secrets": {
+      "get": {
+        "summary": "Get Bot Secret",
+        "description": "Get a decrypted secret value from a bot by its ID and field name",
+        "tags": ["Bots"],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the bot Document to retrieve"
+          },
+          {
+            "name": "field_name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "secret",
+                "agent_cfg.api_key",
+                "volc_cfg.ak",
+                "volc_cfg.sk"
+              ]
+            },
+            "description": "The name of the secret field to decrypt"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Secret retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseString"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apis/v1/manager/system-config/bots/validate": {
+      "post": {
+        "summary": "Validate Bot Config",
+        "description": "验证机器人配置与连通性（AppID/Secret、Webhook/Callback、Agent API Base）",
+        "tags": ["Bots"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateBotRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIResponseValidateBotResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChannelType": {
+        "type": "string",
+        "enum": ["Lark", "DingTalk", "WeChat", "Webhook"],
+        "description": "Channel type enumeration for different messaging platforms"
+      },
+      "VolcCfg": {
+        "type": "object",
+        "properties": {
+          "ak": {
+            "type": "string",
+            "description": "火山引擎Access Key"
+          },
+          "sk": {
+            "type": "string",
+            "description": "火山引擎Secret Key"
+          },
+          "tos_region": {
+            "type": "string",
+            "description": "TOS区域"
+          },
+          "network_type": {
+            "type": "string",
+            "description": "TOS区域"
+          },
+          "extra_kb_collections": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "额外的知识库集合"
+          }
+        }
+      },
+      "VolcCfgPayload": {
+        "type": "object",
+        "properties": {
+          "ak": {
+            "type": "string",
+            "minLength": 1,
+            "description": "火山引擎Access Key"
+          },
+          "sk": {
+            "type": "string",
+            "minLength": 1,
+            "description": "火山引擎Secret Key"
+          },
+          "tos_region": {
+            "type": "string",
+            "enum": [
+              "cn-beijing",
+              "cn-shanghai",
+              "cn-guangzhou",
+              "cn-hongkong",
+              "ap-southeast-1",
+              "ap-southeast-3"
+            ],
+            "description": "TOS区域"
+          },
+          "network_type": {
+            "type": "string",
+            "enum": ["public", "internal"],
+            "description": "网络类型"
+          },
+          "extra_kb_collections": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "额外的知识库集合"
+          }
+        },
+        "required": ["tos_region", "network_type"]
+      },
+      "AgentCfg": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Agent名称"
+          },
+          "embedding_name": {
+            "type": "string",
+            "description": "嵌入模型名称"
+          },
+          "api_base": {
+            "type": "string",
+            "description": "API基础URL"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "API密钥"
+          }
+        }
+      },
+      "AgentCfgPayload": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "LLM名称"
+          },
+          "embedding_name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "LLM嵌入模型名称"
+          },
+          "api_base": {
+            "type": "string",
+            "minLength": 1,
+            "default": "https://ark.cn-beijing.volces.com/api/v3",
+            "description": "LLM API基础URL"
+          },
+          "api_key": {
+            "type": "string",
+            "minLength": 1,
+            "description": "LLM API密钥"
+          }
+        },
+        "required": ["name", "embedding_name", "api_base", "api_key"]
+      },
+      "Bot": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "nullable": true,
+            "description": "MongoDB文档ID"
+          },
+          "created_user": {
+            "type": "string",
+            "nullable": true,
+            "description": "创建用户"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间"
+          },
+          "updated_user": {
+            "type": "string",
+            "nullable": true,
+            "description": "更新用户"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "更新时间"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "是否激活"
+          },
+          "channel": {
+            "type": "string",
+            "enum": ["Lark", "DingTalk", "WeChat", "Webhook"],
+            "description": "企业协同工具"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "机器人ID"
+          },
+          "open_id": {
+            "type": "string",
+            "nullable": true,
+            "description": "OpenID，从bot_id自动生成"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "description": "机器人名称"
+          },
+          "secret": {
+            "type": "string",
+            "description": "机器人密钥"
+          },
+          "webhook_urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Webhook URL列表"
+          },
+          "volc_cfg": {
+            "$ref": "#/components/schemas/VolcCfgPayload",
+            "description": "火山引擎配置"
+          },
+          "agent_cfg": {
+            "$ref": "#/components/schemas/AgentCfgPayload",
+            "description": "Agent配置"
+          }
+        }
+      },
+      "BotCreateRequest": {
+        "type": "object",
+        "description": "创建机器人请求。支持分阶段创建：阶段1只需填写channel、bot_id和secret即可快速创建；阶段2可在编辑时补充volc_cfg和agent_cfg等ChatOps高级配置",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": ["Lark", "DingTalk", "WeChat", "Webhook"],
+            "description": "企业协同工具（必填）"
+          },
+          "bot_id": {
+            "type": "string",
+            "description": "机器人App ID（必填）"
+          },
+          "secret": {
+            "type": "string",
+            "description": "机器人App Secret（必填）"
+          },
+          "webhook_urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Webhook URL列表（可选）"
+          },
+          "volc_cfg": {
+            "$ref": "#/components/schemas/VolcCfgPayload"
+          },
+          "agent_cfg": {
+            "$ref": "#/components/schemas/AgentCfgPayload"
+          }
+        },
+        "required": ["channel", "bot_id", "secret"]
+      },
+      "BotUpdateRequest": {
+        "type": "object",
+        "description": "更新机器人请求。所有字段均为可选，只更新提供的字段",
+        "properties": {
+          "secret": {
+            "type": "string",
+            "description": "机器人App Secret（可选）"
+          },
+          "webhook_urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Webhook URL列表（可选）"
+          },
+          "volc_cfg": {
+            "$ref": "#/components/schemas/VolcCfgPayload"
+          },
+          "agent_cfg": {
+            "$ref": "#/components/schemas/AgentCfgPayload"
+          }
+        }
+      },
+      "APIResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {}
+        }
+      },
+      "APIResponseBot": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Bot"
+          }
+        }
+      },
+      "APIResponseBotList": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Bot"
+            }
+          }
+        }
+      },
+      "ValidateBotRequest": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": ["Lark", "DingTalk", "WeChat", "Webhook"]
+          },
+          "bot_id": { "type": "string" },
+          "secret": { "type": "string" },
+          "webhook_urls": { "type": "array", "items": { "type": "string" } },
+          "callback_urls": { "type": "array", "items": { "type": "string" } },
+          "agent_api_base": { "type": "string" }
+        },
+        "required": ["channel", "bot_id", "secret"]
+      },
+      "ValidateBotResult": {
+        "type": "object",
+        "properties": {
+          "app_credentials_valid": { "type": "boolean" },
+          "webhook_urls_valid": {
+            "type": "array",
+            "items": { "type": "boolean" }
+          },
+          "callback_urls_valid": {
+            "type": "array",
+            "items": { "type": "boolean" }
+          },
+          "agent_api_base_reachable": { "type": "boolean" },
+          "message": { "type": "string" }
+        },
+        "required": ["app_credentials_valid", "message"]
+      },
+      "APIResponseValidateBotResult": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "integer" },
+          "message": { "type": "string" },
+          "data": { "$ref": "#/components/schemas/ValidateBotResult" }
+        }
+      },
+      "APIResponseString": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "integer" },
+          "message": { "type": "string" },
+          "data": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,237 @@
+.@{table-prefix-cls} {
+  // 过滤icon
+  .@{table-prefix-cls}-col-has-filter {
+    display: flex;
+    align-items: center;
+    .@{table-prefix-cls}-cell-with-sorter {
+      padding-right: 0;
+    }
+    .@{table-prefix-cls}-filters {
+      position: static;
+      width: auto;
+      margin-left: 4px;
+      border-radius: 2px;
+      svg {
+        font-size: 12px;
+      }
+      &:hover {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-6');
+      }
+    }
+  }
+  // 拓展行icon
+  .@{table-prefix-cls}-expand-icon-cell,
+  .@{prefix}-table-cell-expand-icon {
+    @table-expand-active:
+      0px 0.75px 0.75px rgba(70, 79, 96, 0.16),
+      0px 0px 0px 0.75px #006eff;
+    button {
+      vertical-align: middle;
+      background-color: transparent;
+    }
+    .force-icon {
+      width: unset;
+      height: unset;
+      padding: 1px;
+      border-radius: 1.5px;
+      box-shadow:
+        0px 0.75px 0.75px rgba(0, 0, 0, 0.05),
+        0px 0px 0px 0.75px rgba(213, 219, 227, 0.5);
+      &:hover {
+        color: rgb(var(~'@{arco-cssvars-prefix}-primary-6'));
+        box-shadow: @table-expand-active;
+      }
+    }
+    .force-icon-minus {
+      border-radius: 1.5px;
+      color: rgb(var(~'@{arco-cssvars-prefix}-primary-6'));
+      box-shadow: @table-expand-active;
+    }
+  }
+  // 固定列滚动
+  &-scroll-position-left .@{table-prefix-cls}-col-fixed-right-first::after,
+  &-scroll-position-middle .@{table-prefix-cls}-col-fixed-right-first::after {
+    box-shadow: inset -6px 0 8px -3px rgba(0, 0, 0, 5%);
+  }
+  &:not(.@{table-prefix-cls}-has-fixed-col-left) {
+    &.@{table-prefix-cls}-scroll-position-right {
+      .@{table-prefix-cls}-content-scroll {
+        &::before {
+          box-shadow: inset 6px 0 8px -3px rgba(0, 0, 0, 5%);
+        }
+      }
+    }
+    &.@{table-prefix-cls}-scroll-position-middle {
+      .@{table-prefix-cls}-content-scroll {
+        &::before {
+          box-shadow: inset 6px 0 8px -3px rgba(0, 0, 0, 5%);
+        }
+      }
+    }
+  }
+  // 拓展行内容
+  // &.@{prefix}-table-hover .@{prefix}-table-expand-content:not(.@{prefix}-table-empty-row):hover .@{prefix}-table-td:not(.@{prefix}-table-col-fixed-left):not(.@{prefix}-table-col-fixed-right) {
+  //   background-color: var(~'@{arco-cssvars-prefix}-color-bg-3');
+  // }
+  &-expand-content {
+    // 拓展+非滚动表格
+    .@{prefix}-table:not(.@{prefix}-table-fixed-column) {
+      .@{prefix}-table-td .@{prefix}-table {
+        .@{prefix}-table-th,
+        .@{prefix}-table-td {
+          background-color: transparent;
+        }
+      }
+      > .@{prefix}-table-td {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-2');
+        box-shadow: 0 2px 6px 0px rgba(0, 0, 0, 5%) inset;
+        .@{prefix}-table {
+          .@{prefix}-table-th,
+          .@{prefix}-table-td {
+            border-bottom: none;
+            box-shadow: none;
+          }
+        }
+        &:hover {
+          background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+        }
+      }
+    }
+    > .@{prefix}-table-td {
+      box-shadow: 0 2px 6px 0px rgba(0, 0, 0, 5%) inset;
+    }
+    .@{prefix}-table-td {
+      background-color: var(~'@{arco-cssvars-prefix}-color-bg-2');
+      .@{prefix}-table {
+        .@{prefix}-table-th,
+        .@{prefix}-table-td {
+          border-bottom: none;
+          box-shadow: none;
+          border-left: none;
+        }
+      }
+      &:hover {
+        background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+        .@{prefix}-table-th {
+          background-color: var(~'@{arco-cssvars-prefix}-color-bg-4');
+        }
+      }
+    }
+  }
+
+  &-expand-content + tr {
+    td {
+      box-shadow: 0 -2px 6px 0px rgba(153, 153, 153, 3%);
+    }
+  }
+  // 排序筛选
+  // 未选中hover bg-5;选择hover bg-6
+  .@{prefix}-table-cell-mouseenter {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-5');
+  }
+  .@{prefix}-table-col-sorted .@{prefix}-table-cell-mouseenter {
+    background-color: var(~'@{arco-cssvars-prefix}-color-bg-6');
+  }
+  // force-icon
+  .@{prefix}-table-sorter-icon.@{prefix}-table-sorter-icon-active svg {
+    color: rgb(var(~'@{arco-cssvars-prefix}-link-6'));
+  }
+  .@{prefix}-table-sorter-icon {
+    .force-icon-caret-up,
+    .force-icon-caret-down {
+      position: absolute;
+      top: 50%;
+      font-size: 12px;
+      color: var(~'@{arco-cssvars-prefix}-color-fill-2');
+      transition: all 0.1s linear;
+    }
+    .force-icon-caret-up {
+      top: -2px;
+      left: 0;
+    }
+    .force-icon-caret-down {
+      top: -3px;
+      left: 0;
+    }
+  }
+  // 操作列
+  &.@{table-prefix-cls}-border-cell {
+    .@{table-prefix-cls}-operation.@{table-prefix-cls}-checkbox {
+      padding-left: 0;
+    }
+  }
+  &:not(.@{table-prefix-cls}-border-cell) {
+    .@{table-prefix-cls}-selection-col {
+      // padding-right: 8px;
+      padding-left: 16px;
+    }
+    .@{table-prefix-cls}-operation.@{table-prefix-cls}-checkbox {
+      // padding-right: 8px;
+      padding-left: 16px;
+    }
+  }
+  // empty
+  .@{prefix}-empty {
+    padding: 12px 0 28px 0;
+    .@{prefix}-empty-wrapper .@{prefix}-empty-image {
+      font-size: 60px;
+    }
+  }
+  // @1.1.1
+  .@{table-prefix-cls}-empty-row {
+    .@{table-prefix-cls}-td {
+      border-bottom: none;
+    }
+    .@{table-prefix-cls}-expand-fixed-row {
+      border-left: none;
+    }
+  }
+  // @1.1.3
+  &.@{table-prefix-cls}-has-fixed-col-left,
+  &.@{table-prefix-cls}-has-fixed-col-right {
+    &.@{table-prefix-cls}-border {
+      .@{table-prefix-cls}-empty-row {
+        .@{table-prefix-cls}-expand-fixed-row {
+          border-left: 1px solid var(~'@{arco-cssvars-prefix}-color-border-2');
+        }
+      }
+    }
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{table-prefix-cls} {
+    // 固定列
+    &.@{table-prefix-cls}-fixed-column {
+      .arco-table-header {
+        background-color: transparent;
+      }
+      .@{table-prefix-cls}-th {
+        backdrop-filter: blur(20px);
+      }
+      .@{table-prefix-cls}-th {
+        &.arco-table-col-fixed-right-first,
+        &.arco-table-col-fixed-left-first {
+          background-color: @dark-color-bg-7;
+        }
+      }
+      .@{table-prefix-cls}-col-fixed-right,
+      .@{table-prefix-cls}-col-fixed-left {
+        background-color: @dark-color-bg-7;
+      }
+    }
+    // filters
+    &-filters-popup {
+      background-color: @dark-color-bg-8;
+    }
+    // 拓展列
+    .@{prefix}-table-expand-content .@{prefix}-table-td {
+      background-color: @dark-color-fill-6;
+    }
+    // body
+    &-body {
+      background-color: transparent;
+    }
+  }
+}

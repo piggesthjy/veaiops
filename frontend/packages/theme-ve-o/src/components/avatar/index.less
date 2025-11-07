@@ -1,0 +1,21 @@
+.@{avatar-prefix-cls} {
+  &-trigger-icon-button {
+    box-shadow:
+      0px 1px 1px rgba(0, 0, 0, 0.1),
+      0px 0px 0px 1px rgba(213, 219, 227, 0.5);
+  }
+}
+.@{avatar-prefix-cls}-group .@{avatar-prefix-cls} {
+  &.@{avatar-prefix-cls}-group-max-count-avatar {
+    margin-left: 1px;
+    // border: 1px solid var(~'@{arco-cssvars-prefix}-color-border-2');
+    // background-color: var(~'@{arco-cssvars-prefix}-color-bg-white');
+  }
+}
+// ------ dark ------
+@dark-text: ~"arco-theme='dark'";
+@{arco-theme-tag}[@{dark-text}] {
+  .@{avatar-prefix-cls}-group .@{avatar-prefix-cls} {
+    background-color: @color-grey-8;
+  }
+}
