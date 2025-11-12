@@ -23,7 +23,7 @@ data:
   default.conf: |
     map $uri $is_static_resource {
         default 0;
-        ~*\.(css|js|json|map|woff|woff2|ttf|eot|otf|jpg|jpeg|png|gif|ico|svg|webp)$ 1;
+        ~*\.(css|js|json|map|woff|woff2|ttf|eot|otf|jpg|jpeg|png|gif|ico|svg|webp|card)$ 1;
     }
 
     server {
@@ -52,7 +52,7 @@ data:
             access_log off;
         }
 
-        location ~ ^/.*/([^/]+\.(ico|svg|png|jpg|jpeg|gif|webmanifest))$ {
+        location ~ ^/.*/([^/]+\.(ico|svg|png|jpg|jpeg|gif|webmanifest|card))$ {
             try_files /$1 =404;
             expires 1y;
             add_header Cache-Control "public, immutable";
@@ -101,7 +101,7 @@ data:
         # Priority: regex matching, matches before document main location
         # ✅ Fix: Nuxt.js generates resource paths as /veaiops/, needs to map to actual file location
         # Note: Cannot use alias directly in regex matching, need to use rewrite + root or use root directly
-        location ~ ^/veaiops/(.*\.(js|css|json|map|woff|woff2|ttf|eot|otf|jpg|jpeg|png|gif|ico|svg|webp))$ {
+        location ~ ^/veaiops/(.*\.(js|css|json|map|woff|woff2|ttf|eot|otf|jpg|jpeg|png|gif|ico|svg|webp|card))$ {
             root /var/www;
             include /etc/nginx/mime.types;
             expires 30d;
