@@ -80,7 +80,6 @@ export const OncallPages = {
   Config: lazy(() => import('@/pages/oncall/config')),
   History: lazy(() => import('@/pages/oncall/history')),
   Rules: lazy(() => import('@/pages/oncall/rules')),
-  Statistics: lazy(() => import('@/pages/oncall/statistics')),
 };
 
 // Statistics module
